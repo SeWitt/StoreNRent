@@ -52,7 +52,7 @@ public class RecommendationServiceDummy implements RecommendationService {
 	@Override
 	public List<Recommendation> findRecommendationsByReceiver(Person person) {
 		
-		List<Recommendation> rL = new LinkedList<>();
+		List<Recommendation> rL = new LinkedList<Recommendation>();
 		
 		String[] r = {"top gerne wieder", "hat alles super und einach geklappt", "gute Lage!", "seltsame gegend gewesen"};
 		RecommendationType [] t = {RecommendationType.POSITIVE, RecommendationType.POSITIVE, RecommendationType.POSITIVE, RecommendationType.NEGATIVE};

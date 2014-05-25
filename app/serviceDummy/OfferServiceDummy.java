@@ -95,7 +95,7 @@ public class OfferServiceDummy implements OfferService {
 	@Override
 	public List<Offer> findByOwnerID(Person person) {
 		
-		List<Offer> o = new LinkedList<>();
+		List<Offer> o = new LinkedList<Offer>();
 		
 		
 		for( int i = 0; i < 3; i++){
@@ -131,7 +131,7 @@ public class OfferServiceDummy implements OfferService {
 
 	@Override
 	public List<Offer> findByAcceptorID(Person person) {
-	List<Offer> o = new LinkedList<>();
+	List<Offer> o = new LinkedList<Offer>();
 		
 		
 		for( int i = 0; i < 3; i++){
