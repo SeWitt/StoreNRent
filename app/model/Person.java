@@ -1,7 +1,7 @@
 package model;
 
 import java.sql.Blob;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Sebastian
@@ -24,6 +24,7 @@ public class Person {
 	public Date created;
 	public Date lastEdited;
 	public Blob picture;
+	public PersonSettings personSettings;
 
 	public Person(){
 

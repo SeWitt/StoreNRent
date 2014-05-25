@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import model.Person;
 import model.Recommendation;
 import model.RecommendationSummary;
 
@@ -29,12 +30,13 @@ public interface RecommendationService {
 	 * 
 	 * @param personID
 	 */
-	public abstract RecommendationSummary getRecommendationSummary(long personID);
+	public abstract RecommendationSummary getRecommendationSummary(Person person);
 
+	
 	/**
 	 * 
 	 * @param personID
 	 */
-	public abstract List<Recommendation> findRecommendationsByID(long personID);
+	public abstract List<Recommendation> findRecommendationsByReceiver(Person person);
 
 }

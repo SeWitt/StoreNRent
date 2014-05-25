@@ -2,6 +2,7 @@ package repository;
 import java.util.List;
 
 import model.Offer;
+import model.Person;
 import model.SearchAttributes;
 
 /**
@@ -36,7 +37,7 @@ public class OfferRepository {
 	 * 
 	 * @param personID
 	 */
-	public List<Offer> findOfferByOwner(long personID){
+	public List<Offer> findOfferByOwner(Person owner){
 		return null;
 	}
 
@@ -52,7 +53,7 @@ public class OfferRepository {
 	 * 
 	 * @param personID
 	 */
-	public List<Offer> findOfferByAcceptor(long personID){
+	public List<Offer> findOfferByAcceptor(Person acceptor){
 		return null;
 	}
 

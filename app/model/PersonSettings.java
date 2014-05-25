@@ -10,14 +10,12 @@ public class PersonSettings {
 	public long id;
 	public boolean sendNewsletter;
 	public boolean displayFirstNameOnly;
-	public Person m_Person;
+	public Person person;
+	public boolean isActive;
 
 	public PersonSettings(){
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
+	
 }

@@ -1,6 +1,7 @@
 package repository;
 import java.util.List;
 
+import model.Person;
 import model.Recommendation;
 import model.RecommendationSummary;
 
@@ -37,7 +38,7 @@ public class RecommendationRepository {
 	 * 
 	 * @param personID
 	 */
-	public RecommendationSummary getRecommendationSummary(long personID){
+	public RecommendationSummary getRecommendationSummary(Person person){
 		return null;
 	}
 
@@ -45,7 +46,7 @@ public class RecommendationRepository {
 	 * 
 	 * @param personID
 	 */
-	public List <Recommendation> findRecommendationById(long personID){
+	public List <Recommendation> findRecommendationByReceiver(Person person){
 		return null;
 	}
 

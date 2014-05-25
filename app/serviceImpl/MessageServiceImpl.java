@@ -1,7 +1,9 @@
 package serviceImpl;
+import java.util.Date;
 import java.util.List;
 
 import model.Message;
+import model.Person;
 import service.MessageService;
 import repository.MessageRepository;
 import model.MessageSummary;
@@ -21,39 +23,53 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public Message createMessage(Message message) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		message.createdDate = new Date();
+		message.isRead = false;
+		message.isActive = true;
+		//TODO: Basic filtering -> exclude mailadresses and telephone numbers
+		
+		return messageRepo.createMessage(message);
 	}
 
 	@Override
 	public Message updateMessage(Message message) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(message.isActive = true){
+			//TODO: Basic filtering -> exclude mailadresses and telephone numbers
+			message = messageRepo.updateMessage(message);
+		}
+		
+		return message;
 	}
 
 	@Override
-	public model.MessageSummary getMessageSummary(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public MessageSummary getMessageSummary(Person person) {
+		
+		return messageRepo.getMessageSummary(person);
 	}
 
 	@Override
-	public List<Message> findMessageByTransmitter(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Message> findMessageByTransmitter(Person person) {
+		
+		return messageRepo.findMessagesByTransmitter(person);
 	}
 
 	@Override
-	public List<Message> findMessageByReceiver(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Message> findMessageByReceiver(Person person) {
+		
+		return messageRepo.findMessagesByReceiver(person);
 	}
 
 	@Override
 	public void deleteMessage(Message message) {
-		// TODO Auto-generated method stub
+		message.isActive = false;
+		
+		messageRepo.updateMessage(message);
 		
 	}
+
+	
 
 	
 

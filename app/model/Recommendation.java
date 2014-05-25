@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Sebastian
@@ -11,6 +11,9 @@ public class Recommendation {
 
 	public long id;
 	public RecommendationType recommType;
+	public Person receiver;
+	public Person transmitter;
+	public Offer intendedOffer;
 	public String text;
 	public Date createdDate;
 	public Date lastEditedDate;

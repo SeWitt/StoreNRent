@@ -1,5 +1,6 @@
 package service;
 
+import model.Person;
 import model.PersonSettings;
 
 public interface PersonalSettingsService {
@@ -27,6 +28,6 @@ public interface PersonalSettingsService {
 	 * 
 	 * @param personID
 	 */
-	public abstract PersonSettings findSettingsByID(long personID);
+	public abstract PersonSettings findSettingsByID(Person person);
 
 }

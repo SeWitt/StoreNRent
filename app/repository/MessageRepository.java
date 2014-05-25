@@ -3,6 +3,7 @@ import java.util.List;
 
 import model.Message;
 import model.MessageSummary;
+import model.Person;
 
 /**
  * @author Sebastian
@@ -15,9 +16,6 @@ public class MessageRepository {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * 
@@ -39,7 +37,7 @@ public class MessageRepository {
 	 * 
 	 * @param personID
 	 */
-	public MessageSummary getMessageSummary(long personID){
+	public MessageSummary getMessageSummary(Person person){
 		return null;
 	}
 
@@ -47,7 +45,7 @@ public class MessageRepository {
 	 * 
 	 * @param personID
 	 */
-	public List<Message> findMessagesByTransmitter(long personID){
+	public List<Message> findMessagesByTransmitter(Person person){
 		return null;
 	}
 
@@ -55,7 +53,7 @@ public class MessageRepository {
 	 * 
 	 * @param personID
 	 */
-	public List <Message> findMessagesByReceiver(long personID){
+	public List <Message> findMessagesByReceiver(Person person){
 		return null;
 	}
 

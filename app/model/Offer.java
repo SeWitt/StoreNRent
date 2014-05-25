@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Sebastian
@@ -61,8 +61,9 @@ public class Offer {
 	 * last possible day of the contract
 	 */
 	public Date offerTo;
-	public Person m_Person;
-
+	public Person owner;
+	public Person acceptor;
+	
 	public Offer(){
 
 	}

@@ -1,8 +1,10 @@
 package serviceImpl;
+import java.util.Date;
 import java.util.List;
 
 import service.RecommendationService;
 import repository.RecommendationRepository;
+import model.Person;
 import model.Recommendation;
 import model.RecommendationSummary;
 
@@ -21,33 +23,40 @@ public class RecommendationServiceImpl implements RecommendationService {
 
 	@Override
 	public Recommendation createRecommendation(Recommendation recomm) {
-		// TODO Auto-generated method stub
-		return null;
+		recomm.createdDate = new Date();
+		recomm.isActive = true;
+		recomm.lastEditedDate = recomm.createdDate;
+		
+		return recommRepo.createRecommendation(recomm);
 	}
 
 	@Override
 	public Recommendation updateRecommendation(Recommendation recomm) {
-		// TODO Auto-generated method stub
-		return null;
+		if(recomm.isActive = true){
+			recomm.lastEditedDate = new Date();
+			recomm = recommRepo.updateRecommendation(recomm);
+		}
+		return recomm;
 	}
 
 	@Override
 	public void deleteRecommendation(Recommendation recomm) {
-		// TODO Auto-generated method stub
+		recomm.isActive = false;
+		recommRepo.updateRecommendation(recomm);
 		
 	}
 
 	@Override
-	public RecommendationSummary getRecommendationSummary(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public RecommendationSummary getRecommendationSummary(Person person) {
+		return recommRepo.getRecommendationSummary(person);
 	}
 
 	@Override
-	public List<Recommendation> findRecommendationsByID(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Recommendation> findRecommendationsByReceiver(Person person) {
+		return recommRepo.findRecommendationByReceiver(person);
 	}
+
+	
 
 	
 }

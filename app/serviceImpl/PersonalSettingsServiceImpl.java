@@ -1,4 +1,5 @@
 package serviceImpl;
+import model.Person;
 import model.PersonSettings;
 import repository.SettingsRepository;
 import service.PersonalSettingsService;
@@ -17,29 +18,30 @@ public class PersonalSettingsServiceImpl implements PersonalSettingsService {
 	}
 
 	@Override
-	public PersonSettings createSettings(model.PersonSettings settings) {
-		// TODO Auto-generated method stub
-		return null;
+	public PersonSettings createSettings(PersonSettings settings) {
+		settings.isActive = true;
+		return personalSettingsRepo.createSettings(settings);
 	}
 
 	@Override
-	public PersonSettings updatePersonalSettings(
-			model.PersonSettings settings) {
-		// TODO Auto-generated method stub
-		return null;
+	public PersonSettings updatePersonalSettings(PersonSettings settings) {
+	
+		return personalSettingsRepo.updateSettings(settings);
 	}
 
 	@Override
 	public void deletePersonalSettings(PersonSettings settings) {
-		// TODO Auto-generated method stub
+		settings.isActive = false;
+		personalSettingsRepo.updateSettings(settings);
 		
 	}
 
 	@Override
-	public PersonSettings findSettingsByID(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public PersonSettings findSettingsByID(Person person) {
+		return personalSettingsRepo.findSettingsByPersonID(person);
 	}
+
+	
 
 
 }

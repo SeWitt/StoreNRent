@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Sebastian
@@ -13,7 +13,7 @@ public class Account {
 	public String password;
 	public boolean isActive;
 	public Date createdDate;
-	public Person id;
+	public Person person;
 
 	public Account(){
 

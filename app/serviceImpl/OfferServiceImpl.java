@@ -1,7 +1,9 @@
 package serviceImpl;
+import java.util.Date;
 import java.util.List;
 
 import model.Offer;
+import model.Person;
 import service.OfferService;
 import service.PersonalSettingsService;
 import serviceDummy.PersonalSettingsServiceDummy;
@@ -23,38 +25,47 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public Offer createOffer(Offer offer) {
-		// TODO Auto-generated method stub
-		return null;
+		offer.createdDate = new Date();
+		offer.lastEditedDate = offer.createdDate;
+		offer.isActive = true;
+		offer.transactionClosed = false;
+		offer.visitCount = 0;
+		return offerRepo.createOffer(offer);
 	}
 
 	@Override
 	public Offer updateOffer(Offer offer) {
-		// TODO Auto-generated method stub
-		return null;
+			if(offer.isActive = true){
+				offer = offerRepo.updateOffer(offer);
+			}
+			
+		return offer;
 	}
 
 	@Override
 	public void deleteOffer(Offer offer) {
-		// TODO Auto-generated method stub
+		offer.isActive = false;
+		offerRepo.updateOffer(offer);
 		
 	}
 
 	@Override
 	public Offer findByOfferID(long offerID) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return offerRepo.findOfferByID(offerID);
 	}
 
 	@Override
-	public List<Offer> findByOwnerID(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Offer> findByOwnerID(Person person) {
+		
+		return offerRepo.findOfferByOwner(person);
 	}
 
 	@Override
-	public List<Offer> findByAcceptorID(long personID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Offer> findByAcceptorID(Person person) {
+		return offerRepo.findOfferByAcceptor(person);
 	}
+
+	
 
 }

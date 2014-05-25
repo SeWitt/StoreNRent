@@ -1,4 +1,5 @@
 package repository;
+import model.Person;
 import model.PersonSettings;
 
 /**
@@ -19,24 +20,27 @@ public class SettingsRepository {
 	/**
 	 * 
 	 * @param setting
+	 * @return 
 	 */
-	public void createSettings(PersonSettings setting){
+	public PersonSettings createSettings(PersonSettings setting){
+		return null;
 
 	}
 
 	/**
 	 * 
 	 * @param settings
+	 * @return 
 	 */
-	public void updateSettings(PersonSettings settings){
-
+	public PersonSettings updateSettings(PersonSettings settings){
+		return null;
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
-	public PersonSettings findSettingsByPersonID(long personID){
+	public PersonSettings findSettingsByPersonID(Person person){
 		return null;
 	}
 

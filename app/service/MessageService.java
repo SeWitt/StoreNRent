@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Message;
 import model.MessageSummary;
+import model.Person;
 
 public interface MessageService {
 
@@ -23,19 +24,19 @@ public interface MessageService {
 	 * 
 	 * @param personID
 	 */
-	public abstract MessageSummary getMessageSummary(long personID);
+	public abstract MessageSummary getMessageSummary(Person person);
 
 	/**
 	 * 
 	 * @param personID
 	 */
-	public abstract List<Message> findMessageByTransmitter(long personID);
+	public abstract List<Message> findMessageByTransmitter(Person person);
 
 	/**
 	 * 
 	 * @param personID
 	 */
-	public abstract List<Message> findMessageByReceiver(long personID);
+	public abstract List<Message> findMessageByReceiver(Person person);
 
 	/**
 	 * 

@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Sebastian
@@ -14,14 +14,13 @@ public class Message {
 	public Date createdDate;
 	public boolean isRead;
 	public String subject;
-	public Person m_Person;
+	public Person transmitter;
+	public Person receiver;
+	public boolean isActive;
 
 	public Message(){
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
 
 }

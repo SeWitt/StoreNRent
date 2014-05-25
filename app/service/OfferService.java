@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import model.Offer;
+import model.Person;
 
 public interface OfferService {
 
@@ -34,12 +35,12 @@ public interface OfferService {
 	 * 
 	 * @param personID
 	 */
-	public abstract List<Offer> findByOwnerID(long personID);
+	public abstract List<Offer> findByOwnerID(Person person);
 
 	/**
 	 * 
 	 * @param personID
 	 */
-	public abstract List<Offer> findByAcceptorID(long personID);
+	public abstract List<Offer> findByAcceptorID(Person person);
 
 }
