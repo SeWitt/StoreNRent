@@ -2,13 +2,17 @@ name := """StoreNRent"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+autoScalaLibrary := false
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.10.3"
+
+
 
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaEbean,
-  cache,
-  javaWs
+  cache
 )
+
+resolvers += Resolver.sonatypeRepo("releases")
+
+play.Project.playJavaSettings
