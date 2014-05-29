@@ -1,5 +1,6 @@
 package controllers;
 
+
 import java.util.List;
 
 import models.Offer;
@@ -10,6 +11,7 @@ import service.OfferService;
 import serviceDummy.OfferServiceDummy;
 
 import views.html.*;
+
 
 public class Application extends Controller {
 
