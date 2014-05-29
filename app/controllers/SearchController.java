@@ -1,5 +1,6 @@
 package controllers;
 
+import net.sf.ehcache.config.SearchAttribute;
 import play.mvc.Controller;
 import service.DiscoveryService;
 import serviceDummy.DiscoveryServiceDummy;
@@ -15,6 +16,10 @@ public class SearchController extends Controller {
 
 	public SearchController(){
 
+	}
+	
+	public static Result find(SearchAttribute sa){
+		return ok();
 	}
 
 	

@@ -1,9 +1,9 @@
 package repository;
 import java.util.List;
 
-import model.Message;
-import model.MessageSummary;
-import model.Person;
+import models.Message;
+import models.MessageSummary;
+import models.Person;
 
 /**
  * @author Sebastian

@@ -1,6 +1,6 @@
 package serviceImpl;
-import model.Person;
-import model.PersonSettings;
+import models.Person;
+import models.PersonSettings;
 import repository.SettingsRepository;
 import service.PersonalSettingsService;
 

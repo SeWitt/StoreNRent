@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import model.News;
+import models.News;
 
 public interface NewsService {
 

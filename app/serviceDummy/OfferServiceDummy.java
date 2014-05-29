@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Offer;
-import model.Person;
-import model.PersonSettings;
+import models.Offer;
+import models.Person;
+import models.PersonSettings;
 import repository.OfferRepository;
 import service.OfferService;
 import service.PersonalSettingsService;

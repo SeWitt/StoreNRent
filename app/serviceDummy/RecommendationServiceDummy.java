@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Offer;
-import model.Person;
-import model.PersonSettings;
-import model.Recommendation;
-import model.RecommendationSummary;
-import model.RecommendationType;
+import models.Offer;
+import models.Person;
+import models.PersonSettings;
+import models.Recommendation;
+import models.RecommendationSummary;
+import models.RecommendationType;
 import service.RecommendationService;
 
 public class RecommendationServiceDummy implements RecommendationService {

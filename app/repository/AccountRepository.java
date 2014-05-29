@@ -1,5 +1,5 @@
 package repository;
-import model.Account;
+import models.Account;
 
 /**
  * @author Sebastian

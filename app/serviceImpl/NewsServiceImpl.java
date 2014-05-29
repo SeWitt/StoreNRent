@@ -2,7 +2,7 @@ package serviceImpl;
 
 import java.util.List;
 
-import model.News;
+import models.News;
 
 import service.NewsService;
 

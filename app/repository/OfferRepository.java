@@ -1,9 +1,9 @@
 package repository;
 import java.util.List;
 
-import model.Offer;
-import model.Person;
-import model.SearchAttributes;
+import models.Offer;
+import models.Person;
+import models.SearchAttributes;
 
 /**
  * @author Sebastian

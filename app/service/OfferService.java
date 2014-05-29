@@ -2,8 +2,8 @@ package service;
 
 import java.util.List;
 
-import model.Offer;
-import model.Person;
+import models.Offer;
+import models.Person;
 
 public interface OfferService {
 

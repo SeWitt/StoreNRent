@@ -1,9 +1,9 @@
 package repository;
 import java.util.List;
 
-import model.Person;
-import model.Recommendation;
-import model.RecommendationSummary;
+import models.Person;
+import models.Recommendation;
+import models.RecommendationSummary;
 
 /**
  * @author Sebastian

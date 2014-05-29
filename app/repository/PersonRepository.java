@@ -1,5 +1,5 @@
 package repository;
-import model.Person;
+import models.Person;
 
 /**
  * @author Sebastian

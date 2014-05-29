@@ -1,7 +1,7 @@
 package serviceImpl;
 import java.util.Date;
 
-import model.Person;
+import models.Person;
 import service.PersonService;
 import repository.PersonRepository;
 

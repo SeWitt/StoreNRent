@@ -1,7 +1,7 @@
 package service;
 
-import model.Person;
-import model.PersonSettings;
+import models.Person;
+import models.PersonSettings;
 
 public interface PersonalSettingsService {
 

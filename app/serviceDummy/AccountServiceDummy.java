@@ -5,9 +5,9 @@ package serviceDummy;
 
 import java.util.Date;
 
-import model.Account;
-import model.Person;
-import model.PersonSettings;
+import models.Account;
+import models.Person;
+import models.PersonSettings;
 import service.AccountService;
 import service.PersonService;
 import service.PersonalSettingsService;

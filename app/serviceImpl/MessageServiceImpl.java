@@ -2,11 +2,11 @@ package serviceImpl;
 import java.util.Date;
 import java.util.List;
 
-import model.Message;
-import model.Person;
 import service.MessageService;
 import repository.MessageRepository;
-import model.MessageSummary;
+import models.Message;
+import models.MessageSummary;
+import models.Person;
 
 /**
  * @author Sebastian

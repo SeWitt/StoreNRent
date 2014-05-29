@@ -1,6 +1,6 @@
 package service;
 
-import model.Person;
+import models.Person;
 
 public interface PersonService {
 

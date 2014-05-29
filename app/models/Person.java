@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import java.sql.Blob;
 import java.util.Date;

@@ -1,7 +1,7 @@
 package serviceDummy;
 
-import model.Person;
-import model.PersonSettings;
+import models.Person;
+import models.PersonSettings;
 import service.PersonalSettingsService;
 
 public class PersonalSettingsServiceDummy implements PersonalSettingsService {

@@ -7,7 +7,7 @@ import service.PersonService;
 import service.PersonalSettingsService;
 import serviceDummy.PersonServiceDummy;
 import serviceDummy.PersonalSettingsServiceDummy;
-import model.Account;
+import models.Account;
 
 /**
  * @author Sebastian

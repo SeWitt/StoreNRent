@@ -1,6 +1,6 @@
 package serviceDummy;
 
-import model.Person;
+import models.Person;
 import service.PersonService;
 
 public class PersonServiceDummy implements PersonService {

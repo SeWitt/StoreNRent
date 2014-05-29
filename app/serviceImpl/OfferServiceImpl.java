@@ -2,8 +2,8 @@ package serviceImpl;
 import java.util.Date;
 import java.util.List;
 
-import model.Offer;
-import model.Person;
+import models.Offer;
+import models.Person;
 import service.OfferService;
 import service.PersonalSettingsService;
 import serviceDummy.PersonalSettingsServiceDummy;

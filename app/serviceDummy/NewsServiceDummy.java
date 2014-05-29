@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.News;
+import models.News;
 import service.NewsService;
 
 public class NewsServiceDummy implements NewsService {

@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Message;
-import model.MessageSummary;
-import model.Person;
-import model.PersonSettings;
+import models.Message;
+import models.MessageSummary;
+import models.Person;
+import models.PersonSettings;
 import service.MessageService;
 
 public class MessageServiceDummy implements MessageService {
