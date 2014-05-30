@@ -2,6 +2,7 @@ package controllers;
 
 import net.sf.ehcache.config.SearchAttribute;
 import play.mvc.Controller;
+import play.mvc.Result;
 import service.DiscoveryService;
 import serviceDummy.DiscoveryServiceDummy;
 
