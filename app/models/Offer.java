@@ -16,6 +16,8 @@ public class Offer {
 	public String country;
 	public String geolocX;
 	public String geolocY;
+	
+	public double price;
 	/**
 	 * true = is displayed ; false = "deleted"
 	 */
