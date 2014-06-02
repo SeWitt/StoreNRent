@@ -3,10 +3,14 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /searchResults              controllers.Application.searchResults()
 
-GET     /offer/:id					controllers.OfferController.index(id: Long)
+GET     /query	        controllers.SearchController.query(fromdate : String ?= null , todate: String ?= null, city: String ?= null, postcode: String ?= null, spacesize: java.lang.Double ?= null, maxprice: java.lang.Double ?= null, radius : java.lang.Double ?= null, lng : String ?= null, lat: String ?= null)
+GET		/search			controllers.SearchController.search(city: String ?= null, spacesize: java.lang.Double ?= null)	
+
+
+
+GET     /offer/:id							controllers.OfferController.index(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
+GET           /assets/js/routes             controllers.Application.jsRoutes()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

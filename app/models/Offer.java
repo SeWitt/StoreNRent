@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -16,6 +17,7 @@ public class Offer {
 	public String country;
 	public String geolocX;
 	public String geolocY;
+	public Blob picture;
 	
 	public double price;
 	/**

@@ -1,16 +1,39 @@
 @(offers: List[Offer])
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html>
+	<body>
 
-@for(offer <- offers){
-	@offer.header <br>
-}
+		<div id="searchResults" style="text-align:center">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th style="text-align:center"> Picture </th>
+						<th style="text-align:center"> Description </th>
+						<th style="text-align:center"> Timeslot </th>
+						<th style="text-align:center"> Distance </th>
+						<th style="text-align:center"> Price (€/ per day) </th>
+					</tr>
+				</thead>
+				<tbody>
 
-</body>
-</html>
+					@for(offer <- offers){
+					<tr style="text-align:center">
+						@if(offer.picture == null ) {
+						<td style="text-align:center"><img height="60" width="80" src="@routes.Assets.at("images/defaultPicture.png")"  /></td>
+						}else{
+						picture to be placed here...
+						}
+						<td ><a href="@routes.OfferController.index(offer.id)"> @offer.description </a></td>
+						<td >@offer.offerFrom - @offer.offerTo </td>
+						<td > about x km away </td>
+						<td > @offer.price </td>
+					</tr>
+
+					<br>
+					}
+
+				</tbody>
+			</table>
+		</div>
+
+	</body>
