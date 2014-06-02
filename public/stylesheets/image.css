@@ -4,11 +4,10 @@
   				width: 450px;
   				height: 550px;  
 				overflow: hidden;
-				float: center;
+				padding: 0; 
+				margin: 0 auto
 			}
 			#wrapper img {
-/*  			display: inline;  */
-/* 				float: center;  */
 				width: 350px; 
 				height: 350px;
 			}
