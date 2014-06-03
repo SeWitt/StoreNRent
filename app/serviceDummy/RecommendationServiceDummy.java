@@ -42,7 +42,7 @@ public class RecommendationServiceDummy implements RecommendationService {
 		
 		RecommendationSummary r = new RecommendationSummary();
 		r.negatives = 3;
-		r.personID = person.id;
+		r.person = person;
 		r.neutrals = 0;
 		r.positives = 42;
 		

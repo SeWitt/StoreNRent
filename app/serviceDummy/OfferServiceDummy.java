@@ -61,7 +61,7 @@ public class OfferServiceDummy implements OfferService {
 		offer.lastEditedDate = offer.createdDate;
 		offer.offerFrom = new Date();
 		offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
-		
+		offer.price = 8.5;
 		 Person p = new Person();
 			p.city = "Muenchen";
 			p.country = "Deutschland";
@@ -113,7 +113,7 @@ public class OfferServiceDummy implements OfferService {
 			offer.offerFrom = new Date();
 			offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
 			
-			
+			offer.price = 8.5;
 			offer.owner = person;
 			
 			
@@ -148,7 +148,7 @@ public class OfferServiceDummy implements OfferService {
 			offer.lastEditedDate = offer.createdDate;
 			offer.offerFrom = new Date();
 			offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
-			
+			offer.price = 8.5;
 			
 			 Person p = new Person();
 				p.city = "Muenchen";

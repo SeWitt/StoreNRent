@@ -35,6 +35,9 @@ public class Offer {
 	@Column(name="STREET")
 	public String street;
 	
+	@Column(name="POSTCODE")
+	public String postCode;
+	
 	@Column(name="HOUSE_NR")
 	public String houseNr;
 	

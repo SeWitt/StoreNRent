@@ -35,7 +35,7 @@ public class MessageServiceDummy implements MessageService {
 	public MessageSummary getMessageSummary(Person person) {
 		
 		MessageSummary msgS = new MessageSummary();
-		msgS.personID = person.id;
+		msgS.person = person;
 		msgS.totalMessages = 1337;
 		msgS.unreadMessages = 4;
 		

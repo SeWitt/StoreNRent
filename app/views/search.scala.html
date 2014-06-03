@@ -56,129 +56,129 @@
 
 			<!-- end of map -->
 			<div class="col col-md-6" >
-				<div class="row">
+				<div class="panel-body">
+					<div class="row">
 
-					<div>
-						<div class="row">
-							<div id="searchWarning" >
-								<div class="alert alert-warning">
-									Please enter a city and postcode!
-								</div>
-							</div>
-
-							<script>
-								$("#searchWarning").hide();
-							</script>
-							<div class ="" style="text-align:center">
-								<h2> Location</h2>
-							</div>
-							<div class="col col-md-3">
-								<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
-							</div>
-							<div class="col col-md-3">
-								<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
-							</div>
-							<div class="col col-md-4">
-
-								<div id="radius" class="input-group">
-									<span class="input-group-addon">search area:</span>
-									<input id="radiusinput" class="form-control" type="number" name="circuit" min="1" value="5" max="100" step="0.5">
-									<span class="input-group-addon">km</span>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div style="text-align:center">
-								<h2>Space</h2>
-							</div>
-							<div class="col col-md-4">
-								<div id="spacesize" class="input-group">
-									<span class="input-group-addon">size:</span>
-									<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
-									<span class="input-group-addon">m²</span>
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-
-							<div class="col-md-4">
-
-								<div id="dtpfrom" class="input-append date">
-									<div class="input-group">
-										<span class="input-group-addon">From:</span>
-										<input id="dtpfrominput" class="form-control" type="text">
-										<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-
+						<div>
+							<div class="row">
+								<div id="searchWarning" >
+									<div class="alert alert-warning">
+										Please enter a city and postcode!
 									</div>
 								</div>
 
-								<script type="text/javascript">
-									$(function() {
-										$('#dtpfrom').datetimepicker({
-											format : 'dd.MM.yyyy',
-											language : 'pt-BR'
-										});
-									});
+								<script>
+									$("#searchWarning").hide();
 								</script>
-							</div>
-							<div class="col-md-1"></div>
-							<div class="col-md-4">
-								<div id="dtpto" class="input-append date">
-									<div class="input-group">
-										<span class="input-group-addon">To:</span>
-										<input id="dtptoinput" class="form-control"  type="text">
-										<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+								<div class ="" style="text-align:center">
+									<h2> Location</h2>
+								</div>
+								<div class="col col-md-3">
+									<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
+								</div>
+								<div class="col col-md-3">
+									<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
+								</div>
+								<div class="col col-md-4">
+
+									<div id="radius" class="input-group">
+										<span class="input-group-addon">search area:</span>
+										<input id="radiusinput" class="form-control" type="number" name="circuit" min="1" value="5" max="100" step="0.5">
+										<span class="input-group-addon">km</span>
 									</div>
 								</div>
-
-								<script type="text/javascript">
-									$(function() {
-										$('#dtpto').datetimepicker({
-											format : 'dd.MM.yyyy',
-											language : 'pt-BR'
-										});
-									});
-								</script>
 							</div>
-
-						</div>
-						<hr>
-						<div class="row">
-
-							<div class ="" style="text-align:center">
-								<h2>Pricing</h2>
-
-								Max price:
-								<b> 0 </b>
-								<div  class="slider slider-horizontal" style="width: 200px;">
-
-									<div class="slider-track"></div>
-									<div class="tooltip top" style="top: -40px; left: 79.5px;"></div>
-									<input id="maxPrice" class="span2" type="text" style="" >
-
+							<hr>
+							<div class="row">
+								<div style="text-align:center">
+									<h2>Space</h2>
 								</div>
-								<b> 100 € </b>
-								<script type="text/javascript">
-									$(function() {
-										$('#maxPrice').slider({
-											min : '0',
-											step : '1',
-											max : '100'
-										});
-									});
-								</script>
+								<div class="col col-md-4">
+									<div id="spacesize" class="input-group">
+										<span class="input-group-addon">size:</span>
+										<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
+										<span class="input-group-addon">m²</span>
+									</div>
+								</div>
 							</div>
-						</div>
+							<br>
+							<div class="row">
 
-						<hr>
-						<button id="search" class="btn btn-default" style="vertical-align: top; float: right" type="button" >
-							Search
-						</button>
+								<div class="col-md-4">
+
+									<div id="dtpfrom" class="input-append date">
+										<div class="input-group">
+											<span class="input-group-addon">From:</span>
+											<input id="dtpfrominput" class="form-control" type="text">
+											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+
+										</div>
+									</div>
+
+									<script type="text/javascript">
+										$(function() {
+											$('#dtpfrom').datetimepicker({
+												format : 'dd.MM.yyyy',
+												language : 'pt-BR'
+											});
+										});
+									</script>
+								</div>
+								<div class="col-md-4 col-md-offset-1">
+									<div id="dtpto" class="input-append date">
+										<div class="input-group">
+											<span class="input-group-addon">To:</span>
+											<input id="dtptoinput" class="form-control"  type="text">
+											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+										</div>
+									</div>
+
+									<script type="text/javascript">
+										$(function() {
+											$('#dtpto').datetimepicker({
+												format : 'dd.MM.yyyy',
+												language : 'pt-BR'
+											});
+										});
+									</script>
+								</div>
+
+							</div>
+							<hr>
+							<div class="row">
+
+								<div class ="" style="text-align:center">
+									<h2>Pricing</h2>
+
+									Max price:
+									<b> 0 </b>
+									<div  class="slider slider-horizontal" style="width: 200px;">
+
+										<div class="slider-track"></div>
+										<div class="tooltip top" style="top: -40px; left: 79.5px;"></div>
+										<input id="maxPrice" class="span2" type="text" style="" >
+
+									</div>
+									<b> 100 € </b>
+									<script type="text/javascript">
+										$(function() {
+											$('#maxPrice').slider({
+												min : '0',
+												step : '1',
+												max : '100'
+											});
+										});
+									</script>
+								</div>
+							</div>
+
+							<hr>
+							<button id="search" class="btn btn-default" style="vertical-align: top; float: right" type="button" >
+								Search
+							</button>
+						</div>
 					</div>
 				</div>
-
 			</div>
 		</section>
 		<!-- end search input -->
@@ -200,7 +200,7 @@
 									<th style="text-align:center"> Description </th>
 									<th style="text-align:center"> Timeslot </th>
 									<th style="text-align:center"> Distance </th>
-									<th style="text-align:center"> Price (€/ per day) </th>
+									<th style="text-align:center"> Price (&euro; / per day) </th>
 								</tr>
 							</thead>
 							<tbody>
