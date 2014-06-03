@@ -1,0 +1,230 @@
+@(menubar: Html)(offer: Offer)
+
+@import helper._
+@import helper.twitterBootstrap._
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+		<title>Store 'n Rent - Offer create</title>
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+
+		<!-- Custom styles for this template -->
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/image.css")">
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-datetimepicker.min.css")">
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-2.1.1.min.js")"></script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.carouFredSel-6.0.4-packed.js")"></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datetimepicker.min.js")"></script>
+
+	</head>
+
+	<body>
+
+		<!-- Upper Menu Bar -->
+		@menubar
+
+		<!-- Main Container -->
+		<div class="container">
+			@helper.form(action = routes.OfferController.create()) {
+			<div class="row">
+
+				
+			</div>
+			<div class="row">
+				<div class="panel panel-default" style="center">
+					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
+						<div class="form-group col-md-6 col-md-offset-3">
+							<input id="header" class="form-control" type="text" placeholder="Header" value="@offer.header" autofocus=""  >
+						</div>
+					</div>
+					<br>
+					<div class="panel-body" style="color: #0800E3; text-align: center; font-size: 20px">
+						<div class="form-group col-md-6 col-md-offset-3">
+							<input id="subheader" class="form-control" type="text" placeholder="Subheader" value="@offer.subHeader" >
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
+				<div class="row">
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align:center">
+							Pictures
+						</div>
+						<div class="panel-body">
+							<br>
+							<div class="form-group">
+								<input type="file" id="pictureUpload">
+								<p class="help-block">
+									Please select several pictures to upload
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align:center">
+							Description
+						</div>
+						<div class="panel-body">
+							<br>
+							<div class="form-group">
+								<textarea id="description" class="form-control" rows="3" placeholder="describe your storage area here..." value="@offer.description" style="resize: none; padding-right: 25px; padding-left: 20px"> </textarea>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
+				<div class="row">
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align:center">
+							Pricing, Rental Time
+						</div>
+						<div class="panel-body">
+
+							<div class="row">
+								<br>
+								<div class="form-group col-md-6 col-md-offset-3">
+									<div class="input-group">
+										<span class="input-group-addon">Price: </span>
+										<input id="price" class="form-control" value="@offer.price" type="number">
+										<span class="input-group-addon">&euro; /day</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<br>
+								<div class="form-group col-md-6 col-md-offset-3">
+									<div id="dtpfrom" class="input-append date">
+										<div class="input-group">
+											<span class="input-group-addon">From:</span>
+											<input id="dtpfrominput" class="form-control" value="@offer.offerFrom" type="text">
+											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+
+										</div>
+									</div>
+
+									<script type="text/javascript">
+										$(function() {
+											$('#dtpfrom').datetimepicker({
+												format : 'dd.MM.yyyy',
+												language : 'pt-BR'
+											});
+										});
+									</script>
+								</div>
+							</div>
+
+							<div class="row">
+								<br>
+								<div class="form-group col-md-6 col-md-offset-3">
+									<div id="dtpto" class="input-append date">
+										<div class="input-group">
+											<span class="input-group-addon">Until: </span>
+											<input id="dtptoinput" class="form-control"  type="text"  value="@offer.offerTo">
+											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+										</div>
+									</div>
+
+									<script type="text/javascript">
+										$(function() {
+											$('#dtpto').datetimepicker({
+												format : 'dd.MM.yyyy',
+												language : 'pt-BR'
+											});
+										});
+									</script>
+								</div>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align:center">
+							Address Information
+						</div>
+						<div class="panel-body">
+
+							<div class="row">
+								<br>
+								<div class="form-group col col-md-6 col-md-offset-3">
+									<input id="street" class="form-control" type="text" value="@offer.street" placeholder="Street" >
+								</div>
+
+								<div class="form-group col col-md-2" style="padding-left: 15px">
+									<input id="housenr" class="form-control" type="text"  value="@offer.houseNr"placeholder="Nr.">
+								</div>
+
+							</div>
+
+							<div class="row">
+								<br>
+								<div class="form-group col col-md-6 col-md-offset-3">
+									<input id="postcode" class="form-control" type="text" value="@offer.postCode" placeholder="Postcode" >
+								</div>
+							</div>
+
+							<div class="row">
+								<br>
+								<div class="form-group col col-md-6 col-md-offset-3">
+									<input id="country" class="form-control" type="text" value="@offer.country" placeholder="Country" >
+								</div>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align:center">
+							Action
+						</div>
+						<div class="panel-body">
+							<br>
+							<div class="form-group col-md-2" style="padding-left: 25px">
+
+								<button type="submit" class="btn btn-default btn-lg" style="border: 0px">
+									<span class="glyphicon glyphicon-ok" style="font-size: 24px" > </span>
+									<br>
+									Save
+								</button>
+								<!-- <span class="add-on" style="cursor: pointer;">  </span> -->
+							</div>
+							<div class="col-md-2" style="padding-left: 25px">
+								<button type="button" class="btn btn-default btn-lg"  onclick="@routes.HomeController.index()" style="border: 0px ">
+									<span class="glyphicon glyphicon-trash" style="font-size: 24px" > </span>
+									<br>
+									Discard
+								</button>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+
+			</div>
+}
+		</div>
+	</body>
+
+</html>
