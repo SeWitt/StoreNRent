@@ -10,9 +10,10 @@ GET		/search			controllers.SearchController.search(city: String ?= null, spacesi
 
 
 
-GET     /offer/:id					controllers.OfferController.index(id: Long)
+GET     /offer/show/:id					controllers.OfferController.index(id: Long)
 GET		/offer/edit/:id				controllers.OfferController.edit(id: Long)
-POST		/offer/create				controllers.OfferController.create()	
+GET		/offer/new				controllers.OfferController.newOffer()
+POST	/offer/create				controllers.OfferController.create()	
 
 # Map static resources from the /public folder to the /assets URL path
 GET    	/assets/js/routes         	controllers.Application.jsRoutes()
