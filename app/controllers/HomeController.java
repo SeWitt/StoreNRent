@@ -5,6 +5,8 @@ import service.NewsService;
 import serviceDummy.DiscoveryServiceDummy;
 import serviceDummy.NewsServiceDummy;
 
+
+import play.mvc.*;
 /**
  * @author Sebastian
  * @version 1.0
@@ -15,8 +17,10 @@ public class HomeController extends Controller {
 	private NewsService newsService = new NewsServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private DiscoveryService discoveryService =  new DiscoveryServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 
-	public HomeController(){
 
+		
+	public static Result index(){
+		return TODO;
 	}
 
 
