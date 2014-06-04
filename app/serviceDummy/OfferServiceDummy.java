@@ -51,12 +51,13 @@ public class OfferServiceDummy implements OfferService {
 		Offer offer = new Offer();
 		
 		offer.id = offerID; 
-		offer.city = "Munich";
+		offer.street = "Maximilianstraße";
+		offer.houseNr = "12";
+		offer.city = "München";
 		offer.country = "Germany";
 		offer.createdDate = new Date();
 		offer.description = "a nice beatiful room to place anything";
-		offer.header = "10 m² for low price";
-		offer.houseNr = "42";
+		offer.header = "10 m³ for low price";
 		offer.isActive = true;
 		offer.lastEditedDate = offer.createdDate;
 		offer.offerFrom = new Date();
@@ -84,7 +85,6 @@ public class OfferServiceDummy implements OfferService {
 			p.personSettings.sendNewsletter = true;
 		
 		offer.owner = p;
-		offer.street = "ABC Street";
 		offer.subHeader = "really cheap storage!!!";
 		offer.transactionClosed = false;
 		offer.visitCount = 1337;

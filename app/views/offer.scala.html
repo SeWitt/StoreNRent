@@ -133,16 +133,18 @@
 
 					<!-- Time -->
 
-					<div class="row" style="margin: 1% 0 0 0; padding: 1% 0 1% 0">
+					<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
 						
-						<div class="col-md-4">
-
-							<div id="dtpfrom" class="input-append date">
+						<div class="col-md-4" >
+							<div id="dtpfrom" class="input-append date" style="width: 96%">
 								<div class="input-group">
 									<span class="input-group-addon">From:</span>
 									<input id="dtpfrominput" class="form-control" type="text">
-									<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-
+									<span class="input-group-addon">
+										<span class="add-on" style="cursor: pointer;" > 
+											<span class="glyphicon glyphicon-calendar" > </span> 
+										</span>
+									</span>
 								</div>
 							</div>
 
@@ -156,7 +158,7 @@
 							</script>
 						</div>
 						<div class="col-md-4">
-							<div id="dtpto" class="input-append date">
+							<div id="dtpto" class="input-append date" style="width: 96%">
 								<div class="input-group">
 									<span class="input-group-addon">To:</span>
 									<input id="dtptoinput" class="form-control"  type="text">
@@ -174,16 +176,16 @@
 							</script>
 						</div>
 
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="input-group">
 								<span class="input-group-addon">Area:</span>
 								<select class="form-control">
 									<option></option>
-									<option value="1">1 - 3 m<sup>2</sup></option>
-									<option value="2">3 - 5 m<sup>2</sup></option>
-									<option value="3">5 - 7 m<sup>2</sup></option>
-									<option value="4">7 - 9 m<sup>2</sup></option>
-									<option value="5">> 9 m<sup>2</sup></option>
+									<option value="1">1 - 3 m<sup>3</sup></option>
+									<option value="2">3 - 5 m<sup>3</sup></option>
+									<option value="3">5 - 7 m<sup>3</sup></option>
+									<option value="4">7 - 9 m<sup>3</sup></option>
+									<option value="5">> 9 m<sup>3</sup></option>
 								</select>
 
 							</div>
@@ -213,7 +215,7 @@
 					<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 					<script>
 						/* TODO Add valid Address*/
-						var address = "Boltzmannstraﬂe 3 Garching";
+						var address = "@offer.street @offer.houseNr @offer.city" /* Boltzmannstraﬂe 3 Garching */;
 
 						var place;
 
