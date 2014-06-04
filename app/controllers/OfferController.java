@@ -20,7 +20,7 @@ import appinfo.GlobalValues;
  */
 public class OfferController extends Controller {
 
-	private static OfferService offerService = new OfferServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static OfferService offerService = new OfferServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private RecommendationService recommendationService = new RecommendationServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 
 	public OfferController(){
