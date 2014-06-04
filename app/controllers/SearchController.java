@@ -4,10 +4,13 @@ package controllers;
 
 import java.util.List;
 
+import appinfo.GlobalValues;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Offer;
 import models.Person;
+import play.api.templates.Html;
 import play.mvc.Controller;
 import scala.Int;
 import scala.Option;
@@ -34,8 +37,9 @@ public class SearchController extends Controller {
 	private static OfferService offerService = new OfferServiceDummy();
 
 	public static Result search(String city, Double spacesize){
+		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		if(city == null && spacesize == null){
-			return ok(search.render(city, spacesize, null));
+			return ok(search.render(city, spacesize, null, menubar));
 		}else{
 			
 			Person p = new Person();
@@ -45,7 +49,7 @@ public class SearchController extends Controller {
 	    	List<Offer> o = offerService.findByOwnerID(p);
 	
 			
-			return ok(search.render(city, spacesize,o ));
+			return ok(search.render(city, spacesize,o , menubar));
 		}
 		
 	}
