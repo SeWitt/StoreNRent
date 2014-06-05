@@ -21,48 +21,6 @@
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.carouFredSel-6.0.4-packed.js")"></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datetimepicker.min.js")"></script>
-
-		<script type="text/javascript">
-			$(function() {
-				$('#thumbs').carouFredSel({
-					synchronise : ['#images', false, true],
-					auto : false,
-					width : 450,
-					items : {
-						visible : 3,
-						start : -1
-					},
-					scroll : {
-						onBefore : function(data) {
-							data.items.old.eq(1).removeClass('selected');
-							data.items.visible.eq(1).addClass('selected');
-						}
-					},
-					prev : '#prev',
-					next : '#next'
-				});
-
-				$('#images').carouFredSel({
-					auto : false,
-					items : 1,
-					scroll : {
-						fx : 'fade'
-					}
-				});
-
-				$('#thumbs img').click(function() {
-					$('#thumbs').trigger('slideTo', [this, -1]);
-				});
-				$('#thumbs img:eq(1)').addClass('selected');
-			});
-		</script>
-
-		<style>
-			#map-container {
-				min-height: 300px;
-				max-height: 500px;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -74,11 +32,10 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="panel panel-default" style="center">
+				<div class="panel panel-default" >
 					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
 						@offer.header
 					</div>
-					<br>
 					<div class="panel-body" style="color: #0800E3; text-align: center; font-size: 20px">
 						@offer.subHeader
 					</div>
@@ -87,12 +44,12 @@
 
 			<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
 				<div class="row">
-					<div class="panel panel-default" style="center">
+					<div class="panel panel-default">
 						<div class="panel-heading" style="text-align:center">
 							Pictures
 						</div>
 						<div class="panel-body">
-							<div id="wrapper" class="well" >
+							<div id="wrapper" class="well" style="border: 0">
 								<div id="images" >
 									<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger"  />
 									<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
@@ -213,15 +170,12 @@
 								</div>
 							</div>
 
-							<div class="row">
-								<div class="col-md-5" style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
-									<button type="button" class="btn btn-default"
-									style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
-										Accept Offer
-									</button>
-								</div>
+							<div class="col-md-5" style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
+								<button type="button" class="btn btn-default"
+								style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
+									Accept Offer
+								</button>
 							</div>
-							
 						</div>
 					</div>
 				</div>
@@ -232,11 +186,10 @@
 							Map
 						</div>
 						<div class="panel-body">
-							<div id="map-container"></div>
+							<div id="map-container" style="min-height: 300px; max-height: 500px;"></div>
 
-							<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+							<script src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
 							<script>
-								/* TODO Add valid Address*/
 								var address = "@offer.street @offer.houseNr @offer.city"/* Boltzmannstraﬂe 3 Garching */;
 
 								var place;
@@ -248,29 +201,41 @@
 								function initialize() {
 									/* Initialize with Berlin */
 									var location = new google.maps.LatLng(52.519895, 13.405012);
-
 									var mapoptions = {
 										center : location,
-										zoom : 15,
+										zoom : 14,
 										mapTypeId : google.maps.MapTypeId.ROADMAP,
-										mapTypeControl : false,
+										mapTypeControl : true,
+										mapTypeControlOptions: {
+											mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
+											position: google.maps.ControlPosition.TOP_RIGHT,
+											style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+										},
 										panControl : false,
 										rotateControl : false,
 										streetViewControl : false,
 										draggable : false,
+										keyboardShortcuts: false,
+										scrollwheel: false,
+										zoomControl: true,
+										zoomControlOptions: {
+											position: google.maps.ControlPosition.TOP_LEFT,
+											style: google.maps.ZoomControlStyle.LARGE
+										},
+										overviewMapControl: false,
+										minZoom: 6,
+										mapMaker: false,
+										disableDoubleClickZoom: true
 									};
-
 									map = new google.maps.Map(document.getElementById("map-container"), mapoptions);
-
 									marker = new google.maps.Marker({
 										position : location,
 										map : map,
 										title : "@offer.header",
 										clickable : true,
+										draggable: false,
 									});
-
 									google.maps.event.addListener(marker, 'click', showInfoWindow);
-
 									codeAddress();
 								}
 
@@ -278,40 +243,48 @@
 									var street;
 									var city;
 									var country;
+									var number;
 
 									var addresses = place.address_components;
 									for (var i in addresses) {
 										var address = addresses[i];
-
 										var types = address.types;
 										var longName = address.long_name;
 										var shortName = address.short_name;
-
 										if (types == "street_address" || types == "route") {
 											street = longName;
+											continue;
 										}
-
 										if (types == "locality,political") {
 											city = longName;
+											continue;
 										}
-
 										if (types == "country,political") {
 											country = longName;
+											continue;
+										}
+										if (types == "street_number") {
+											number = longName;
+											continue;
 										}
 									}
 
-									var contentString = '<div id="infowindow_content">' + '<p><strong>@offer.header</strong><br>' + '<hr style="margin: 1px 0 5px 0">' + street + '<br>' + city + '<br>' + country + '</p>' + '</div>';
-
+									var contentString = 
+										'<div id="infowindow_content">' + 
+											'<p><strong>@offer.header</strong><br>' + 
+											'<hr style="margin: 1px 0 5px 0">' + 
+												street + ' ' + number + ', '+ city + '<br>' + country + 
+											'</p>' + 
+										'</div>';
 									infoWindow = new google.maps.InfoWindow({
-										content : contentString
+										content : contentString,
+										maxWidth: 500
 									});
-
 									infoWindow.open(map, marker);
 								}
 
 								function codeAddress() {
 									var geocoder = new google.maps.Geocoder();
-
 									geocoder.geocode({
 										'address' : address
 									}, function(results, status) {
@@ -326,61 +299,47 @@
 										}
 									});
 								}
-
-
 								google.maps.event.addDomListener(window, 'load', function() {
 									initialize();
 								});
 							</script>
-
-							<!-- End of 'Map' -->
-
-						</div>
+						</div> 
 					</div>
-				</div>
+				</div> <!-- End of 'Map' -->
 
 				<div class="row">
 					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
+						<div class="panel-heading" style="text-align: center">
 							Actions
 						</div>
-						<div class="panel-body">
-							<br>
-							<div class="form-group col-md-3" >
-
+						<div class="panel-body" style="text-align: center">
+							<div class=" col-md-3" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="submit" style="border: 0px">
 									<span class="glyphicon glyphicon-ok" style="font-size: 40px" > </span>
-									<br>
-									Accept<br> Offer
+									<br>Accept<br>Offer
 								</button>
-								<!-- <span class="add-on" style="cursor: pointer;">  </span> -->
 							</div>
 							
 							<div class="col-md-3" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
 									<span class="glyphicon glyphicon-envelope" style="font-size: 40px" > </span>
-									<br>
-									Contact<br>
-									@offer.owner.surname
+									<br>Contact<br>@offer.owner.surname
 								</button>
 							</div>
 							
 							<div class="col-md-3" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
 									<span class="glyphicon glyphicon-search" style="font-size: 40px" > </span>
-									<br>
-									New search
+									<br>New search
 								</button>
 							</div>
 							
 							<div class="col-md-3">
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
 									<span class="glyphicon glyphicon-plus" style="font-size: 40px" > </span>
-									<br>
-									Create<br> own offer
+									<br>Create<br>own offer
 								</button>
 							</div>
-							<br>
 						</div>
 					</div>
 				</div>
