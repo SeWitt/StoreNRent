@@ -1,6 +1,9 @@
 package controllers;
 
+import java.util.Date;
+
 import models.Offer;
+import models.OfferAcceptForm;
 import play.api.templates.Html;
 import play.data.Form;
 import play.mvc.Controller;
@@ -9,7 +12,6 @@ import service.OfferService;
 import service.RecommendationService;
 import serviceDummy.OfferServiceDummy;
 import serviceDummy.RecommendationServiceDummy;
-import serviceImpl.OfferServiceImpl;
 import appinfo.GlobalValues;
 
 
@@ -20,20 +22,81 @@ import appinfo.GlobalValues;
  */
 public class OfferController extends Controller {
 
-	private static OfferService offerService = new OfferServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static OfferService offerService = new OfferServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private RecommendationService recommendationService = new RecommendationServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 
-	public OfferController(){
 
-	}
 
 	public static Result index(Long id) {
-		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
-		Offer o = offerService.findByOfferID(id.longValue());
 		
-		Html content = views.html.offer.render(menubar,o);
+		//menue bar
+		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
+		
+		//search offer
+		Offer o = offerService.findByOfferID(id.longValue());
+		session("offerid",""+o.id);
+		//create acceptance form
+		Form<OfferAcceptForm> offerForm = Form.form(OfferAcceptForm.class);
+		OfferAcceptForm of = new OfferAcceptForm();
+		of.from = new Date();
+		of.to = o.offerTo;
+		System.out.println("from"+of.from);
+		System.out.println("to:"+of.to);
+		offerForm.fill(of);
+		
+		Html content = views.html.offer.render(menubar,o,offerForm);
         return ok(content);
     }
+	
+	public static Result doAction(){
+		
+		Form<OfferAcceptForm> form = Form.form(OfferAcceptForm.class).bindFromRequest();
+		Result result = TODO;
+		String[] postAction =request().body().asFormUrlEncoded().get("action");
+
+		
+		if (postAction == null || postAction.length == 0) {
+			result = redirect(routes.HomeController.index());
+		}else{
+			String action = postAction[0];
+			
+			if(action.equals("submit")){
+//					if(offerForm.hasErrors()){
+//				Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
+//					return badRequest(views.html.offerform.render(offerForm, menubar)); 
+//				}else{
+				long offerid = Long.parseLong(session("offerid"));
+				Offer o = offerService.findByOfferID(offerid);
+				OfferAcceptForm oaf =form.get();
+//				o.acceptor = //TODO implement after authentication
+				o.contractedFrom = oaf.from;
+				o.contractedUntil = oaf.to;
+				o.isActive=false;
+				offerService.updateOffer(o);
+				flash("success", "Congratulations");
+				
+				System.out.println("from"+oaf.from);
+				System.out.println("to:"+oaf.to);
+				
+				//TODO: build offer transaction page (static to see successful transaction
+				result = TODO;
+			
+//				}
+			}else if(action.equals("contact")){
+
+			}else if(action.equals("search")){
+				result = redirect(routes.SearchController.search(null, null));
+			}else if(action.equals("newOffer")){
+				result = redirect(routes.OfferController.newOffer());
+			}
+		}
+
+
+		
+		return result;
+	}
+	
+	
 	
 	public static Result newOffer(){
 		
@@ -69,7 +132,6 @@ public class OfferController extends Controller {
 		
 		if (postAction == null || postAction.length == 0) {
 			result = redirect(routes.HomeController.index());
-			System.out.println("postaction null");
 		}else{
 			String action = postAction[0];
 			
@@ -80,16 +142,13 @@ public class OfferController extends Controller {
 //				}else{
 					Offer o = offerForm.get();
 					o = offerService.createOffer(o);
-					System.out.println("offer id:" +o.id);
 					flash("success", "Successfully created!");
 				
-					System.out.println("submit pressed");
 
 					result = redirect(routes.OfferController.index(o.id));
 //				}
 			}else if(action.equals("discard")){
 				result = redirect(routes.HomeController.index());
-				System.out.println("discard pressed");
 			}
 		}
 		return result;

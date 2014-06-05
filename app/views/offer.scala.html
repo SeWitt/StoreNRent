@@ -1,4 +1,4 @@
-@(menubar: Html)(offer: Offer)
+@(menubar: Html)(offer: Offer)(form: play.data.Form[models.OfferAcceptForm])
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +30,7 @@
 
 		<!-- Main Container -->
 		<div class="container">
-
+			@helper.form(action = routes.OfferController.doAction()) {
 			<div class="row">
 				<div class="panel panel-default" >
 					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
@@ -118,11 +118,11 @@
 
 							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
 
-								<div class="col-md-4" style="padding-left: 5px; padding-right: 5px">
+								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
 									<div id="dtpfrom" class="input-append date">
 										<div class="input-group">
 											<span class="input-group-addon">From:</span>
-											<input id="dtpfrominput" class="form-control" type="text">
+											<input id="dtpfrominput" class="form-control" value='@form("from").value' placeholder="dd.MM.YYYY"  type="text">
 											<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
 										</div>
 									</div>
@@ -136,11 +136,11 @@
 										});
 									</script>
 								</div>
-								<div class="col-md-4" style="padding-left: 5px; padding-right: 5px">
+								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
 									<div id="dtpto" class="input-append date" >
 										<div class="input-group">
 											<span class="input-group-addon">To:</span>
-											<input id="dtptoinput" class="form-control"  type="text">
+											<input id="dtptoinput" class="form-control" value='@form("to").value' placeholder="dd.MM.YYYY" type="text">
 											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
 										</div>
 									</div>
@@ -171,8 +171,8 @@
 							</div>
 
 							<div class="col-md-5" style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
-								<button type="button" class="btn btn-default"
-								style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
+								<button type="submit" class="btn btn-default btn-lg" name="axtion" value="submit" 
+										style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
 									Accept Offer
 								</button>
 							</div>
@@ -313,29 +313,23 @@
 							Actions
 						</div>
 						<div class="panel-body" style="text-align: center">
-							<div class=" col-md-3" >
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="submit" style="border: 0px">
-									<span class="glyphicon glyphicon-ok" style="font-size: 40px" > </span>
-									<br>Accept<br>Offer
-								</button>
-							</div>
 							
 							<div class="col-md-3" >
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
+								<button type="submit" class="btn btn-default btn-lg" name="action" value="contact" style="border: 0px ">
 									<span class="glyphicon glyphicon-envelope" style="font-size: 40px" > </span>
 									<br>Contact<br>@offer.owner.surname
 								</button>
 							</div>
 							
 							<div class="col-md-3" >
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
+								<button type="submit" class="btn btn-default btn-lg" name="action" value="search" style="border: 0px ">
 									<span class="glyphicon glyphicon-search" style="font-size: 40px" > </span>
 									<br>New search
 								</button>
 							</div>
 							
 							<div class="col-md-3">
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
+								<button type="submit" class="btn btn-default btn-lg" name="action" value="newOffer" style="border: 0px ">
 									<span class="glyphicon glyphicon-plus" style="font-size: 40px" > </span>
 									<br>Create<br>own offer
 								</button>
@@ -345,6 +339,7 @@
 				</div>
 
 			</div>
+			}
 		</div>
 	</body>
 
