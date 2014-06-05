@@ -8,12 +8,11 @@ GET		/				controllers.HomeController.index()
 GET     /query	        controllers.SearchController.query(fromdate : String ?= null , todate: String ?= null, city: String ?= null, postcode: String ?= null, spacesize: java.lang.Double ?= null, maxprice: java.lang.Double ?= null, radius : java.lang.Double ?= null, lng : String ?= null, lat: String ?= null)
 GET		/search			controllers.SearchController.search(city: String ?= null, spacesize: java.lang.Double ?= null)	
 
-
-
-GET     /offer/show/:id					controllers.OfferController.index(id: Long)
-GET		/offer/edit/:id				controllers.OfferController.edit(id: Long)
+GET     /offer/show/:id			controllers.OfferController.index(id: Long)
+POST	/offer/accept			controllers.OfferController.doAction()				
+GET		/offer/edit/:id			controllers.OfferController.edit(id: Long)
 GET		/offer/new				controllers.OfferController.newOffer()
-POST	/offer/create				controllers.OfferController.create()	
+POST	/offer/create			controllers.OfferController.create()	
 
 # Map static resources from the /public folder to the /assets URL path
 GET    	/assets/js/routes         	controllers.Application.jsRoutes()
