@@ -1,6 +1,9 @@
 package controllers;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Query;
 
 import models.Offer;
 import models.OfferAcceptForm;
@@ -26,6 +29,8 @@ public class OfferController extends Controller {
 	private RecommendationService recommendationService = new RecommendationServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 
 
+	
+	
 
 	public static Result index(Long id) {
 		
@@ -44,7 +49,7 @@ public class OfferController extends Controller {
 		System.out.println("to:"+of.to);
 		offerForm.fill(of);
 		
-		Html content = views.html.offer.render(menubar,o,offerForm);
+		Html content = views.html.offer.render(offerForm,menubar,o);
         return ok(content);
     }
 	
@@ -56,11 +61,13 @@ public class OfferController extends Controller {
 
 		
 		if (postAction == null || postAction.length == 0) {
+			System.out.println("null");
 			result = redirect(routes.HomeController.index());
 		}else{
 			String action = postAction[0];
 			
 			if(action.equals("submit")){
+				System.out.println("submit");
 //					if(offerForm.hasErrors()){
 //				Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 //					return badRequest(views.html.offerform.render(offerForm, menubar)); 
@@ -83,10 +90,13 @@ public class OfferController extends Controller {
 			
 //				}
 			}else if(action.equals("contact")){
+				System.out.println("contact");
 
 			}else if(action.equals("search")){
+				System.out.println("search");
 				result = redirect(routes.SearchController.search(null, null));
 			}else if(action.equals("newOffer")){
+				System.out.println("new");
 				result = redirect(routes.OfferController.newOffer());
 			}
 		}
