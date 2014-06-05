@@ -1,4 +1,8 @@
 package serviceImpl;
+import java.util.List;
+
+import models.Offer;
+import models.SearchAttributes;
 import service.DiscoveryService;
 import repository.OfferRepository;
 
@@ -15,8 +19,12 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
 	}
 
-	public void finalize() throws Throwable {
-
+	@Override
+	public List<Offer> findOffers(SearchAttributes sa) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	
 
 }
