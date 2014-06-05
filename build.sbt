@@ -10,6 +10,8 @@ scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq(
   javaJdbc,
+  javaJpa,
+  javaCore,
   cache,
   "org.hibernate" % "hibernate-entitymanager" % "4.3.5.Final",
   "dom4j" % "dom4j" % "1.6.1",
