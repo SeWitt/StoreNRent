@@ -1,10 +1,12 @@
 package models;
 
-import java.util.Date;
 
 public class OfferAcceptForm {
 
+
+	public String from;
 	
-	public Date from;
-	public Date to;
+	public String to;
+
+		
 }

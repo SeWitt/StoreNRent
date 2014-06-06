@@ -1,12 +1,11 @@
 package controllers;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Query;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import models.Offer;
 import models.OfferAcceptForm;
+import models.OfferForm;
 import play.api.templates.Html;
 import play.data.Form;
 import play.mvc.Controller;
@@ -42,14 +41,14 @@ public class OfferController extends Controller {
 		session("offerid",""+o.id);
 		//create acceptance form
 		Form<OfferAcceptForm> offerForm = Form.form(OfferAcceptForm.class);
-		OfferAcceptForm of = new OfferAcceptForm();
-		of.from = new Date();
-		of.to = o.offerTo;
-		System.out.println("from"+of.from);
-		System.out.println("to:"+of.to);
-		offerForm.fill(of);
+		OfferAcceptForm oaf = new OfferAcceptForm();
+		oaf.from = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format(new Timestamp(System.currentTimeMillis()));
+		oaf.to = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format(o.offerTo);
+		System.out.println("from index: "+oaf.from);
+		System.out.println("to index: "+oaf.to);
+		offerForm.fill(oaf);
 		
-		Html content = views.html.offer.render(offerForm,menubar,o);
+		Html content = views.html.offer.render(offerForm,menubar,new OfferForm(o));
         return ok(content);
     }
 	
@@ -76,15 +75,14 @@ public class OfferController extends Controller {
 				Offer o = offerService.findByOfferID(offerid);
 				OfferAcceptForm oaf =form.get();
 //				o.acceptor = //TODO implement after authentication
-				o.contractedFrom = oaf.from;
-				o.contractedUntil = oaf.to;
+//				o.contractedFrom = oaf.from;
+//				o.contractedUntil = oaf.to;
 				o.isActive=false;
 				offerService.updateOffer(o);
 				flash("success", "Congratulations");
 				
 				System.out.println("from"+oaf.from);
 				System.out.println("to:"+oaf.to);
-				
 				//TODO: build offer transaction page (static to see successful transaction
 				result = TODO;
 			
@@ -111,7 +109,7 @@ public class OfferController extends Controller {
 	public static Result newOffer(){
 		
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
-		Form<Offer> offerForm = Form.form(Offer.class);	
+		Form<OfferForm> offerForm = Form.form(OfferForm.class);	
 		
 		Html content = views.html.offerform.render(offerForm,menubar);
         return ok(content);
@@ -124,9 +122,11 @@ public class OfferController extends Controller {
 
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		Offer o = offerService.findByOfferID(id.longValue());
+		
+		OfferForm of = new OfferForm(o);
 			
-		Form<Offer> offerForm = Form.form(Offer.class);
-		offerForm = offerForm.fill(o);
+		Form<OfferForm> offerForm = Form.form(OfferForm.class);
+		offerForm = offerForm.fill(of);
 			
 		Html content = views.html.offerform.render(offerForm,menubar);
         return ok(content);
@@ -134,7 +134,8 @@ public class OfferController extends Controller {
 	
 	public static Result create() {
 		
-		Form<Offer> offerForm = Form.form(Offer.class).bindFromRequest();
+	
+		Form<OfferForm> offerForm = Form.form(OfferForm.class).bindFromRequest();
 		
 		String[] postAction =request().body().asFormUrlEncoded().get("action");
 		
@@ -146,17 +147,19 @@ public class OfferController extends Controller {
 			String action = postAction[0];
 			
 			if(action.equals("submit")){
-//					if(offerForm.hasErrors()){
+					if(offerForm.hasErrors()){
 //				Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 //					return badRequest(views.html.offerform.render(offerForm, menubar)); 
-//				}else{
-					Offer o = offerForm.get();
+				}else{
+				
+					OfferForm of = offerForm.get();
+					Offer o = new Offer(of);
+					
 					o = offerService.createOffer(o);
 					flash("success", "Successfully created!");
 				
-
 					result = redirect(routes.OfferController.index(o.id));
-//				}
+				}
 			}else if(action.equals("discard")){
 				result = redirect(routes.HomeController.index());
 			}
