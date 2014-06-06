@@ -44,6 +44,7 @@ public class HomeController extends Controller {
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class).bindFromRequest();
 		HomePageSearchForm hpsf = searchForm.get();
+		
 		String[] postAction =request().body().asFormUrlEncoded().get("action");
 		
 		Result result = TODO;
@@ -66,7 +67,11 @@ public class HomeController extends Controller {
 						spacesize =hpsf.spacesize;
 						
 						sa.city = city;
-						sa.spaceSize = spacesize;
+						if(spacesize != null){
+							sa.spaceSize = spacesize;
+						}
+						System.out.println("city: "+city);
+						System.out.println("size: "+spacesize);
 						//TODO: Replace through discovery service (real query, no dummy!)
 						Person p = new Person();
 				    	p.id = 2;

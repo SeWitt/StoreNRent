@@ -45,14 +45,14 @@
 					<div class="row">
 						<div class="form-group">
 							<div class="col col-md-3">
-								<input id="city" class="form-control" type="text" value='@form("city").value' autofocus="" placeholder="City" >
+								<input id="city" class="form-control" type="text" name="city" value='@form("city").value' autofocus="" placeholder="City" >
 							</div>
 
 							<div class="col col-md-4">
 								<div id="radius" class="input-group">
-									<span class="input-group-addon">search area:</span>
-									<input id="spacesizeinput" class="form-control" type="number" name="spacesize" value='@form("spacesize").value' min="1" value="5" max="100" step="0.5">
-									<span class="input-group-addon">km</span>
+									<span class="input-group-addon">space size (min):</span>
+									<input id="spacesize" class="form-control" type="number" name="spacesize" value='@form("spacesize").value' min="1" value="5" max="100" step="0.5">
+									<span class="input-group-addon">m</span>
 								</div>
 							</div>
 							<div class="col col-md-4">
