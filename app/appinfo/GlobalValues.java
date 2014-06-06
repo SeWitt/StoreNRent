@@ -16,4 +16,7 @@ public class GlobalValues {
 	 * Zum Selektieren des Reiters 'Search' in der NavBar.
 	 */
 	public static final String NAVBAR_SEARCH = "Search";
+	
+	
+	public static final String TIMEFORMAT = "dd.MM.yyyy";
 }

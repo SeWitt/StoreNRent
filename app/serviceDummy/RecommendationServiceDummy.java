@@ -1,5 +1,6 @@
 package serviceDummy;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,14 +68,14 @@ public class RecommendationServiceDummy implements RecommendationService {
 				offer.id = i+42; 
 				offer.city = "Munich";
 				offer.country = "Germany";
-				offer.createdDate = new Date();
+				offer.createdDate =new Timestamp(System.currentTimeMillis());
 				offer.description = "a nice beatiful room to place anything";
 				offer.header = "10 m² for low price";
 				offer.houseNr = "42";
 				offer.isActive = true;
 				offer.lastEditedDate = offer.createdDate;
-				offer.offerFrom = new Date();
-				offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
+				offer.offerFrom = new Timestamp(System.currentTimeMillis());
+				offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
 			
 			
 				 Person p = new Person();
@@ -100,8 +101,8 @@ public class RecommendationServiceDummy implements RecommendationService {
 				
 				offer.owner = person;
 				offer.acceptor  = p;
-				offer.contractedFrom = new Date();
-				offer.contractedUntil = new Date();
+				offer.contractedFrom =  new Timestamp(System.currentTimeMillis());
+				offer.contractedUntil = new Timestamp(System.currentTimeMillis());
 				offer.transactionClosed = true;
 				
 				offer.street = "ABC Street";
