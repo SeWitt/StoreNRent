@@ -1,5 +1,6 @@
 package serviceDummy;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.List;
 import models.Offer;
 import models.Person;
 import models.PersonSettings;
-import repository.OfferRepository;
 import service.OfferService;
 import service.PersonalSettingsService;
 
@@ -23,7 +23,7 @@ public class OfferServiceDummy implements OfferService {
 	@Override
 	public Offer createOffer(Offer offer) {
 		offer.id = 5;
-		offer.createdDate = new Date();
+		offer.createdDate = new Timestamp(System.currentTimeMillis());
 		offer.lastEditedDate = offer.createdDate;
 		offer.isActive = true;
 		offer.transactionClosed = false;
@@ -33,7 +33,7 @@ public class OfferServiceDummy implements OfferService {
 
 	@Override
 	public Offer updateOffer(Offer offer) {
-			offer.lastEditedDate = new Date();
+			offer.lastEditedDate = new Timestamp(System.currentTimeMillis());
 			
 		return offer;
 	}
@@ -55,13 +55,13 @@ public class OfferServiceDummy implements OfferService {
 		offer.houseNr = "12";
 		offer.city = "München";
 		offer.country = "Germany";
-		offer.createdDate = new Date();
+		offer.createdDate = new Timestamp(System.currentTimeMillis());
 		offer.description = "a nice beatiful room to place anything";
 		offer.header = "10 m³ for low price";
 		offer.isActive = true;
 		offer.lastEditedDate = offer.createdDate;
-		offer.offerFrom = new Date();
-		offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
+		offer.offerFrom = new Timestamp(System.currentTimeMillis());
+		offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
 		offer.price = 8.5;
 		 Person p = new Person();
 			p.city = "Muenchen";
@@ -104,14 +104,14 @@ public class OfferServiceDummy implements OfferService {
 			offer.id = i+42; 
 			offer.city = "Munich";
 			offer.country = "Germany";
-			offer.createdDate = new Date();
+			offer.createdDate = new Timestamp(System.currentTimeMillis());
 			offer.description = "a nice beatiful room to place anything";
 			offer.header = "10 m² for low price";
 			offer.houseNr = "42";
 			offer.isActive = true;
 			offer.lastEditedDate = offer.createdDate;
-			offer.offerFrom = new Date();
-			offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
+			offer.offerFrom = new Timestamp(System.currentTimeMillis());
+			offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
 			
 			offer.price = 8.5;
 			offer.owner = person;
@@ -140,14 +140,14 @@ public class OfferServiceDummy implements OfferService {
 			offer.id = i+42; 
 			offer.city = "Munich";
 			offer.country = "Germany";
-			offer.createdDate = new Date();
+			offer.createdDate = new Timestamp(System.currentTimeMillis());
 			offer.description = "a nice beatiful room to place anything";
 			offer.header = "10 m² for low price";
 			offer.houseNr = "42";
 			offer.isActive = true;
 			offer.lastEditedDate = offer.createdDate;
-			offer.offerFrom = new Date();
-			offer.offerTo = new Date(Date.UTC(2014, 6, 4, 23, 59, 59));
+			offer.offerFrom = new Timestamp(System.currentTimeMillis());
+			offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
 			offer.price = 8.5;
 			
 			 Person p = new Person();
@@ -173,8 +173,8 @@ public class OfferServiceDummy implements OfferService {
 			
 			offer.owner = p;
 			offer.acceptor  = person;
-			offer.contractedFrom = new Date();
-			offer.contractedUntil = new Date();
+			offer.contractedFrom =new Timestamp(System.currentTimeMillis());
+			offer.contractedUntil =new Timestamp(System.currentTimeMillis());
 			offer.transactionClosed = true;
 			
 			offer.street = "ABC Street";
@@ -187,6 +187,17 @@ public class OfferServiceDummy implements OfferService {
 		
 		
 		return o;
+	}
+
+	@Override
+	public List<Offer> findall() {
+		List<Offer> ol = new LinkedList<Offer>();
+		
+		for(int i = 1; i <5; i++){
+			ol.add(findByOfferID(i));
+		}
+		
+		return ol;
 	}
 
 }

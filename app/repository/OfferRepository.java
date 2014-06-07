@@ -1,6 +1,10 @@
 package repository;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
 import models.Offer;
 import models.Person;
 import models.SearchAttributes;
@@ -12,8 +16,10 @@ import models.SearchAttributes;
  */
 public class OfferRepository {
 
+	EntityManager em;
+	
 	public OfferRepository(){
-
+		em = JPA.em();
 	}
 
 
@@ -21,22 +27,29 @@ public class OfferRepository {
 	 * 
 	 * @param offer
 	 */
+	@Transactional
 	public Offer createOffer(Offer offer){
-		return null;
+		em.persist(offer);
+		em.flush();
+		return offer;
 	}
 
 	/**
 	 * 
 	 * @param offer
 	 */
+	@Transactional
 	public Offer updateOffer(Offer offer){
-		return null;
+		em.merge(offer);
+		em.flush();
+		return offer;
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
+	@Transactional
 	public List<Offer> findOfferByOwner(Person owner){
 		return null;
 	}
@@ -45,14 +58,16 @@ public class OfferRepository {
 	 * 
 	 * @param id
 	 */
+	@Transactional
 	public Offer findOfferByID(long id){
-		return null;
+		return em.find(Offer.class, id);
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
+	@Transactional
 	public List<Offer> findOfferByAcceptor(Person acceptor){
 		return null;
 	}
@@ -61,6 +76,7 @@ public class OfferRepository {
 	 * 
 	 * @param searchAttributs
 	 */
+	@Transactional
 	public List<Offer> findOfferByAttributes(SearchAttributes searchAttributs){
 		return null;
 	}

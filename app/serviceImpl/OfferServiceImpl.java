@@ -1,4 +1,5 @@
 package serviceImpl;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public Offer createOffer(Offer offer) {
-		offer.createdDate = new Date();
+		offer.createdDate = new Timestamp(System.currentTimeMillis());
 		offer.lastEditedDate = offer.createdDate;
 		offer.isActive = true;
 		offer.transactionClosed = false;
@@ -64,6 +65,12 @@ public class OfferServiceImpl implements OfferService {
 	@Override
 	public List<Offer> findByAcceptorID(Person person) {
 		return offerRepo.findOfferByAcceptor(person);
+	}
+
+	@Override
+	public List<Offer> findall() {
+		//TODO
+		return null;
 	}
 
 	

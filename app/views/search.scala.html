@@ -1,10 +1,10 @@
-@(city: String)(radius: Double)(offers: List[Offer])(menubar: Html)
+@(city: String)(spacesize: Double)(offers: List[Offer])(menubar: Html)
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="text/html; charset=utf-8" http-equiv="content-type">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Search</title>
 
@@ -22,6 +22,10 @@
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-slider.js")"></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datetimepicker.min.js")" ></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-spinedit.js")" ></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/ol/OpenLayers.js")" ></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/AnimatedCluster.js")" ></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/openStreetMap.js")" ></script>
+		<script src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
 
 		<script src="@controllers.routes.Application.jsRoutes()" type="text/javascript"></script>
 
@@ -32,8 +36,307 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
+ <script type="text/javascript">
+var lon = 11.56645;
+        var lat = 48.14188;
+        var zoom = 12;
+
+        OpenLayers.Lang.setCode('de');
+        var map;
+
+        function onPopupClose(evt) {
+		    // 'this' is the popup.
+		    var feature = this.feature;
+		    if (feature.pois) { // The feature is not destroyed
+		        selectControl.unselect(feature);
+		    } else { // After "moveend" or "refresh" events on POIs layer all
+		             //     features have been destroyed by the Strategy.BBOX
+		        this.destroy();
+		    }
+		}
+
+		function onFeatureSelect(evt) {
+		    feature = evt.feature;
+
+		    line = '';
+			for (cdata in feature.cluster) {
+				//TODO:
+				line = line +'<tt><small>#'+feature.cluster[cdata].data.cid+"</small></tt>   <b>#"+feature.cluster[cdata].data.ENr+'    '+feature.cluster[cdata].data.einsatzort + '</b> ('+feature.cluster[cdata].data.einsatzart+')  <i>' +  feature.cluster[cdata].attributes.meldung + "</i><br/>"
+//				if (cdata > 10) break;
+			}
+
+		    popup = new OpenLayers.Popup("Einsatz",
+		                             feature.geometry.getBounds().getCenterLonLat(),
+		                             new OpenLayers.Size(450,200),
+		                             line,
+		                             null, true, onPopupClose);
+
+
+		    console.log( feature.cluster[0].attributes );
+
+		    feature.popup = popup;
+		    popup.feature = feature;
+		    map.addPopup(popup, true);
+
+//		    var description=null;
+
+//		    description = GetAjax('data.php?type=info&output=html&id='+feature.attributes.description);
+
+//		    if(description == null) {
+//		        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
+//		    }
+
+//		    popup.setContentHTML("<h2>"+feature.attributes.title + "</h2><div class=\"mapPopupContent\">" + description + "</div>");
+		}
+
+		function onFeatureUnselect(evt) {
+		    feature = evt.feature;
+		    if (feature.popup) {
+		        popup.feature = null;
+		        map.removePopup(feature.popup);
+		        feature.popup.destroy();
+		        feature.popup = null;
+		    }
+		}
+
+        function init() {
+          // OpenLayers.Util.onImageLoadError = function () {
+	     //      this.src = "/karten/404.png";
+         //  };
+
+
+		   OpenLayers.Util.onImageLoadErrorColor = 'transparent';
+
+            map = new OpenLayers.Map ("map", {
+                controls:[
+                        new OpenLayers.Control.Navigation(),
+                        new OpenLayers.Control.LayerSwitcher({roundedCorner:true}),
+                        new OpenLayers.Control.PanZoomBar(),
+                        new OpenLayers.Control.Attribution(),
+                        new OpenLayers.Control.Permalink(),
+                        new OpenLayers.Control.MousePosition(),
+                        new OpenLayers.Control.KeyboardDefaults(),
+                        new OpenLayers.Control.ScaleLine()
+                    ], 
+                units: 'm',
+				numZoomLevels: 18,
+                maxResolution: 156543.0339,
+                maxExtent: new OpenLayers.Bounds(-20037508, -20037508,
+                                                 20037508, 20037508.34),
+//                projection: new OpenLayers.Projection("EPSG:900913"),
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                displayProjection: new OpenLayers.Projection("EPSG:4326")
+            } );
+
+
+			var gsat = new OpenLayers.Layer.Google("Google Satellite",{type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22 ,isBaseLayer: true })
+//			var osm            = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+			var printer        = new OpenLayers.Layer.OSM("S/W Straßenkartei", "/karten/swtiles/${z}/${x}/${y}.png",     {minZoomLevel: 9, maxZoomLevel: 18 });
+//			var blank          = new OpenLayers.Layer.OSM("Kein Hintergrund",  "/karten/404.png",                        { maxZoomLevel: 17, numZoomLevels: 18 });
+//
+////			var einsatz        = new OpenLayers.Layer.OSM("Einsätze"         , "/karten/tiles/${z}/${x}/${y}.png",       {minZoomLevel: 9, maxZoomLevel: 18, alpha:false, isBaseLayer: false, attribution : '<b>VS - NfD</b>' });
+//			var hydranten      = new OpenLayers.Layer.OSM("Hydranten"        , "/karten/hytiles/${z}/${x}/${y}.png",     {minZoomLevel:10, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+//			var hydrantenref   = new OpenLayers.Layer.OSM("Hydranten Ref"    , "/karten/hyreftiles/${z}/${x}/${y}.png",  {minZoomLevel:15, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+//			var hausnummern    = new OpenLayers.Layer.OSM("Hausnummern LHM"  , "/karten/hnrtiles/${z}/${x}/${y}.png",    {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+//			var hausnummernosm = new OpenLayers.Layer.OSM("Hausnummern OSM"  , "/karten/hnrosmtiles/${z}/${x}/${y}.png", {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+//			var hausnummernlvm = new OpenLayers.Layer.OSM("Hausnummern LVM"  , "/karten/hnrlvmtiles/${z}/${x}/${y}.png", {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+//
+//	        var mitglieder = new OpenLayers.Layer.Text( "FFM Mitglieder", {location: "./mitglieder.txt", visibility: false} );
+//	        var standorte = new OpenLayers.Layer.Text( "FFM Gerätehäuser", {location: "./standorte.txt", visibility: true} );
+
+
+
+            var colors = {
+                verylow: '#00FF00',  // < 5
+                low:     '#FFFF00',  //  5 ..  15
+                middle:  '#FA9600',  // 15 ..  50
+                high:    '#FA0000',  // 50 .. 100
+                veryhigh:'#AF0064'   // > 100
+            };
+
+
+            // Define three rules to style the cluster features.
+            var verylowRule = new OpenLayers.Rule({
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN,
+                    property: "count",
+                    value: 5
+                }),
+                symbolizer: {
+                    fillColor: colors.verylow,
+                    fillOpacity: 0.9,
+                    strokeColor: colors.verylow,
+                    strokeOpacity: 0.5,
+                    strokeWidth: 12,
+                    pointRadius: 8,
+                    label: "${count}",
+                    labelOutlineWidth: 0,
+                    fontColor: "#000000",
+                    fontOpacity: 0.8,
+                    fontSize: "12px"
+                }
+            });
+            var lowRule = new OpenLayers.Rule({
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.BETWEEN,
+                    property: "count",
+                    lowerBoundary: 5,
+                    upperBoundary: 15
+                }),
+                symbolizer: {
+                    fillColor: colors.low,
+                    fillOpacity: 0.9,
+                    strokeColor: colors.low,
+                    strokeOpacity: 0.5,
+                    strokeWidth: 12,
+                    pointRadius: 10,
+                    label: "${count}",
+                    labelOutlineWidth: 0,
+                    fontColor: "#000000",
+                    fontOpacity: 0.8,
+                    fontSize: "12px"
+                }
+            });
+            var middleRule = new OpenLayers.Rule({
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.BETWEEN,
+                    property: "count",
+                    lowerBoundary: 15,
+                    upperBoundary: 50
+                }),
+                symbolizer: {
+                    fillColor: colors.middle,
+                    fillOpacity: 0.9,
+                    strokeColor: colors.middle,
+                    strokeOpacity: 0.5,
+                    strokeWidth: 12,
+                    pointRadius: 15,
+                    label: "${count}",
+                    labelOutlineWidth: 0,
+                    fontColor: "#000000",
+                    fontOpacity: 0.8,
+                    fontSize: "12px"
+                }
+            });
+            var highRule = new OpenLayers.Rule({
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.BETWEEN,
+                    property: "count",
+                    lowerBoundary: 50,
+                    upperBoundary: 100
+                }),
+                symbolizer: {
+                    fillColor: colors.high,
+                    fillOpacity: 0.9,
+                    strokeColor: colors.high,
+                    strokeOpacity: 0.5,
+                    strokeWidth: 12,
+                    pointRadius: 19,
+                    label: "${count}",
+                    labelOutlineWidth: 0,
+                    fontColor: "#000000",
+                    fontOpacity: 0.8,
+                    fontSize: "12px"
+                }
+            });
+            var veryhighRule = new OpenLayers.Rule({
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.GREATER_THAN,
+                    property: "count",
+                    value: 100
+                }),
+                symbolizer: {
+                    fillColor: colors.veryhigh,
+                    fillOpacity: 0.9,
+                    strokeColor: colors.veryhigh,
+                    strokeOpacity: 0.5,
+                    strokeWidth: 12,
+                    pointRadius: 23,
+                    label: "${count}",
+                    labelOutlineWidth: 0,
+                    fontColor: "#ffffff",
+                    fontOpacity: 0.8,
+                    fontSize: "12px"
+                }
+            });
+
+            // Create a Style that uses the three previous rules
+            var style = new OpenLayers.Style(null, {
+                rules: [verylowRule, lowRule, middleRule, highRule, veryhighRule]
+            });
+
+            // Create a vector layers
+            var einsatz = new OpenLayers.Layer.Vector("Einsätze", {
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "fire.php",
+//                    url: "fire.json",
+                    format: new OpenLayers.Format.GeoJSON()
+                }),
+                renderers: ['Canvas','SVG'],
+                strategies: [
+                    new OpenLayers.Strategy.Fixed(),
+                    new OpenLayers.Strategy.AnimatedCluster({
+                        distance: 50,
+
+                        animationMethod: OpenLayers.Easing.Quad.easeOut,
+                        animationDuration: 15
+                    })
+                ],
+                styleMap:  new OpenLayers.StyleMap(style),
+                attribution : '<b>VS - NfD</b>'
+            });
+
+map.addLayers([ gsat,printer]);
+			//map.addLayers([ einsatz, gsat,printer]);
+
+			//selectControl = new OpenLayers.Control.SelectFeature(einsatz);
+           // map.addControl(selectControl);
+           // selectControl.activate();
+			einsatz.events.on({
+                    'featureselected': onFeatureSelect,
+                    'featureunselected': onFeatureUnselect
+            });
+
+
+
+            if( ! map.getCenter() ){
+                var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+                map.setCenter (lonLat, zoom);
+            }
+        }
+
+
+ </script>
+
+ <style type="text/css">
+         #Einsatzort {
+         	font-size: 12px;
+         	font-family: arial;
+		 }
+
+        .olImageLoadError {
+            opacity: 0 !important;
+            filter: alpha(opacity=0) !important;
+			display: none !important;
+        }
+
+        div.olPopupContent h2 {
+         	font-family: arial;
+	        font-size: 120%;
+		margin-bottom: 0.5em;
+		border-bottom: 1px solid #aaa;
+        }
+
+        div.olPopupContent p {
+         	font-size: 12px;
+         	font-family: arial;        
+        }
+
+
+    </style>
+
 	</head>
-	<body >
+	<body onload="init();">
 
 			@menubar
 		<div class="title" style="text-align:center">
@@ -52,7 +355,7 @@
 						</div>
 						<div class="panel-body">
 							<br>
-							<div id="map-container"></div>
+							 <div style="width:100%; height:100%" id="map"></div>
 						</div>
 					</div>
 				</div>
@@ -89,7 +392,12 @@
 									<h2> Location</h2>
 								</div>
 								<div class="col col-md-3">
-									<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
+									@if(city != null){
+										<input id="city" class="form-control" type="text" value= "@city" autofocus="" placeholder="City" >
+									}else{
+										<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
+									}
+									
 								</div>
 								<div class="col col-md-3">
 									<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
@@ -111,7 +419,12 @@
 								<div class="col col-md-4">
 									<div id="spacesize" class="input-group">
 										<span class="input-group-addon">size:</span>
-										<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
+										@if(spacesize !=null){
+											<input id="spacesizeinput" class="form-control" type="number" value="@spacesize" name="size" min="1" value="5" max="100" step="0.5">
+										}else{
+											<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
+										}
+										
 										<span class="input-group-addon">m²</span>
 									</div>
 								</div>

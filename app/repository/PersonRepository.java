@@ -1,4 +1,8 @@
 package repository;
+import javax.persistence.EntityManager;
+
+import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
 import models.Person;
 
 /**
@@ -7,9 +11,10 @@ import models.Person;
  * @created 23-Mai-2014 16:53:24
  */
 public class PersonRepository {
+	EntityManager em;
 
 	public PersonRepository(){
-
+		em = JPA.em();
 	}
 
 	public void finalize() throws Throwable {
@@ -20,24 +25,31 @@ public class PersonRepository {
 	 * 
 	 * @param person
 	 */
+	@Transactional
 	public Person createPerson(Person person){
-		return null;
+		em.persist(person);
+		em.flush();
+		return person;
 	}
 
 	/**
 	 * 
 	 * @param person
 	 */
+	@Transactional
 	public Person updatePerson(Person person){
-		return null;
+		em.merge(person);
+		em.flush();
+		return person;
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
+	@Transactional(readOnly=true)
 	public Person findPersonByID(long id){
-		return null;
+		 return em.find(Person.class, id);
 	}
 
 }

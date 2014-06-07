@@ -43,4 +43,6 @@ public interface OfferService {
 	 */
 	public abstract List<Offer> findByAcceptorID(Person person);
 
+	public abstract List<Offer> findall();
+
 }

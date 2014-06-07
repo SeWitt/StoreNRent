@@ -1,7 +1,9 @@
 package models;
 
 import java.sql.Blob;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import appinfo.GlobalValues;
 
 /**
  * @author Sebastian
@@ -66,14 +70,14 @@ public class Offer {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CREATED_DATE")
-	public Date createdDate;
+	public Timestamp createdDate;
 	
 	/**
 	 * offer last edited
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="LAST_EDITED_DATE")
-	public Date lastEditedDate;
+	public Timestamp lastEditedDate;
 	
 	/**
 	 * long offer description
@@ -101,14 +105,14 @@ public class Offer {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CONTRACTED_FROM")
-	public Date contractedFrom;
+	public Timestamp contractedFrom;
 	
 	/**
 	 * if somebody take the offer the real end of the crontract
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CONTRACTED_UNTIL")
-	public Date contractedUntil;
+	public Timestamp contractedUntil;
 	
 	/**
 	 * if true, the transaction was finished 
@@ -121,14 +125,14 @@ public class Offer {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="OFFER_FROM")
-	public Date offerFrom;
+	public Timestamp offerFrom;
 	
 	/**
 	 * last possible day of the contract
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="OFFER_TO")
-	public Date offerTo;
+	public Timestamp offerTo;
 	
 	
 	@ManyToOne
@@ -144,6 +148,44 @@ public class Offer {
 	
 	public Offer(){
 
+	}
+
+	public Offer(OfferForm of) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.TIMEFORMAT);
+		
+		
+		
+		id = of.id;
+		city = of.city;
+		street = of.street;
+		postCode = of.postCode;
+		houseNr = of.houseNr;
+		country = of.country;
+		geolocX = of.geolocX;
+		geolocY = of.geolocY;
+		picture = of.picture;
+		price = of.price;
+		isActive = of.isActive;
+		description = of.description;
+		header = of.header;
+		subHeader = of.subHeader;
+		visitCount =of.visitCount;
+		
+		
+//		contractedFrom =    new Timestamp()        new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.contractedFrom);
+//		contractedUntil = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.contractedUntil);
+		transactionClosed = of.transactionClosed;
+		
+		try {
+			offerFrom = new Timestamp((dateFormat.parse(of.offerFrom)).getTime());
+			offerTo = new Timestamp((dateFormat.parse(of.offerTo)).getTime());
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		owner = of.owner;
+		acceptor = of.acceptor;
 	}
 
 

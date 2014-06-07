@@ -1,6 +1,11 @@
 package repository;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
+import models.Account;
 import models.Message;
 import models.MessageSummary;
 import models.Person;
@@ -12,8 +17,10 @@ import models.Person;
  */
 public class MessageRepository {
 
+	EntityManager em;
+	
 	public MessageRepository(){
-
+		em = JPA.em();
 	}
 
 
@@ -21,40 +28,62 @@ public class MessageRepository {
 	 * 
 	 * @param message
 	 */
+	@Transactional
 	public Message createMessage(Message message){
-		return null;
+		em.persist(message);
+		em.flush();
+		return message;
 	}
 
 	/**
 	 * 
 	 * @param message
 	 */
+	@Transactional
 	public Message updateMessage(Message message){
-		return null;
+		em.merge(message);
+		em.flush();
+		return message;
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
+	@Transactional
 	public MessageSummary getMessageSummary(Person person){
-		return null;
+		List tmp = em.createQuery(
+			    "SELECT c FROM MESSAGE_SUMMARY c WHERE c.PERSON_ID LIKE :custID")
+			    .setParameter("custID", person.id)
+			    .setMaxResults(10)
+			    .getResultList();
+		return (MessageSummary) tmp.get(0);
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
+	@Transactional
 	public List<Message> findMessagesByTransmitter(Person person){
-		return null;
+		return  em.createQuery(
+			    "SELECT c FROM MESSAGE c WHERE c.TRANSMITTER_ID LIKE :custID")
+			    .setParameter("custID", person.id)
+			    .setMaxResults(10)
+			    .getResultList();
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
+	@Transactional
 	public List <Message> findMessagesByReceiver(Person person){
-		return null;
+		return  em.createQuery(
+			    "SELECT c FROM MESSAGE c WHERE c.RECEIVER_ID LIKE :custID")
+			    .setParameter("custID", person.id)
+			    .setMaxResults(10)
+			    .getResultList();
 	}
 
 }

@@ -1,4 +1,4 @@
-@(menubar: Html)(offer: Offer)(form: play.data.Form[models.OfferAcceptForm])
+@(form: play.data.Form[models.OfferAcceptForm])(menubar: Html)(offer: OfferForm)
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-
+	
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/image.css")">
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-datetimepicker.min.css")">
@@ -31,6 +31,25 @@
 		<!-- Main Container -->
 		<div class="container">
 			@helper.form(action = routes.OfferController.doAction()) {
+			<div class="row">
+
+				@if(form.hasGlobalErrors) {
+				<p class="error">
+					@form.globalError.message
+				</p>
+				}
+
+				@if(form.hasErrors) {
+				<p class="error">
+					@flash.get("error")
+				</p>
+				}
+
+			</div>
+			
+			
+			
+			
 			<div class="row">
 				<div class="panel panel-default" >
 					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
@@ -117,43 +136,46 @@
 							<!-- Time -->
 
 							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
-
-								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
-									<div id="dtpfrom" class="input-append date">
-										<div class="input-group">
-											<span class="input-group-addon">From:</span>
-											<input id="dtpfrominput" class="form-control" value='@form("from").value' placeholder="dd.MM.YYYY"  type="text">
-											<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
+								
+									
+									<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+										<div id="dtpfrom" class="input-append date">
+											<div class="input-group">
+												<span class="input-group-addon">From:</span>
+												<input id="dtpfrominput" class="form-control" name="from" type="text" value='@form("from").value' >
+												<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
+											</div>
 										</div>
-									</div>
 
-									<script type="text/javascript">
-										$(function() {
-											$('#dtpfrom').datetimepicker({
-												format : 'dd.MM.yyyy',
-												language : 'pt-BR'
+										<script type="text/javascript">
+											$(function() {
+												$('#dtpfrom').datetimepicker({
+													format : 'dd.MM.yyyy',
+													language : 'pt-BR'
+												});
 											});
-										});
-									</script>
-								</div>
-								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
-									<div id="dtpto" class="input-append date" >
-										<div class="input-group">
-											<span class="input-group-addon">To:</span>
-											<input id="dtptoinput" class="form-control" value='@form("to").value' placeholder="dd.MM.YYYY" type="text">
-											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+										</script>
+									</div>
+									<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+
+										<div id="dtpto" class="input-append date" >
+											<div class="input-group">
+												<span class="input-group-addon">To:</span>
+												<input id="dtptoinput" class="form-control" name="to" type="text" value='@form("to").value' >
+												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+											</div>
 										</div>
-									</div>
 
-									<script type="text/javascript">
-										$(function() {
-											$('#dtpto').datetimepicker({
-												format : 'dd.MM.yyyy',
-												language : 'pt-BR'
+										<script type="text/javascript">
+											$(function() {
+												$('#dtpto').datetimepicker({
+													format : 'dd.MM.yyyy',
+													language : 'pt-BR'
+												});
 											});
-										});
-									</script>
-								</div>
+										</script>
+									</div>
+								
 
 								<div class="col-md-4">
 									<div class="input-group">
@@ -171,8 +193,8 @@
 							</div>
 
 							<div class="col-md-5" style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
-								<button type="submit" class="btn btn-default btn-lg" name="axtion" value="submit" 
-										style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
+								<button type="submit" class="btn btn-default btn-lg" name="action" value="submit"
+								style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
 									Accept Offer
 								</button>
 							</div>
@@ -206,26 +228,26 @@
 										zoom : 14,
 										mapTypeId : google.maps.MapTypeId.ROADMAP,
 										mapTypeControl : true,
-										mapTypeControlOptions: {
-											mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
-											position: google.maps.ControlPosition.TOP_RIGHT,
-											style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+										mapTypeControlOptions : {
+											mapTypeIds : [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
+											position : google.maps.ControlPosition.TOP_RIGHT,
+											style : google.maps.MapTypeControlStyle.HORIZONTAL_BAR
 										},
 										panControl : false,
 										rotateControl : false,
 										streetViewControl : false,
 										draggable : false,
-										keyboardShortcuts: false,
-										scrollwheel: false,
-										zoomControl: true,
-										zoomControlOptions: {
-											position: google.maps.ControlPosition.TOP_LEFT,
-											style: google.maps.ZoomControlStyle.LARGE
+										keyboardShortcuts : false,
+										scrollwheel : false,
+										zoomControl : true,
+										zoomControlOptions : {
+											position : google.maps.ControlPosition.TOP_LEFT,
+											style : google.maps.ZoomControlStyle.LARGE
 										},
-										overviewMapControl: false,
-										minZoom: 6,
-										mapMaker: false,
-										disableDoubleClickZoom: true
+										overviewMapControl : false,
+										minZoom : 6,
+										mapMaker : false,
+										disableDoubleClickZoom : true
 									};
 									map = new google.maps.Map(document.getElementById("map-container"), mapoptions);
 									marker = new google.maps.Marker({
@@ -233,7 +255,7 @@
 										map : map,
 										title : "@offer.header",
 										clickable : true,
-										draggable: false,
+										draggable : false,
 									});
 									google.maps.event.addListener(marker, 'click', showInfoWindow);
 									codeAddress();
@@ -269,16 +291,10 @@
 										}
 									}
 
-									var contentString = 
-										'<div id="infowindow_content">' + 
-											'<p><strong>@offer.header</strong><br>' + 
-											'<hr style="margin: 1px 0 5px 0">' + 
-												street + ' ' + number + ', '+ city + '<br>' + country + 
-											'</p>' + 
-										'</div>';
+									var contentString = '<div id="infowindow_content">' + '<p><strong>@offer.header</strong><br>' + '<hr style="margin: 1px 0 5px 0">' + street + ' ' + number + ', ' + city + '<br>' + country + '</p>' + '</div>';
 									infoWindow = new google.maps.InfoWindow({
 										content : contentString,
-										maxWidth: 500
+										maxWidth : 500
 									});
 									infoWindow.open(map, marker);
 								}
@@ -299,13 +315,16 @@
 										}
 									});
 								}
+
+
 								google.maps.event.addDomListener(window, 'load', function() {
 									initialize();
 								});
 							</script>
-						</div> 
+						</div>
 					</div>
-				</div> <!-- End of 'Map' -->
+				</div>
+				<!-- End of 'Map' -->
 
 				<div class="row">
 					<div class="panel panel-default" style="center">
@@ -313,25 +332,32 @@
 							Actions
 						</div>
 						<div class="panel-body" style="text-align: center">
-							
+
 							<div class="col-md-3" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="contact" style="border: 0px ">
 									<span class="glyphicon glyphicon-envelope" style="font-size: 40px" > </span>
-									<br>Contact<br>@offer.owner.surname
+									<br>
+									Contact
+									<br>
+									@offer.owner.surname
 								</button>
 							</div>
-							
+
 							<div class="col-md-3" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="search" style="border: 0px ">
 									<span class="glyphicon glyphicon-search" style="font-size: 40px" > </span>
-									<br>New search
+									<br>
+									New search
 								</button>
 							</div>
-							
+
 							<div class="col-md-3">
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="newOffer" style="border: 0px ">
 									<span class="glyphicon glyphicon-plus" style="font-size: 40px" > </span>
-									<br>Create<br>own offer
+									<br>
+									Create
+									<br>
+									own offer
 								</button>
 							</div>
 						</div>

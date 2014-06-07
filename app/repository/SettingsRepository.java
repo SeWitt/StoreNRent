@@ -1,4 +1,11 @@
 package repository;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
+import models.Account;
 import models.Person;
 import models.PersonSettings;
 
@@ -9,8 +16,10 @@ import models.PersonSettings;
  */
 public class SettingsRepository {
 
+	EntityManager em;
+	
 	public SettingsRepository(){
-
+		em = JPA.em();
 	}
 
 	public void finalize() throws Throwable {
@@ -22,8 +31,11 @@ public class SettingsRepository {
 	 * @param setting
 	 * @return 
 	 */
+	@Transactional
 	public PersonSettings createSettings(PersonSettings setting){
-		return null;
+		em.persist(setting);
+		em.flush();
+		return setting;
 
 	}
 
@@ -32,16 +44,25 @@ public class SettingsRepository {
 	 * @param settings
 	 * @return 
 	 */
+	@Transactional
 	public PersonSettings updateSettings(PersonSettings settings){
-		return null;
+		em.merge(settings);
+		em.flush();
+		return settings;
 	}
 
 	/**
 	 * 
 	 * @param personID
 	 */
+	@Transactional
 	public PersonSettings findSettingsByPersonID(Person person){
-		return null;
+		List tmp = em.createQuery(
+			    "SELECT c FROM PERSON_SETTINGS c WHERE c.person_id LIKE :custId")
+			    .setParameter("custId", person.id)
+			    .setMaxResults(10)
+			    .getResultList();
+		return (PersonSettings) tmp.get(0);
 	}
 
 }

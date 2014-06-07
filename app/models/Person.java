@@ -1,6 +1,5 @@
 package models;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
