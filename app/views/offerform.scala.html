@@ -1,6 +1,5 @@
 @(form: play.data.Form[models.OfferForm])(menubar: Html)
 
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,9 +34,20 @@
 			@helper.form(action = routes.OfferController.create()) {
 			<div class="row">
 
-				
+				@if(form.hasGlobalErrors) {
+				<p class="error">
+					@form.globalError.message
+				</p>
+				}
+
+				@if(form.hasErrors) {
+				<p class="error">
+					@flash.get("error")
+				</p>
+				}
+
 			</div>
-			
+
 			<div class="row">
 				<div class="panel panel-default" style="center">
 					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
@@ -63,31 +73,31 @@
 						<div class="panel-body">
 							<br>
 							<div class="form-group">
-								<input type="file" id="pic1">
+								<input type="file" id="pic1" name="pic1">
 								<p class="help-block">
-									Please select several pictures to upload
+									Please select a picture to upload
 								</p>
 							</div>
 							<div class="form-group">
-								<input type="file" id="pic2">
+								<input type="file" id="pic2" name="pic2">
 								<p class="help-block">
-									Please select several pictures to upload
+									Please select a picture to upload
 								</p>
 							</div>
 							<div class="form-group">
-								<input type="file" id="pic3">
+								<input type="file" id="pic3" name="pic3">
 								<p class="help-block">
-									Please select several pictures to upload
+									Please select a picture to upload
 								</p>
 							</div>
 							<div class="form-group">
-								<input type="file" id="pic4">
+								<input type="file" id="pic4" name="pic4">
 								<p class="help-block">
-									Please select several pictures to upload
+									Please select a picture to upload
 								</p>
 							</div>
 							<div class="form-group">
-								<input type="file" id="pic5">
+								<input type="file" id="pic5" name="pic5">
 								<p class="help-block">
 									Please select a picture to upload
 								</p>
@@ -137,7 +147,7 @@
 									<div id="dtpfrom" class="input-append date">
 										<div class="input-group">
 											<span class="input-group-addon">From:</span>
-										<input id="dtpfrominput" class="form-control" value='@form("offerFrom").value' name="offerFrom" type="text"> 
+											<input id="dtpfrominput" class="form-control" value='@form("offerFrom").value' name="offerFrom" type="text">
 											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
 
 										</div>
@@ -160,8 +170,8 @@
 									<div id="dtpto" class="input-append date">
 										<div class="input-group">
 											<span class="input-group-addon">Until: </span>
-											<input id="dtptoinput" class="form-control"  type="text"  name="offerTo" value='@form("offerTo").value'> 
-										
+											<input id="dtptoinput" class="form-control"  type="text"  name="offerTo" value='@form("offerTo").value'>
+
 											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
 										</div>
 									</div>
@@ -254,7 +264,7 @@
 				</div>
 
 			</div>
-}
+			}
 		</div>
 	</body>
 

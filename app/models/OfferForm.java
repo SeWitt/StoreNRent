@@ -3,6 +3,11 @@ package models;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.MinLength;
+import play.data.validation.Constraints.Required;
+import validators.IsDateNotPaste;
+
 import appinfo.GlobalValues;
 
 public class OfferForm{
@@ -45,14 +50,24 @@ public class OfferForm{
 
 	public long id;
 	
+	@MinLength(value = 4 , message ="The city name must be longer than 4 characters!")
+	@Required(message = "Please insert a city name!")
 	public String city;
 	
+	@MinLength(value = 4 , message ="The street name must be longer than 4 characters!")
+	@Required(message = "Please insert a street name!" )
 	public String street;
-
+	
+	@MinLength(value = 4 , message ="The postcode name must be longer than 4 characters!")
+	@Required(message = "Please insert a postcode!" )
 	public String postCode;
 	
+	
+	@Required(message = "Please insert a house number" )
 	public String houseNr;
 	
+	@MinLength(value = 4 , message ="The country name must be longer than 4 characters!")
+	@Required(message = "Please insert a country!" )
 	public String country;
 	
 	public String geolocX;
@@ -60,6 +75,7 @@ public class OfferForm{
 	public String geolocY;
 	public Blob picture;
 	
+	@Required(message = "Please insert a valid price!")
 	public double price;
 	
 	/**
@@ -70,11 +86,16 @@ public class OfferForm{
 	/**
 	 * long offer description
 	 */
+	@MinLength(value = 4 , message ="The description name must be longer than 4 characters!")
+	@Required(message = "Please insert a description!" )
 	public String description;
 	
 	/**
 	 * header line
 	 */
+	@Required(message = "Please insert a header!" )
+	@MinLength(value = 4 , message ="The header must be longer than 4 characters!")
+	@MaxLength(value = 50 , message ="The header is too long!")
 	public String header;
 	
 	/**
@@ -102,11 +123,14 @@ public class OfferForm{
 	/**
 	 * first possible day of the contract
 	 */
+	@IsDateNotPaste()
+	@Required(message = "Please insert a vaild start date!" )
 	public String offerFrom;
 	
 	/**
 	 * last possible day of the contract
 	 */
+	@Required(message = "Please insert a vaild end date!" )
 	public String offerTo;
 	
 	public Person owner;

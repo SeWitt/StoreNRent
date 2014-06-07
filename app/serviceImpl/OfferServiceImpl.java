@@ -67,6 +67,12 @@ public class OfferServiceImpl implements OfferService {
 		return offerRepo.findOfferByAcceptor(person);
 	}
 
+	@Override
+	public List<Offer> findall() {
+		//TODO
+		return null;
+	}
+
 	
 
 }

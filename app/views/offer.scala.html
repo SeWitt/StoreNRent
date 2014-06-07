@@ -32,6 +32,25 @@
 		<div class="container">
 			@helper.form(action = routes.OfferController.doAction()) {
 			<div class="row">
+
+				@if(form.hasGlobalErrors) {
+				<p class="error">
+					@form.globalError.message
+				</p>
+				}
+
+				@if(form.hasErrors) {
+				<p class="error">
+					@flash.get("error")
+				</p>
+				}
+
+			</div>
+			
+			
+			
+			
+			<div class="row">
 				<div class="panel panel-default" >
 					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
 						@offer.header

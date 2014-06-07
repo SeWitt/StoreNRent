@@ -189,4 +189,15 @@ public class OfferServiceDummy implements OfferService {
 		return o;
 	}
 
+	@Override
+	public List<Offer> findall() {
+		List<Offer> ol = new LinkedList<Offer>();
+		
+		for(int i = 1; i <5; i++){
+			ol.add(findByOfferID(i));
+		}
+		
+		return ol;
+	}
+
 }
