@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * @author Sebastian
@@ -31,11 +32,11 @@ public class Recommendation {
 	public RecommendationType recommType;
 	
 	@ManyToOne
-	@JoinColumn(name="PERSON_ID")
+	@JoinColumn(name="RECEIVER_ID")
 	public Person receiver;
 	
 	@ManyToOne
-	@JoinColumn(name="PERSON_ID")
+	@JoinColumn(name="TRANSMITTER_ID")
 	public Person transmitter;
 	
 	@OneToOne

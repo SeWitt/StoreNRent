@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Sebastian
@@ -37,11 +38,11 @@ public class Message {
 	public String subject;
 	
 	@ManyToOne
-	@JoinColumn(name="PERSON_ID")
+	@JoinColumn(name="TRANSMITTER_ID")
 	public Person transmitter;
 	
 	@ManyToOne
-	@JoinColumn(name="PERSON_ID")
+	@JoinColumn(name="RECEIVER_ID")
 	public Person receiver;
 	
 	@Column(name="IS_ACTIVE")

@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * @author Sebastian
@@ -131,14 +132,13 @@ public class Offer {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="PERSON_ID")
+	@JoinColumn(name="OWNER_ID")
 	public Person owner;
 	
 	@ManyToOne
-	@JoinColumn(name="PERSON_ID")
+	@JoinColumn(name="ACCEPTOR_ID")
 	public Person acceptor;
 	
-	//tbd: test if the following lines are required
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="intendedOffer")
 	public Recommendation recommendation;
 	
