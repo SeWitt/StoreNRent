@@ -15,3 +15,8 @@ dist
 /.settings
 /.target
 /bin
+public/javascripts/ol
+repository
+framework
+play
+play.bat
