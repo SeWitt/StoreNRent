@@ -1,71 +1,63 @@
 @(selected: String)
 <html>
 	<head>
-			
 	</head>	
-	
 	<body>
 		<!-- Upper Menu Bar -->
-		<div class = "row" style="max-width: 100%; border: 0; background: #0800E3; padding: 0; margin: 0px 0px 2% 0px">
-			<div class="col-md-12" style="border: inherit; background: inherit; padding: 0; margin: 0">
-				<div class="col-md-6" style="border: inherit; background: inherit; padding: 0; margin: inherit">
+		<div class = "row" style="max-width: 100%; border: 0; background: #0800E3; padding: 0px 0px 0px 0px; margin: 0px 0px 2% 0px">
+			<div class="col-md-12" style="border: 0; background: inherit; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
+				
+				<!-- Logo -->
+				<div class="col-md-6" style="border: 0; background: inherit; padding: 0; margin: inherit">
 					<div class="media">
-						<a class="pull-left" href="@routes.HomeController.index()">> <img class="media-object" src="@routes.Assets.at("images/finalLogo_Option4.png")" alt="Store 'n Rent"
-						style="max-width:10%; height: auto" /> </a>
+						<a class="pull-left" href="@routes.HomeController.index()"> 
+							<img class="media-object" src="@routes.Assets.at("images/finalLogo_Option4.png")" alt="Store 'n Rent"
+								style="max-width:10%; height: auto" />
+						</a>
 					</div>
 				</div>
 
-				<div class="col-md-6" style="border: inherit; background: inherit; padding: 1% 1% 1% 0px; margin: inherit">
+				<!-- Button 'Create an offer' -->
+				<div class="col-md-6" style="border: 0; background: inherit; padding: 1% 1% 1% 0px; margin: inherit">
 					<a href="@routes.OfferController.newOffer()" id="newoffer" class="btn btn-default" style="vertical-align: top; float: right" type="button" >
 						Merchandise your space
 					</a>
 				</div>
 
-				<div class="col-md-6"
-				style="border: inherit; background: inherit; padding: 0; margin: 0">
+				<!-- NavBar -->
+				<div class="col-md-6" 
+					style="border: 0; background: inherit; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
+					
 					<nav class="navbar navbar-default" role="navigation"
-					style="border: 1% solid #ddd; background: inherit; padding: inherit; margin: inherit;
-					border-radius: 4px 4px 0px 0px; float: right">
+						style="border: 1% solid #ddd; background: inherit; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;
+							border-radius: 4px 4px 0px 0px; float: right">
 						<ul class="nav navbar-nav navbar-right" style="color: #fff; padding: inherit; margin: inherit">
-							<li@if(selected.equals("Register")) { class="active"}>
-								<a href="#" style="color: inherit">Register</a></li>
-								<li@if(selected.equals("Search")) { class="active"}>
-									<a href="@routes.SearchController.search()" style="color: inherit">Search</a></li>
-									<li class="dropdown" id="menuLogin" >
-										<a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin" style="color: inherit">Login <b class="caret"></b></a>
-										<div class="dropdown-menu" style="padding: 17px; margin: 10px 10px 10px 10px; border-radius: 4px">
-											<form class="form" id="formLogin" style="color: #2E2E2E; ">
-												<input name="username" id="username" placeholder="Email" type="email" style="margin: 0 0 10px 0">
-												<input name="password" id="password" placeholder="Password" type="password" style="margin: 0 0 10px 0">
-												<br>
-												<button type="button" id="btnLogin" class="btn" >
-													Login
-												</button>
-											</form>
-										</div>
-									</li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: inherit">Help <b class="caret"></b></a>
-										<ul class="dropdown-menu">
-											<li>
-												<a href="#">Action</a>
-											</li>
-											<li>
-												<a href="#">Another action</a>
-											</li>
-											<li class="divider"></li>
-											<li>
-												<a href="#">Separated link</a>
-											</li>
-										</ul>
-									</li>
+							<li@if(selected.equals("Register")) { class="active"}><a href="#" style="color: inherit">Register</a></li>
+							<li@if(selected.equals("Search")) { class="active"}><a href="@routes.SearchController.search()" style="color: inherit">Search</a></li>
+							<li class="dropdown" id="menuLogin" >
+								<a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin" style="color: inherit">Login <b class="caret"></b></a>
+								<div class="dropdown-menu" style="padding: 17px; margin: 10px 10px 10px 10px; border-radius: 4px">
+									<form class="form" id="formLogin" style="color: #2E2E2E; ">
+										<input name="username" id="username" placeholder="Email" type="email" style="margin: 0 0 10px 0">
+										<input name="password" id="password" placeholder="Password" type="password" style="margin: 0 0 10px 0">
+										<br>
+										<button type="button" id="btnLogin" class="btn" >Login</button>
+									</form>
+								</div>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: inherit">Help <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</li>
 						</ul>
 					</nav>
 				</div>
-
 			</div>
 		</div>
-		
-		
 	</body>
 </html>
