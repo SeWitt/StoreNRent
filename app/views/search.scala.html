@@ -36,309 +36,291 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
- <script type="text/javascript">
-var lon = 11.56645;
-        var lat = 48.14188;
-        var zoom = 12;
+		<script type="text/javascript">
+			var lon = 11.56645;
+			var lat = 48.14188;
+			var zoom = 12;
 
-        OpenLayers.Lang.setCode('de');
-        var map;
+			OpenLayers.Lang.setCode('de');
+			var map;
 
-        function onPopupClose(evt) {
-		    // 'this' is the popup.
-		    var feature = this.feature;
-		    if (feature.pois) { // The feature is not destroyed
-		        selectControl.unselect(feature);
-		    } else { // After "moveend" or "refresh" events on POIs layer all
-		             //     features have been destroyed by the Strategy.BBOX
-		        this.destroy();
-		    }
-		}
-
-		function onFeatureSelect(evt) {
-		    feature = evt.feature;
-
-		    line = '';
-			for (cdata in feature.cluster) {
-				//TODO:
-				line = line +'<tt><small>#'+feature.cluster[cdata].data.cid+"</small></tt>   <b>#"+feature.cluster[cdata].data.ENr+'    '+feature.cluster[cdata].data.einsatzort + '</b> ('+feature.cluster[cdata].data.einsatzart+')  <i>' +  feature.cluster[cdata].attributes.meldung + "</i><br/>"
-//				if (cdata > 10) break;
+			function onPopupClose(evt) {
+				// 'this' is the popup.
+				var feature = this.feature;
+				if (feature.pois) {// The feature is not destroyed
+					selectControl.unselect(feature);
+				} else {// After "moveend" or "refresh" events on POIs layer all
+					//     features have been destroyed by the Strategy.BBOX
+					this.destroy();
+				}
 			}
 
-		    popup = new OpenLayers.Popup("Einsatz",
-		                             feature.geometry.getBounds().getCenterLonLat(),
-		                             new OpenLayers.Size(450,200),
-		                             line,
-		                             null, true, onPopupClose);
+			function onFeatureSelect(evt) {
+				feature = evt.feature;
 
+				line = '';
+				for (cdata in feature.cluster) {
+					//TODO:
+					//line = line + '<tt><small>#' + feature.cluster[cdata].data.cid + "</small></tt>   <b>#" + feature.cluster[cdata].data.ENr + '    ' + feature.cluster[cdata].data.einsatzort + '</b> (' + feature.cluster[cdata].data.einsatzart + ')  <i>' + feature.cluster[cdata].attributes.meldung + "</i><br/>"
+					//				if (cdata > 10) break;
+				}
 
-		    console.log( feature.cluster[0].attributes );
+				popup = new OpenLayers.Popup("Einsatz", feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(450, 200), line, null, true, onPopupClose);
 
-		    feature.popup = popup;
-		    popup.feature = feature;
-		    map.addPopup(popup, true);
+				console.log(feature.cluster[0].attributes);
 
-//		    var description=null;
+				feature.popup = popup;
+				popup.feature = feature;
+				map.addPopup(popup, true);
 
-//		    description = GetAjax('data.php?type=info&output=html&id='+feature.attributes.description);
+				//		    var description=null;
 
-//		    if(description == null) {
-//		        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
-//		    }
+				//		    description = GetAjax('data.php?type=info&output=html&id='+feature.attributes.description);
 
-//		    popup.setContentHTML("<h2>"+feature.attributes.title + "</h2><div class=\"mapPopupContent\">" + description + "</div>");
-		}
+				//		    if(description == null) {
+				//		        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
+				//		    }
 
-		function onFeatureUnselect(evt) {
-		    feature = evt.feature;
-		    if (feature.popup) {
-		        popup.feature = null;
-		        map.removePopup(feature.popup);
-		        feature.popup.destroy();
-		        feature.popup = null;
-		    }
-		}
+				//		    popup.setContentHTML("<h2>"+feature.attributes.title + "</h2><div class=\"mapPopupContent\">" + description + "</div>");
+			}
 
-        function init() {
-          // OpenLayers.Util.onImageLoadError = function () {
-	     //      this.src = "/karten/404.png";
-         //  };
+			function onFeatureUnselect(evt) {
+				feature = evt.feature;
+				if (feature.popup) {
+					popup.feature = null;
+					map.removePopup(feature.popup);
+					feature.popup.destroy();
+					feature.popup = null;
+				}
+			}
 
+			function init() {
+				OpenLayers.Util.onImageLoadError = function() {
+					this.src = '@routes.Assets.at("images/gh.png")';
+				};
 
-		   OpenLayers.Util.onImageLoadErrorColor = 'transparent';
+				OpenLayers.Util.onImageLoadErrorColor = 'transparent';
 
-            map = new OpenLayers.Map ("map", {
-                controls:[
-                        new OpenLayers.Control.Navigation(),
-                        new OpenLayers.Control.LayerSwitcher({roundedCorner:true}),
-                        new OpenLayers.Control.PanZoomBar(),
-                        new OpenLayers.Control.Attribution(),
-                        new OpenLayers.Control.Permalink(),
-                        new OpenLayers.Control.MousePosition(),
-                        new OpenLayers.Control.KeyboardDefaults(),
-                        new OpenLayers.Control.ScaleLine()
-                    ], 
-                units: 'm',
-				numZoomLevels: 18,
-                maxResolution: 156543.0339,
-                maxExtent: new OpenLayers.Bounds(-20037508, -20037508,
-                                                 20037508, 20037508.34),
-//                projection: new OpenLayers.Projection("EPSG:900913"),
-                projection: new OpenLayers.Projection("EPSG:4326"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326")
-            } );
+				map = new OpenLayers.Map("map", {
+					controls : [new OpenLayers.Control.Navigation(), new OpenLayers.Control.LayerSwitcher({
+						roundedCorner : true
+					}), new OpenLayers.Control.PanZoomBar(), new OpenLayers.Control.Attribution(), new OpenLayers.Control.Permalink(), new OpenLayers.Control.MousePosition(), new OpenLayers.Control.KeyboardDefaults(), new OpenLayers.Control.ScaleLine()],
+					units : 'm',
+					numZoomLevels : 18,
+					maxResolution : 156543.0339,
+					maxExtent : new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
+					//                projection: new OpenLayers.Projection("EPSG:900913"),
+					projection : new OpenLayers.Projection("EPSG:4326"),
+					displayProjection : new OpenLayers.Projection("EPSG:4326")
+				});
 
+				var gsat = new OpenLayers.Layer.Google("Google Satellite", {
+					type : google.maps.MapTypeId.SATELLITE,
+					numZoomLevels : 22,
+					isBaseLayer : true
+				});
+				//			var osm            = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+				var printer = new OpenLayers.Layer.OSM("S/W Straßenkartei", "/karten/swtiles/${z}/${x}/${y}.png", {
+					minZoomLevel : 9,
+					maxZoomLevel : 18
+				});
+				//			var blank          = new OpenLayers.Layer.OSM("Kein Hintergrund",  "/karten/404.png",                        { maxZoomLevel: 17, numZoomLevels: 18 });
+				//
+							var einsatz        = new OpenLayers.Layer.OSM("Einsätze"         , '@routes.Assets.at("images/tiles.json")',       {minZoomLevel: 9, maxZoomLevel: 18, alpha:false, isBaseLayer: false, attribution : '<b>VS - NfD</b>' });
+				//			var hydranten      = new OpenLayers.Layer.OSM("Hydranten"        , "/karten/hytiles/${z}/${x}/${y}.png",     {minZoomLevel:10, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+				//			var hydrantenref   = new OpenLayers.Layer.OSM("Hydranten Ref"    , "/karten/hyreftiles/${z}/${x}/${y}.png",  {minZoomLevel:15, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+				//			var hausnummern    = new OpenLayers.Layer.OSM("Hausnummern LHM"  , "/karten/hnrtiles/${z}/${x}/${y}.png",    {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+				//			var hausnummernosm = new OpenLayers.Layer.OSM("Hausnummern OSM"  , "/karten/hnrosmtiles/${z}/${x}/${y}.png", {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+				//			var hausnummernlvm = new OpenLayers.Layer.OSM("Hausnummern LVM"  , "/karten/hnrlvmtiles/${z}/${x}/${y}.png", {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
+				//
+				//	        var mitglieder = new OpenLayers.Layer.Text( "FFM Mitglieder", {location: '@routes.Assets.at("images/mitglieder.txt")'} );
+				//	        var standorte = new OpenLayers.Layer.Text( "FFM Gerätehäuser", {location: "./standorte.txt", visibility: true} );
 
-			var gsat = new OpenLayers.Layer.Google("Google Satellite",{type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22 ,isBaseLayer: true })
-//			var osm            = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-			var printer        = new OpenLayers.Layer.OSM("S/W Straßenkartei", "/karten/swtiles/${z}/${x}/${y}.png",     {minZoomLevel: 9, maxZoomLevel: 18 });
-//			var blank          = new OpenLayers.Layer.OSM("Kein Hintergrund",  "/karten/404.png",                        { maxZoomLevel: 17, numZoomLevels: 18 });
-//
-////			var einsatz        = new OpenLayers.Layer.OSM("Einsätze"         , "/karten/tiles/${z}/${x}/${y}.png",       {minZoomLevel: 9, maxZoomLevel: 18, alpha:false, isBaseLayer: false, attribution : '<b>VS - NfD</b>' });
-//			var hydranten      = new OpenLayers.Layer.OSM("Hydranten"        , "/karten/hytiles/${z}/${x}/${y}.png",     {minZoomLevel:10, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
-//			var hydrantenref   = new OpenLayers.Layer.OSM("Hydranten Ref"    , "/karten/hyreftiles/${z}/${x}/${y}.png",  {minZoomLevel:15, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
-//			var hausnummern    = new OpenLayers.Layer.OSM("Hausnummern LHM"  , "/karten/hnrtiles/${z}/${x}/${y}.png",    {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
-//			var hausnummernosm = new OpenLayers.Layer.OSM("Hausnummern OSM"  , "/karten/hnrosmtiles/${z}/${x}/${y}.png", {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
-//			var hausnummernlvm = new OpenLayers.Layer.OSM("Hausnummern LVM"  , "/karten/hnrlvmtiles/${z}/${x}/${y}.png", {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
-//
-//	        var mitglieder = new OpenLayers.Layer.Text( "FFM Mitglieder", {location: "./mitglieder.txt", visibility: false} );
-//	        var standorte = new OpenLayers.Layer.Text( "FFM Gerätehäuser", {location: "./standorte.txt", visibility: true} );
+				var colors = {
+					verylow : '#00FF00', // < 5
+					low : '#FFFF00', //  5 ..  15
+					middle : '#FA9600', // 15 ..  50
+					high : '#FA0000', // 50 .. 100
+					veryhigh : '#AF0064' // > 100
+				};
 
+				// Define three rules to style the cluster features.
+				var verylowRule = new OpenLayers.Rule({
+					filter : new OpenLayers.Filter.Comparison({
+						type : OpenLayers.Filter.Comparison.LESS_THAN,
+						property : "count",
+						value : 5
+					}),
+					symbolizer : {
+						fillColor : colors.verylow,
+						fillOpacity : 0.9,
+						strokeColor : colors.verylow,
+						strokeOpacity : 0.5,
+						strokeWidth : 12,
+						pointRadius : 8,
+						label : "${count}",
+						labelOutlineWidth : 0,
+						fontColor : "#000000",
+						fontOpacity : 0.8,
+						fontSize : "12px"
+					}
+				});
+				var lowRule = new OpenLayers.Rule({
+					filter : new OpenLayers.Filter.Comparison({
+						type : OpenLayers.Filter.Comparison.BETWEEN,
+						property : "count",
+						lowerBoundary : 5,
+						upperBoundary : 15
+					}),
+					symbolizer : {
+						fillColor : colors.low,
+						fillOpacity : 0.9,
+						strokeColor : colors.low,
+						strokeOpacity : 0.5,
+						strokeWidth : 12,
+						pointRadius : 10,
+						label : "${count}",
+						labelOutlineWidth : 0,
+						fontColor : "#000000",
+						fontOpacity : 0.8,
+						fontSize : "12px"
+					}
+				});
+				var middleRule = new OpenLayers.Rule({
+					filter : new OpenLayers.Filter.Comparison({
+						type : OpenLayers.Filter.Comparison.BETWEEN,
+						property : "count",
+						lowerBoundary : 15,
+						upperBoundary : 50
+					}),
+					symbolizer : {
+						fillColor : colors.middle,
+						fillOpacity : 0.9,
+						strokeColor : colors.middle,
+						strokeOpacity : 0.5,
+						strokeWidth : 12,
+						pointRadius : 15,
+						label : "${count}",
+						labelOutlineWidth : 0,
+						fontColor : "#000000",
+						fontOpacity : 0.8,
+						fontSize : "12px"
+					}
+				});
+				var highRule = new OpenLayers.Rule({
+					filter : new OpenLayers.Filter.Comparison({
+						type : OpenLayers.Filter.Comparison.BETWEEN,
+						property : "count",
+						lowerBoundary : 50,
+						upperBoundary : 100
+					}),
+					symbolizer : {
+						fillColor : colors.high,
+						fillOpacity : 0.9,
+						strokeColor : colors.high,
+						strokeOpacity : 0.5,
+						strokeWidth : 12,
+						pointRadius : 19,
+						label : "${count}",
+						labelOutlineWidth : 0,
+						fontColor : "#000000",
+						fontOpacity : 0.8,
+						fontSize : "12px"
+					}
+				});
+				var veryhighRule = new OpenLayers.Rule({
+					filter : new OpenLayers.Filter.Comparison({
+						type : OpenLayers.Filter.Comparison.GREATER_THAN,
+						property : "count",
+						value : 100
+					}),
+					symbolizer : {
+						fillColor : colors.veryhigh,
+						fillOpacity : 0.9,
+						strokeColor : colors.veryhigh,
+						strokeOpacity : 0.5,
+						strokeWidth : 12,
+						pointRadius : 23,
+						label : "${count}",
+						labelOutlineWidth : 0,
+						fontColor : "#ffffff",
+						fontOpacity : 0.8,
+						fontSize : "12px"
+					}
+				});
 
+				// Create a Style that uses the three previous rules
+				var style = new OpenLayers.Style(null, {
+					rules : [verylowRule, lowRule, middleRule, highRule, veryhighRule]
+				});
 
-            var colors = {
-                verylow: '#00FF00',  // < 5
-                low:     '#FFFF00',  //  5 ..  15
-                middle:  '#FA9600',  // 15 ..  50
-                high:    '#FA0000',  // 50 .. 100
-                veryhigh:'#AF0064'   // > 100
-            };
+				// Create a vector layers
+				var einsatz = new OpenLayers.Layer.Vector("Einsätze", {
+					protocol : new OpenLayers.Protocol.HTTP({
+						url : '@routes.Assets.at("images/Offer.json")',
+						//                    url: "fire.json",
+						format : new OpenLayers.Format.GeoJSON()
+					}),
+					renderers : ['Canvas', 'SVG'],
+					strategies : [new OpenLayers.Strategy.Fixed(), new OpenLayers.Strategy.AnimatedCluster({
+						distance : 50,
 
+						animationMethod : OpenLayers.Easing.Quad.easeOut,
+						animationDuration : 15
+					})],
+					styleMap : new OpenLayers.StyleMap(style),
+					attribution : '<b>VS - NfD</b>'
+				});
 
-            // Define three rules to style the cluster features.
-            var verylowRule = new OpenLayers.Rule({
-                filter: new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LESS_THAN,
-                    property: "count",
-                    value: 5
-                }),
-                symbolizer: {
-                    fillColor: colors.verylow,
-                    fillOpacity: 0.9,
-                    strokeColor: colors.verylow,
-                    strokeOpacity: 0.5,
-                    strokeWidth: 12,
-                    pointRadius: 8,
-                    label: "${count}",
-                    labelOutlineWidth: 0,
-                    fontColor: "#000000",
-                    fontOpacity: 0.8,
-                    fontSize: "12px"
-                }
-            });
-            var lowRule = new OpenLayers.Rule({
-                filter: new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.BETWEEN,
-                    property: "count",
-                    lowerBoundary: 5,
-                    upperBoundary: 15
-                }),
-                symbolizer: {
-                    fillColor: colors.low,
-                    fillOpacity: 0.9,
-                    strokeColor: colors.low,
-                    strokeOpacity: 0.5,
-                    strokeWidth: 12,
-                    pointRadius: 10,
-                    label: "${count}",
-                    labelOutlineWidth: 0,
-                    fontColor: "#000000",
-                    fontOpacity: 0.8,
-                    fontSize: "12px"
-                }
-            });
-            var middleRule = new OpenLayers.Rule({
-                filter: new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.BETWEEN,
-                    property: "count",
-                    lowerBoundary: 15,
-                    upperBoundary: 50
-                }),
-                symbolizer: {
-                    fillColor: colors.middle,
-                    fillOpacity: 0.9,
-                    strokeColor: colors.middle,
-                    strokeOpacity: 0.5,
-                    strokeWidth: 12,
-                    pointRadius: 15,
-                    label: "${count}",
-                    labelOutlineWidth: 0,
-                    fontColor: "#000000",
-                    fontOpacity: 0.8,
-                    fontSize: "12px"
-                }
-            });
-            var highRule = new OpenLayers.Rule({
-                filter: new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.BETWEEN,
-                    property: "count",
-                    lowerBoundary: 50,
-                    upperBoundary: 100
-                }),
-                symbolizer: {
-                    fillColor: colors.high,
-                    fillOpacity: 0.9,
-                    strokeColor: colors.high,
-                    strokeOpacity: 0.5,
-                    strokeWidth: 12,
-                    pointRadius: 19,
-                    label: "${count}",
-                    labelOutlineWidth: 0,
-                    fontColor: "#000000",
-                    fontOpacity: 0.8,
-                    fontSize: "12px"
-                }
-            });
-            var veryhighRule = new OpenLayers.Rule({
-                filter: new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.GREATER_THAN,
-                    property: "count",
-                    value: 100
-                }),
-                symbolizer: {
-                    fillColor: colors.veryhigh,
-                    fillOpacity: 0.9,
-                    strokeColor: colors.veryhigh,
-                    strokeOpacity: 0.5,
-                    strokeWidth: 12,
-                    pointRadius: 23,
-                    label: "${count}",
-                    labelOutlineWidth: 0,
-                    fontColor: "#ffffff",
-                    fontOpacity: 0.8,
-                    fontSize: "12px"
-                }
-            });
+				//map.addLayers([ gsat,printer, mitglieder]);
+				map.addLayers([einsatz, gsat]);
 
-            // Create a Style that uses the three previous rules
-            var style = new OpenLayers.Style(null, {
-                rules: [verylowRule, lowRule, middleRule, highRule, veryhighRule]
-            });
+				selectControl = new OpenLayers.Control.SelectFeature(einsatz);
+				map.addControl(selectControl);
+				selectControl.activate();
+				einsatz.events.on({
+					'featureselected' : onFeatureSelect,
+					'featureunselected' : onFeatureUnselect
+				});
 
-            // Create a vector layers
-            var einsatz = new OpenLayers.Layer.Vector("Einsätze", {
-                protocol: new OpenLayers.Protocol.HTTP({
-                    url: "fire.php",
-//                    url: "fire.json",
-                    format: new OpenLayers.Format.GeoJSON()
-                }),
-                renderers: ['Canvas','SVG'],
-                strategies: [
-                    new OpenLayers.Strategy.Fixed(),
-                    new OpenLayers.Strategy.AnimatedCluster({
-                        distance: 50,
+				if (! map.getCenter()) {
+					var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+					map.setCenter(lonLat, zoom);
+				}
+			}
 
-                        animationMethod: OpenLayers.Easing.Quad.easeOut,
-                        animationDuration: 15
-                    })
-                ],
-                styleMap:  new OpenLayers.StyleMap(style),
-                attribution : '<b>VS - NfD</b>'
-            });
+		</script>
 
-map.addLayers([ gsat,printer]);
-			//map.addLayers([ einsatz, gsat,printer]);
+		<style type="text/css">
+			#Einsatzort {
+				font-size: 12px;
+				font-family: arial;
+			}
 
-			//selectControl = new OpenLayers.Control.SelectFeature(einsatz);
-           // map.addControl(selectControl);
-           // selectControl.activate();
-			einsatz.events.on({
-                    'featureselected': onFeatureSelect,
-                    'featureunselected': onFeatureUnselect
-            });
+			.olImageLoadError {
+				/*opacity: 0 !important;*/
+				/*filter: alpha(opacity=0) !important;*/
+				/*display: none !important;*/
+			}
 
+			div.olPopupContent h2 {
+				font-family: arial;
+				font-size: 120%;
+				margin-bottom: 0.5em;
+				border-bottom: 1px solid #aaa;
+			}
 
+			div.olPopupContent p {
+				font-size: 12px;
+				font-family: arial;
+			}
 
-            if( ! map.getCenter() ){
-                var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
-                map.setCenter (lonLat, zoom);
-            }
-        }
-
-
- </script>
-
- <style type="text/css">
-         #Einsatzort {
-         	font-size: 12px;
-         	font-family: arial;
-		 }
-
-        .olImageLoadError {
-            opacity: 0 !important;
-            filter: alpha(opacity=0) !important;
-			display: none !important;
-        }
-
-        div.olPopupContent h2 {
-         	font-family: arial;
-	        font-size: 120%;
-		margin-bottom: 0.5em;
-		border-bottom: 1px solid #aaa;
-        }
-
-        div.olPopupContent p {
-         	font-size: 12px;
-         	font-family: arial;        
-        }
-
-
-    </style>
+		</style>
 
 	</head>
 	<body onload="init();">
 
-			@menubar
+		@menubar
 		<div class="title" style="text-align:center">
 			<h1>Look for offers</h1>
 		</div>
@@ -355,7 +337,10 @@ map.addLayers([ gsat,printer]);
 						</div>
 						<div class="panel-body">
 							<br>
-							 <div style="width:100%; height:100%" id="map"></div>
+							<div style="width:100%; height:100%" id="map">
+								
+								
+							</div>
 						</div>
 					</div>
 				</div>
@@ -382,136 +367,135 @@ map.addLayers([ gsat,printer]);
 					<div class="panel-body">
 						<div class="row">
 
-						<div>
-							<div class="row">
+							<div>
+								<div class="row">
 
-								<script>
-									$("#searchWarning").hide();
-								</script>
-								<div class ="" style="text-align:center">
-									<h2> Location</h2>
-								</div>
-								<div class="col col-md-3">
-									@if(city != null){
+									<script>
+										$("#searchWarning").hide();
+									</script>
+									<div class ="" style="text-align:center">
+										<h2> Location</h2>
+									</div>
+									<div class="col col-md-3">
+										@if(city != null){
 										<input id="city" class="form-control" type="text" value= "@city" autofocus="" placeholder="City" >
-									}else{
-										<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
-									}
-									
-								</div>
-								<div class="col col-md-3">
-									<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
-								</div>
-								<div class="col col-md-4">
-
-									<div id="radius" class="input-group">
-										<span class="input-group-addon">search area:</span>
-										<input id="radiusinput" class="form-control" type="number" name="circuit" min="1" value="5" max="100" step="0.5">
-										<span class="input-group-addon">km</span>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="row">
-								<div style="text-align:center">
-									<h2>Space</h2>
-								</div>
-								<div class="col col-md-4">
-									<div id="spacesize" class="input-group">
-										<span class="input-group-addon">size:</span>
-										@if(spacesize !=null){
-											<input id="spacesizeinput" class="form-control" type="number" value="@spacesize" name="size" min="1" value="5" max="100" step="0.5">
 										}else{
-											<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
+										<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
 										}
-										
-										<span class="input-group-addon">m²</span>
+
 									</div>
-								</div>
-							</div>
-							<br>
-							<div class="row">
+									<div class="col col-md-3">
+										<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
+									</div>
+									<div class="col col-md-4">
 
-								<div class="col-md-4">
-
-									<div id="dtpfrom" class="input-append date">
-										<div class="input-group">
-											<span class="input-group-addon">From:</span>
-											<input id="dtpfrominput" class="form-control" type="text">
-											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-
+										<div id="radius" class="input-group">
+											<span class="input-group-addon">search area:</span>
+											<input id="radiusinput" class="form-control" type="number" name="circuit" min="1" value="5" max="100" step="0.5">
+											<span class="input-group-addon">km</span>
 										</div>
 									</div>
-
-									<script type="text/javascript">
-										$(function() {
-											$('#dtpfrom').datetimepicker({
-												format : 'dd.MM.yyyy',
-												language : 'pt-BR'
-											});
-										});
-									</script>
 								</div>
-								<div class="col-md-4 col-md-offset-1">
-									<div id="dtpto" class="input-append date">
-										<div class="input-group">
-											<span class="input-group-addon">To:</span>
-											<input id="dtptoinput" class="form-control"  type="text">
-											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+								<hr>
+								<div class="row">
+									<div style="text-align:center">
+										<h2>Space</h2>
+									</div>
+									<div class="col col-md-4">
+										<div id="spacesize" class="input-group">
+											<span class="input-group-addon">size:</span>
+											@if(spacesize !=null){
+											<input id="spacesizeinput" class="form-control" type="number" value="@spacesize" name="size" min="1" value="5" max="100" step="0.5">
+											}else{
+											<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
+											}
+
+											<span class="input-group-addon">m²</span>
 										</div>
 									</div>
-
-									<script type="text/javascript">
-										$(function() {
-											$('#dtpto').datetimepicker({
-												format : 'dd.MM.yyyy',
-												language : 'pt-BR'
-											});
-										});
-									</script>
 								</div>
+								<br>
+								<div class="row">
 
-							</div>
-							<hr>
-							<div class="row">
+									<div class="col-md-4">
 
-								<div class ="" style="text-align:center">
-									<h2>Pricing</h2>
+										<div id="dtpfrom" class="input-append date">
+											<div class="input-group">
+												<span class="input-group-addon">From:</span>
+												<input id="dtpfrominput" class="form-control" type="text">
+												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
 
-									Max price:
-									<b> 0 </b>
-									<div  class="slider slider-horizontal" style="width: 200px;">
+											</div>
+										</div>
 
-										<div class="slider-track"></div>
-										<div class="tooltip top" style="top: -40px; left: 79.5px;"></div>
-										<input id="maxPrice" class="span2" type="text" style="" >
-
+										<script type="text/javascript">
+											$(function() {
+												$('#dtpfrom').datetimepicker({
+													format : 'dd.MM.yyyy',
+													language : 'pt-BR'
+												});
+											});
+										</script>
 									</div>
-									<b> 100 € </b>
-									<script type="text/javascript">
-										$(function() {
-											$('#maxPrice').slider({
-												min : '0',
-												step : '1',
-												max : '100'
-											});
-										});
-									</script>
-								</div>
-							</div>
+									<div class="col-md-4 col-md-offset-1">
+										<div id="dtpto" class="input-append date">
+											<div class="input-group">
+												<span class="input-group-addon">To:</span>
+												<input id="dtptoinput" class="form-control"  type="text">
+												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+											</div>
+										</div>
 
-							<hr>
-							<button id="search" class="btn btn-default" style="vertical-align: top; float: right" type="button" >
-								Search
-							</button>
+										<script type="text/javascript">
+											$(function() {
+												$('#dtpto').datetimepicker({
+													format : 'dd.MM.yyyy',
+													language : 'pt-BR'
+												});
+											});
+										</script>
+									</div>
+
+								</div>
+								<hr>
+								<div class="row">
+
+									<div class ="" style="text-align:center">
+										<h2>Pricing</h2>
+
+										Max price:
+										<b> 0 </b>
+										<div  class="slider slider-horizontal" style="width: 200px;">
+
+											<div class="slider-track"></div>
+											<div class="tooltip top" style="top: -40px; left: 79.5px;"></div>
+											<input id="maxPrice" class="span2" type="text" style="" >
+
+										</div>
+										<b> 100 € </b>
+										<script type="text/javascript">
+											$(function() {
+												$('#maxPrice').slider({
+													min : '0',
+													step : '1',
+													max : '100'
+												});
+											});
+										</script>
+									</div>
+								</div>
+
+								<hr>
+								<button id="search" class="btn btn-default" style="vertical-align: top; float: right" type="button" >
+									Search
+								</button>
+							</div>
 						</div>
-					</div>
-						
+
 					</div>
 				</div>
 			</div>
 
-			
 		</section>
 		<!-- end search input -->
 		<hr>
