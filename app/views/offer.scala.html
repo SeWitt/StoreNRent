@@ -100,14 +100,14 @@
 
 				<div class="row">
 					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
+						<div class="panel-heading" style="text-align: center">
 							Description
 						</div>
 						
 						<div class="panel-body">
 							<div class="col-md-10" 
 								style="float:none; margin: 0 auto; overflow: scroll; overflow-x: hidden; 
-									height: 300px; padding: 2% 0 2% 0">
+									height: 50%; padding: 2% 0 2% 0">
 								@Html(offer.description)
 							</div>
 						</div>
@@ -339,56 +339,62 @@
 							Contact Person
 						</div>
 						<div class="panel-body" style="text-align: center">
-							<div class="col-md-9" style="float:none; margin: 0 auto">
+							<div class="col-md-9" style="float:none; margin: 0 auto; padding: 2%">
 								<table class="table">
-								<tbody>
-									<tr>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											Name:
-										</td>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											<label>@offer.owner.surname @offer.owner.lastName</label>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											Birthdate:
-										</td>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											<label>@{
-												var birthdate = offer.owner.dateOfBirth
-												var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.TIMEFORMAT)
-												var strDate = format.format(birthdate);
-												strDate
-											}</label>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											Id Verified:
-										</td>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											<img alt="@if(offer.owner.isVerified) {Yes} else {No}" 
-												src="@{if(offer.owner.isVerified) {routes.Assets.at("images/icon-ok.png")} else {routes.Assets.at("images/icon-false.png")}}"></img>
-										</td>
-									</tr>
-									
-									<tr>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											Activity Status:
-										</td>
-										<td style="vertical-align: middle; border-top: 0; line-height: 1">
-											<label>@if(offer.owner.isActive) {
-												<font color=green>Active</font>
-											} else {
-												<font color=red>Inactive</font>
-											}</label>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+									<tbody>
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												Name:
+											</td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												<label>@offer.owner.surname @offer.owner.lastName</label>
+											</td>
+										</tr>
+										
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												Birthdate:
+											</td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												<label>@{
+													var birthdate = offer.owner.dateOfBirth
+													var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.TIMEFORMAT)
+													var strDate = format.format(birthdate);
+													strDate
+												}</label>
+											</td>
+										</tr>
+										
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												Id Verified:
+											</td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												<img alt="@if(offer.owner.isVerified) {Yes} else {No}" 
+													src='@{
+														if(offer.owner.isVerified) {
+															routes.Assets.at("images/icon-ok.png")
+														} else {
+															routes.Assets.at("images/icon-false.png")
+														}
+													}'>
+											</td>
+										</tr>
+										
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												Activity Status:
+											</td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1">
+												<label>@if(offer.owner.isActive) {
+													<font color=green>Active</font>
+												} else {
+													<font color=red>Inactive</font>
+												}</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>

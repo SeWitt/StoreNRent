@@ -95,7 +95,7 @@ public class OfferServiceDummy implements OfferService {
 		p.personSettings.sendNewsletter = true;
 		
 		offer.owner = p;
-		offer.subHeader = "really cheap storage!!!";
+		offer.subHeader = "Really cheap storage!!!";
 		offer.transactionClosed = false;
 		offer.visitCount = 1337;
 		
