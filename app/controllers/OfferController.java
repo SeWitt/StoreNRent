@@ -1,5 +1,9 @@
 package controllers;
 
+import geo.google.GeoAddressStandardizer;
+import geo.google.datamodel.GeoAddress;
+import geo.google.datamodel.GeoCoordinate;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -233,6 +237,30 @@ public class OfferController extends Controller {
 
 					//download pictures
 									
+					try {
+						// Initialize a new GeoAddressStandardizer-class with your API-Key
+						GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
+						String strAdd = 
+								o.street +
+								" " +
+								o.houseNr +
+								", " +
+								o.postCode +
+								" " + 
+								o.city +
+								", " +
+								o.country;
+						
+						List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
+						GeoAddress address = addresses.get(0);
+						GeoCoordinate coords = address.getCoordinate();
+						double longitude = coords.getLongitude();
+						double latitude = coords.getLatitude();
+						o.geolocX = longitude;
+						o.geolocY = latitude;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					
 					o = offerService.createOffer(o);
 					flash("success", "Successfully created!");
