@@ -26,6 +26,6 @@ public interface PersonService {
 	 * 
 	 * @param personID
 	 */
-	public abstract Person findPersonByID(long personID);
+	public abstract Person findPersonByID(int personID);
 
 }

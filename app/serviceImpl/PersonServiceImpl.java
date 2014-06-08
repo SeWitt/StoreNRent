@@ -45,7 +45,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public Person findPersonByID(long personID) {
+	public Person findPersonByID(int personID) {
 		return personRepo.findPersonByID(personID);
 	}
 

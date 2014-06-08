@@ -33,7 +33,7 @@ public class Offer {
 	@Id
 	@GeneratedValue
 	@Column(name="OFFER_ID")
-	public long id;
+	public int id;
 	
 	@Column(name="CITY")
 	public String city;

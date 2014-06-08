@@ -51,7 +51,7 @@ public class OfferServiceImpl implements OfferService {
 	}
 
 	@Override
-	public Offer findByOfferID(long offerID) {
+	public Offer findByOfferID(int offerID) {
 		
 		return offerRepo.findOfferByID(offerID);
 	}

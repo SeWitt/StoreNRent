@@ -52,7 +52,7 @@ public class OfferForm{
 		acceptor = o.acceptor;
 	}
 
-	public long id;
+	public int id;
 	
 	@MinLength(value = 4 , message ="The city name must be longer than 4 characters!")
 	@Required(message = "Please insert a city name!")

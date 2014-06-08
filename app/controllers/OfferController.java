@@ -54,7 +54,7 @@ public class OfferController extends Controller {
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 
 		// search offer
-		Offer o = offerService.findByOfferID(id.longValue());
+		Offer o = offerService.findByOfferID(id.intValue());
 		session("offerid", "" + o.id);
 		// create acceptance form
 		Form<OfferAcceptForm> offerForm = Form.form(OfferAcceptForm.class);
@@ -87,7 +87,7 @@ public class OfferController extends Controller {
 
 			if (action.equals("submit")) {
 //				System.out.println("submit");
-				long offerid = Long.parseLong(session("offerid"));
+				int offerid = Integer.parseInt(session("offerid"));
 				Offer o = offerService.findByOfferID(offerid);
 				
 			
@@ -176,7 +176,7 @@ public class OfferController extends Controller {
 	public static Result edit(Long id) {
 
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
-		Offer o = offerService.findByOfferID(id.longValue());
+		Offer o = offerService.findByOfferID(id.intValue());
 
 		OfferForm of = new OfferForm(o);
 

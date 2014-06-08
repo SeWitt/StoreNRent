@@ -8,6 +8,7 @@ import java.util.List;
 import models.Offer;
 import models.Person;
 import models.PersonSettings;
+import repository.PersonRepository;
 import service.OfferService;
 import service.PersonalSettingsService;
 
@@ -46,7 +47,7 @@ public class OfferServiceDummy implements OfferService {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Offer findByOfferID(long offerID) {
+	public Offer findByOfferID(int offerID) {
 		
 		Offer offer = new Offer();
 		

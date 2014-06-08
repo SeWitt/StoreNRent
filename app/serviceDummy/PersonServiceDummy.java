@@ -24,7 +24,7 @@ public class PersonServiceDummy implements PersonService {
 	}
 
 	@Override
-	public Person findPersonByID(long personID) {
+	public Person findPersonByID(int personID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

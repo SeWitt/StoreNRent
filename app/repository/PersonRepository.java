@@ -3,6 +3,7 @@ import javax.persistence.EntityManager;
 
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
+import play.mvc.Controller;
 import models.Person;
 
 /**
@@ -10,23 +11,24 @@ import models.Person;
  * @version 1.0
  * @created 23-Mai-2014 16:53:24
  */
-public class PersonRepository {
-	EntityManager em;
+public class PersonRepository extends Controller{
+	//	private static EntityManager em = JPA.em();
 
 	public PersonRepository(){
-		em = JPA.em();
-	}
-
-	public void finalize() throws Throwable {
 
 	}
+
+	//	public void finalize() throws Throwable {
+	//
+	//	}
 
 	/**
 	 * 
 	 * @param person
 	 */
 	@Transactional
-	public Person createPerson(Person person){
+	public static Person createPerson(Person person){
+		EntityManager em = JPA.em();
 		em.persist(person);
 		em.flush();
 		return person;
@@ -37,7 +39,8 @@ public class PersonRepository {
 	 * @param person
 	 */
 	@Transactional
-	public Person updatePerson(Person person){
+	public static Person updatePerson(Person person){
+		EntityManager em = JPA.em();
 		em.merge(person);
 		em.flush();
 		return person;
@@ -48,8 +51,9 @@ public class PersonRepository {
 	 * @param id
 	 */
 	@Transactional(readOnly=true)
-	public Person findPersonByID(long id){
-		 return em.find(Person.class, id);
+	public static Person findPersonByID(int id){
+		EntityManager em = JPA.em();
+		return em.find(Person.class, id);
 	}
 
 }

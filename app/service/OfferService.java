@@ -29,7 +29,7 @@ public interface OfferService {
 	 * 
 	 * @param offerID
 	 */
-	public abstract Offer findByOfferID(long offerID);
+	public abstract Offer findByOfferID(int offerID);
 
 	/**
 	 * 
