@@ -51,10 +51,10 @@ public class Offer {
 	public String country;
 	
 	@Column(name="GEOLOCX")
-	public String geolocX;
+	public double geolocX;
 	
 	@Column(name="GEOLOCY")
-	public String geolocY;
+	public double geolocY;
 	
 //	@Lob
 //	@Column(length=100000, name="PICTURE")
@@ -183,8 +183,18 @@ public class Offer {
 		postCode = of.postCode;
 		houseNr = of.houseNr;
 		country = of.country;
-		geolocX = of.geolocX;
-		geolocY = of.geolocY;
+		try{
+			geolocX = (new Double(of.geolocX)).doubleValue();
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO
+		}
+		try{
+			geolocY = (new Double(of.geolocY)).doubleValue();
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO
+		}
 //		picture = of.picture;
 		price = of.price;
 		isActive = of.isActive;

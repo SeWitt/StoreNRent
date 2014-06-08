@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
+import models.Account;
 import models.Offer;
 import models.Person;
 import models.SearchAttributes;
@@ -51,7 +52,11 @@ public class OfferRepository {
 	 */
 	@Transactional
 	public List<Offer> findOfferByOwner(Person owner){
-		return null;
+		return em.createQuery(
+			    "SELECT c FROM OFFER c WHERE c.owner_id LIKE :custId")
+			    .setParameter("custId", owner.id)
+			    .setMaxResults(10)
+			    .getResultList();
 	}
 
 	/**
@@ -69,7 +74,11 @@ public class OfferRepository {
 	 */
 	@Transactional
 	public List<Offer> findOfferByAcceptor(Person acceptor){
-		return null;
+		return em.createQuery(
+			    "SELECT c FROM OFFER c WHERE c.acceptor_id LIKE :custId")
+			    .setParameter("custId", acceptor.id)
+			    .setMaxResults(10)
+			    .getResultList();
 	}
 
 	/**

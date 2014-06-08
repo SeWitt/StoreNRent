@@ -21,8 +21,8 @@ public class OfferForm{
 		postCode = o.postCode;
 		houseNr = o.houseNr;
 		country = o.country;
-		geolocX = o.geolocX;
-		geolocY = o.geolocY;
+		geolocX = o.geolocX + "";
+		geolocY = o.geolocY + "";
 		picturePath1 = o.picturePath1;
 		picturePath2 = o.picturePath2;
 		picturePath3 = o.picturePath3;
