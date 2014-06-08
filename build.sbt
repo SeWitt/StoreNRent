@@ -10,7 +10,7 @@ scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaJpa,
+  javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
   javaCore,
   cache,
   "org.hibernate" % "hibernate-entitymanager" % "4.3.5.Final",
