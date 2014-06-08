@@ -11,14 +11,14 @@
 						<th style="text-align:center"> Description </th>
 						<th style="text-align:center"> Timeslot </th>
 						<th style="text-align:center"> Distance </th>
-						<th style="text-align:center"> Price (€/ per day) </th>
+						<th style="text-align:center"> Price (ï¿½/ per day) </th>
 					</tr>
 				</thead>
 				<tbody>
 
 					@for(offer <- offers){
 					<tr style="text-align:center">
-						@if(offer.picture == null ) {
+						@if(offer.picturePath1 == null ) {
 						<td style="text-align:center"><img height="60" width="80" src="@routes.Assets.at("images/defaultPicture.png")"  /></td>
 						}else{
 						picture to be placed here...
