@@ -53,7 +53,6 @@ public class OfferController extends Controller {
 																							// "..Dummy"
 
 	public static Result index(Long id) {
-
 		// menue bar
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 
@@ -71,8 +70,7 @@ public class OfferController extends Controller {
 //		System.out.println("to index: " + oaf.to);
 		offerForm.fill(oaf);
 
-		Html content = views.html.offer.render(offerForm, menubar,
-				new OfferForm(o));
+		Html content = views.html.offer.render(offerForm, menubar, o);
 		return ok(content);
 	}
 
@@ -108,7 +106,7 @@ public class OfferController extends Controller {
 		            flash("error", "Please correct the following errors: " + errorMsg);
 		           
 				 Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
-				 result =  badRequest(views.html.offer.render(form, menubar, new OfferForm(o)));
+				 result =  badRequest(views.html.offer.render(form, menubar, o));
 			} else {
 							
 				OfferAcceptForm oaf = form.get();
@@ -132,7 +130,7 @@ public class OfferController extends Controller {
 					}
 					
 					flash("error", "Please correct the following errors: " + error);
-					return badRequest(views.html.offer.render(form, menubar, new OfferForm(o)));
+					return badRequest(views.html.offer.render(form, menubar, o));
 				}
 				//here all is valid!
 				

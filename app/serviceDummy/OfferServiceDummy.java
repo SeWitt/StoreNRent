@@ -55,34 +55,44 @@ public class OfferServiceDummy implements OfferService {
 		offer.houseNr = "12";
 		offer.city = "München";
 		offer.country = "Germany";
+		offer.geolocX = 48.138914;
+		offer.geolocY = 11.580177;
 		offer.createdDate = new Timestamp(System.currentTimeMillis());
-		offer.description = "a nice beatiful room to place anything";
+		offer.description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr.<br><br> Sed diam "
+				+ "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed "
+				+ "diam voluptua. <br><br>At vero eos et accusam et justo duo dolores et ea rebum. Stet "
+				+ "clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. "
+				+ "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy "
+				+ "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam "
+				+ "voluptua. <br>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita "
+				+ "kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
 		offer.header = "10 m³ for low price";
 		offer.isActive = true;
 		offer.lastEditedDate = offer.createdDate;
 		offer.offerFrom = new Timestamp(System.currentTimeMillis());
 		offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
 		offer.price = 8.5;
-		 Person p = new Person();
-			p.city = "Muenchen";
-			p.country = "Deutschland";
-			p.created = new Timestamp(new Date().getTime());
-			p.dateOfBirth = new Timestamp(new Date().getTime());
-			p.houseNr = "42";
-			p.id = 6;
-			p.isActive = true;
-			p.isVerified = true;
-			p.lastEdited = p.created;
-			p.lastName = "Dummy";
-			p.postCode = "12345";
-			p.street = "Boltzmannstr";
-			p.surname = "Peter";
-			p.personSettings = new PersonSettings();
-			p.personSettings.displayFirstNameOnly = false;
-			p.personSettings.id = 3;
-			p.personSettings.isActive = true;
-			p.personSettings.person = p;
-			p.personSettings.sendNewsletter = true;
+		
+		Person p = new Person();
+		p.city = "Muenchen";
+		p.country = "Deutschland";
+		p.created = new Timestamp(new Date().getTime());
+		p.dateOfBirth = new Timestamp(new Date().getTime());
+		p.houseNr = "42";
+		p.id = 6;
+		p.isActive = true;
+		p.isVerified = true;
+		p.lastEdited = p.created;
+		p.lastName = "Dummy";
+		p.postCode = "12345";
+		p.street = "Boltzmannstr";
+		p.surname = "Peter";
+		p.personSettings = new PersonSettings();
+		p.personSettings.displayFirstNameOnly = false;
+		p.personSettings.id = 3;
+		p.personSettings.isActive = true;
+		p.personSettings.person = p;
+		p.personSettings.sendNewsletter = true;
 		
 		offer.owner = p;
 		offer.subHeader = "really cheap storage!!!";
@@ -150,26 +160,26 @@ public class OfferServiceDummy implements OfferService {
 			offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
 			offer.price = 8.5;
 			
-			 Person p = new Person();
-				p.city = "Muenchen";
-				p.country = "Deutschland";
-				p.created = new Timestamp(new Date().getTime());
-				p.dateOfBirth = new Timestamp(new Date().getTime());
-				p.houseNr = "42";
-				p.id = 6;
-				p.isActive = true;
-				p.isVerified = true;
-				p.lastEdited = p.created;
-				p.lastName = "Dummy";
-				p.postCode = "12345";
-				p.street = "Boltzmannstr";
-				p.surname = "Peter";
-				p.personSettings = new PersonSettings();
-				p.personSettings.displayFirstNameOnly = false;
-				p.personSettings.id = 3;
-				p.personSettings.isActive = true;
-				p.personSettings.person = p;
-				p.personSettings.sendNewsletter = true;
+			Person p = new Person();
+			p.city = "Muenchen";
+			p.country = "Deutschland";
+			p.created = new Timestamp(new Date().getTime());
+			p.dateOfBirth = new Timestamp(new Date().getTime());
+			p.houseNr = "42";
+			p.id = 6;
+			p.isActive = true;
+			p.isVerified = true;
+			p.lastEdited = p.created;
+			p.lastName = "Dummy";
+			p.postCode = "12345";
+			p.street = "Boltzmannstr";
+			p.surname = "Peter";
+			p.personSettings = new PersonSettings();
+			p.personSettings.displayFirstNameOnly = false;
+			p.personSettings.id = 3;
+			p.personSettings.isActive = true;
+			p.personSettings.person = p;
+			p.personSettings.sendNewsletter = true;
 			
 			offer.owner = p;
 			offer.acceptor  = person;

@@ -1,6 +1,5 @@
-@(form: play.data.Form[models.OfferAcceptForm])(menubar: Html)(offer: OfferForm)
+@(form: play.data.Form[models.OfferAcceptForm])(menubar: Html)(offer: Offer)
 
-<!DOCTYPE html>
 <html>
 	<head>
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
@@ -46,9 +45,6 @@
 				}
 
 			</div>
-			
-			
-			
 			
 			<div class="row">
 				<div class="panel panel-default" >
@@ -107,12 +103,13 @@
 						<div class="panel-heading" style="text-align:center">
 							Description
 						</div>
+						
 						<div class="panel-body">
-							<br>
-							<p>
-								@offer.description
-							</p>
-							<br>
+							<div class="col-md-10" 
+								style="float:none; margin: 0 auto; overflow: scroll; overflow-x: hidden; 
+									height: 300px; padding: 2% 0 2% 0">
+								@Html(offer.description)
+							</div>
 						</div>
 					</div>
 				</div>
@@ -137,12 +134,11 @@
 
 							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
 								
-									
 									<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
 										<div id="dtpfrom" class="input-append date">
 											<div class="input-group">
-												<span class="input-group-addon">From:</span>
-												<input id="dtpfrominput" class="form-control" name="from" type="text" value='@form("from").value' >
+												<input id="dtpfrominput" class="form-control" name="from" type="text" 
+												value='@form("from").value' placeholder="From">
 												<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
 											</div>
 										</div>
@@ -150,18 +146,19 @@
 										<script type="text/javascript">
 											$(function() {
 												$('#dtpfrom').datetimepicker({
-													format : 'dd.MM.yyyy',
+													format : '@appinfo.GlobalValues.TIMEFORMAT',
 													language : 'pt-BR'
 												});
 											});
 										</script>
 									</div>
+									
 									<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
 
 										<div id="dtpto" class="input-append date" >
 											<div class="input-group">
-												<span class="input-group-addon">To:</span>
-												<input id="dtptoinput" class="form-control" name="to" type="text" value='@form("to").value' >
+												<input id="dtptoinput" class="form-control" name="to" type="text" 
+												value='@form("to").value' placeholder="To">
 												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
 											</div>
 										</div>
@@ -169,7 +166,7 @@
 										<script type="text/javascript">
 											$(function() {
 												$('#dtpto').datetimepicker({
-													format : 'dd.MM.yyyy',
+													format : '@appinfo.GlobalValues.TIMEFORMAT',
 													language : 'pt-BR'
 												});
 											});
@@ -179,7 +176,7 @@
 
 								<div class="col-md-4">
 									<div class="input-group">
-										<span class="input-group-addon">Area:</span>
+										<span class="input-group-addon">Area</span>
 										<select class="form-control">
 											<option></option>
 											<option value="1">1 - 3 m<sup>3</sup></option>
@@ -207,12 +204,13 @@
 						<div class="panel-heading" style="text-align:center">
 							Map
 						</div>
+						
 						<div class="panel-body">
 							<div id="map-container" style="min-height: 300px; max-height: 500px;"></div>
 
 							<script src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
 							<script>
-								var address = "@offer.street @offer.houseNr @offer.city"/* Boltzmannstraﬂe 3 Garching */;
+								var address = "@offer.street @offer.houseNr @offer.city";
 
 								var place;
 
@@ -221,8 +219,12 @@
 								var infoWindow;
 
 								function initialize() {
-									/* Initialize with Berlin */
-									var location = new google.maps.LatLng(52.519895, 13.405012);
+									/* DEBUG: Initialize with Berlin(52.519895, 13.405012) */
+									
+									var location = new google.maps.LatLng(
+											@offer.geolocX, 
+											@offer.geolocY);
+								
 									var mapoptions = {
 										center : location,
 										zoom : 14,
@@ -249,7 +251,9 @@
 										mapMaker : false,
 										disableDoubleClickZoom : true
 									};
+									
 									map = new google.maps.Map(document.getElementById("map-container"), mapoptions);
+									
 									marker = new google.maps.Marker({
 										position : location,
 										map : map,
@@ -257,7 +261,9 @@
 										clickable : true,
 										draggable : false,
 									});
+									
 									google.maps.event.addListener(marker, 'click', showInfoWindow);
+									
 									codeAddress();
 								}
 
@@ -268,6 +274,7 @@
 									var number;
 
 									var addresses = place.address_components;
+									
 									for (var i in addresses) {
 										var address = addresses[i];
 										var types = address.types;
@@ -307,9 +314,9 @@
 										if (status == google.maps.GeocoderStatus.OK) {
 											place = results[0];
 
-											var location = place.geometry.location;
-											map.setCenter(location);
-											marker.setPosition(location);
+// 											var location = place.geometry.location;
+// 											map.setCenter(location);
+// 											marker.setPosition(location);
 										} else {
 											alert('Geocode was not successful for the following reason: ' + status);
 										}
@@ -325,6 +332,67 @@
 					</div>
 				</div>
 				<!-- End of 'Map' -->
+				
+				<div class="row">
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align: center">
+							Contact Person
+						</div>
+						<div class="panel-body" style="text-align: center">
+							<div class="col-md-9" style="float:none; margin: 0 auto">
+								<table class="table">
+								<tbody>
+									<tr>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											Name:
+										</td>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											<label>@offer.owner.surname @offer.owner.lastName</label>
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											Birthdate:
+										</td>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											<label>@{
+												var birthdate = offer.owner.dateOfBirth
+												var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.TIMEFORMAT)
+												var strDate = format.format(birthdate);
+												strDate
+											}</label>
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											Id Verified:
+										</td>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											<img alt="@if(offer.owner.isVerified) {Yes} else {No}" 
+												src="@{if(offer.owner.isVerified) {routes.Assets.at("images/icon-ok.png")} else {routes.Assets.at("images/icon-false.png")}}"></img>
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											Activity Status:
+										</td>
+										<td style="vertical-align: middle; border-top: 0; line-height: 1">
+											<label>@if(offer.owner.isActive) {
+												<font color=green>Active</font>
+											} else {
+												<font color=red>Inactive</font>
+											}</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="row">
 					<div class="panel panel-default" style="center">
@@ -333,31 +401,24 @@
 						</div>
 						<div class="panel-body" style="text-align: center">
 
-							<div class="col-md-3" >
+							<div class="col-md-4" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="contact" style="border: 0px ">
 									<span class="glyphicon glyphicon-envelope" style="font-size: 40px" > </span>
-									<br>
-									Contact
-									<br>
-									@offer.owner.surname
+									<br>Contact Host
 								</button>
 							</div>
 
-							<div class="col-md-3" >
+							<div class="col-md-4" >
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="search" style="border: 0px ">
 									<span class="glyphicon glyphicon-search" style="font-size: 40px" > </span>
-									<br>
-									New search
+									<br>New Search
 								</button>
 							</div>
 
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<button type="submit" class="btn btn-default btn-lg" name="action" value="newOffer" style="border: 0px ">
 									<span class="glyphicon glyphicon-plus" style="font-size: 40px" > </span>
-									<br>
-									Create
-									<br>
-									own offer
+									<br>Create<br>Own Offer
 								</button>
 							</div>
 						</div>
