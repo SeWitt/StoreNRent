@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -54,7 +55,27 @@ public class Offer {
 	
 	@Column(name="GEOLOCY")
 	public String geolocY;
-	public Blob picture;
+	
+//	@Lob
+//	@Column(length=100000, name="PICTURE")
+//	public byte[] picture;
+//	@Column(name="PICTURE")
+//	public Blob picture;
+	
+	@Column(name="PICTURE_PATH_1")
+	public String picturePath1;
+	
+	@Column(name="PICTURE_PATH_2")
+	public String picturePath2;
+	
+	@Column(name="PICTURE_PATH_3")
+	public String picturePath3;
+	
+	@Column(name="PICTURE_PATH_4")
+	public String picturePath4;
+	
+	@Column(name="PICTURE_PATH_5")
+	public String picturePath5;
 	
 	@Column(name="PRICE")
 	public double price;
@@ -68,14 +89,14 @@ public class Offer {
 	/**
 	 * offer creation date
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CREATED_DATE")
 	public Timestamp createdDate;
 	
 	/**
 	 * offer last edited
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="LAST_EDITED_DATE")
 	public Timestamp lastEditedDate;
 	
@@ -103,14 +124,14 @@ public class Offer {
 	/**
 	 * if somebody take the offer the real begin of the crontract
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CONTRACTED_FROM")
 	public Timestamp contractedFrom;
 	
 	/**
 	 * if somebody take the offer the real end of the crontract
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CONTRACTED_UNTIL")
 	public Timestamp contractedUntil;
 	
@@ -123,14 +144,14 @@ public class Offer {
 	/**
 	 * first possible day of the contract
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="OFFER_FROM")
 	public Timestamp offerFrom;
 	
 	/**
 	 * last possible day of the contract
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="OFFER_TO")
 	public Timestamp offerTo;
 	
@@ -164,7 +185,7 @@ public class Offer {
 		country = of.country;
 		geolocX = of.geolocX;
 		geolocY = of.geolocY;
-		picture = of.picture;
+//		picture = of.picture;
 		price = of.price;
 		isActive = of.isActive;
 		description = of.description;

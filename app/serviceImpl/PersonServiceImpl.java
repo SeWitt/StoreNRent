@@ -1,4 +1,5 @@
 package serviceImpl;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import models.Person;
@@ -21,7 +22,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person createPerson(Person person) {
 		person.isActive = true;
-		person.created = new Date();
+		person.created = new Timestamp(new Date().getTime());
 		person.lastEdited = person.created;
 		
 		return personRepo.createPerson(person);

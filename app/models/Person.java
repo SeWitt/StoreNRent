@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -51,9 +52,9 @@ public class Person {
 	@Column(name="COUNTRY")
 	public String country;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="DATE_OF_BIRTH")
-	public Date dateOfBirth;
+	public Timestamp dateOfBirth;
 	
 	@Column(name="IS_VERIFIED")
 	public boolean isVerified;
@@ -61,19 +62,19 @@ public class Person {
 	@Column(name="IS_ACTIVE")
 	public boolean isActive;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CREATED")
-	public Date created;
+	public Timestamp created;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="LAST_EDITED")
-	public Date lastEdited;
+	public Timestamp lastEdited;
 	
-	@Lob
-	@Column(length=100000, name="PICTURE")
-	public byte[] picture;
+//	@Lob
+//	@Column(length=100000, name="PICTURE")
+//	public byte[] picture;
 	
-	
+	public String picturePath;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="person")
 	public PersonSettings personSettings;

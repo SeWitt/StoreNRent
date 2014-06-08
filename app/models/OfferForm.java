@@ -23,7 +23,11 @@ public class OfferForm{
 		country = o.country;
 		geolocX = o.geolocX;
 		geolocY = o.geolocY;
-		picture = o.picture;
+		picturePath1 = o.picturePath1;
+		picturePath2 = o.picturePath2;
+		picturePath3 = o.picturePath3;
+		picturePath4 = o.picturePath4;
+		picturePath5 = o.picturePath5;
 		price = o.price;
 		isActive = o.isActive;
 		description = o.description;
@@ -73,7 +77,16 @@ public class OfferForm{
 	public String geolocX;
 	
 	public String geolocY;
-	public Blob picture;
+	
+	public String picturePath1;
+	
+	public String picturePath2;
+	
+	public String picturePath3;
+	
+	public String picturePath4;
+	
+	public String picturePath5;
 	
 	@Required(message = "Please insert a valid price!")
 	public double price;

@@ -81,8 +81,8 @@ public class RecommendationServiceDummy implements RecommendationService {
 				 Person p = new Person();
 					p.city = "Muenchen";
 					p.country = "Deutschland";
-					p.created = new Date();
-					p.dateOfBirth = new Date();
+					p.created = new Timestamp(new Date().getTime());
+					p.dateOfBirth = new Timestamp(new Date().getTime());
 					p.houseNr = "42";
 					p.id = 6;
 					p.isActive = true;

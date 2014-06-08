@@ -3,6 +3,7 @@
  */
 package serviceDummy;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import models.Account;
@@ -65,8 +66,8 @@ public class AccountServiceDummy implements AccountService {
 		acc.person = new Person();
 		acc.person.city = "Muenchen";
 		acc.person.country = "Deutschland";
-		acc.person.created = new Date();
-		acc.person.dateOfBirth = new Date();
+		acc.person.created = new Timestamp(new Date().getTime());
+		acc.person.dateOfBirth = new Timestamp(new Date().getTime());
 		acc.person.houseNr = "42";
 		acc.person.id = 3;
 		acc.person.isActive = true;

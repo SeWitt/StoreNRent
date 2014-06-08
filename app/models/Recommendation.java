@@ -25,10 +25,10 @@ public class Recommendation {
 
 	@Id
 	@GeneratedValue
-	@Column(name="RECOOMANDATION_ID")
+	@Column(name="RECOMMANDATION_ID")
 	public long id;
 	
-	@Column(name="")
+	@Column(name="RECOMM_TYPE")
 	public RecommendationType recommType;
 	
 	@ManyToOne
@@ -41,6 +41,7 @@ public class Recommendation {
 	
 	@OneToOne
 	@JoinColumn(name="OFFER_ID")
+//	@Transient
 	public Offer intendedOffer;
 	
 	@Column(name="TEXT")
