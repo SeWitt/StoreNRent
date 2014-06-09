@@ -126,7 +126,13 @@
 				});
 				//			var blank          = new OpenLayers.Layer.OSM("Kein Hintergrund",  "/karten/404.png",                        { maxZoomLevel: 17, numZoomLevels: 18 });
 				//
-							var einsatz        = new OpenLayers.Layer.OSM("Einsätze"         , '@routes.Assets.at("images/tiles.json")',       {minZoomLevel: 9, maxZoomLevel: 18, alpha:false, isBaseLayer: false, attribution : '<b>VS - NfD</b>' });
+				var einsatz = new OpenLayers.Layer.OSM("Einsätze", '@routes.Assets.at("images/tiles.json")', {
+					minZoomLevel : 9,
+					maxZoomLevel : 18,
+					alpha : false,
+					isBaseLayer : false,
+					attribution : '<b>VS - NfD</b>'
+				});
 				//			var hydranten      = new OpenLayers.Layer.OSM("Hydranten"        , "/karten/hytiles/${z}/${x}/${y}.png",     {minZoomLevel:10, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
 				//			var hydrantenref   = new OpenLayers.Layer.OSM("Hydranten Ref"    , "/karten/hyreftiles/${z}/${x}/${y}.png",  {minZoomLevel:15, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
 				//			var hausnummern    = new OpenLayers.Layer.OSM("Hausnummern LHM"  , "/karten/hnrtiles/${z}/${x}/${y}.png",    {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
@@ -337,10 +343,8 @@
 						</div>
 						<div class="panel-body">
 							<br>
-							<div style="width:100%; height:100%" id="map">
-								
-								
-							</div>
+							<div style="width:100%; height:100%" id="map"></div>
+
 						</div>
 					</div>
 				</div>
