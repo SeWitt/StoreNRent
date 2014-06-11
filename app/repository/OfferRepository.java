@@ -1,5 +1,6 @@
 package repository;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -103,6 +104,34 @@ public class OfferRepository extends Controller{
 	public static List<Offer> findOfferByAttributes(SearchAttributes searchAttributs){
 		EntityManager em = JPA.em();
 		return null;
+	}
+	
+	public static String queryGenerator(SearchAttributes sa) {
+		
+		
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param lat latitude
+	 * @param lng longitude
+	 * @param rds radius in kilometers
+	 * @return Array[0] = lower lat boundary; Array[1] = upper lat boundary; Array[2] = lower lng boundary; Array[3] = upper lng boundary
+	 */
+	public static double[] boundingBoxGenerator(double lat, double lng, double rds) {
+//		lat = lat0 + (180/pi)*(dy/6378137)
+//		lon = lon0 + (180/pi)*(dx/6378137)/cos(lat0)
+//		Math.cos(Math.PI/180.0*lat0)
+//		long correction factor: 1.000354
+		final double pi = 3.14159265359;
+		
+		double[] result = new double[4];
+		result[0] = lat - (180/pi)*((rds*1000)/6378137);
+		result[1] = lat + (180/pi)*((rds*1000)/6378137);
+		result[2] = (lng - (180/pi)*((rds*1000)/6378137)/Math.cos(Math.PI/180.0*lng)) * 1.000354;
+		result[3] = (lng + (180/pi)*((rds*1000)/6378137)/Math.cos(Math.PI/180.0*lng)) * 1.000354;
+		return result;
 	}
 
 }
