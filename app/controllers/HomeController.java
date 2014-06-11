@@ -31,11 +31,12 @@ public class HomeController extends Controller {
 	public static Result index(){
 		//menue bar
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
+		Html footer = views.html.footer.render();
 		
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class);
 		
 		
-		Html content = views.html.home.render(searchForm,menubar);
+		Html content = views.html.home.render(searchForm,menubar, footer);
         return ok(content);
 	}
 	
