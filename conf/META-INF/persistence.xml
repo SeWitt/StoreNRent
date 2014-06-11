@@ -15,4 +15,38 @@
         <property name="hibernate.format_sql" value="true"/>
     </properties>
 </persistence-unit>
+
+<persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+	
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+<class>app.models.Account</class>
+<class>app.models.HomePageSearchForm</class>
+<class>app.models.Message</class>
+<class>app.models.MessageSummary</class>
+<class>app.models.News</class>
+<class>app.models.Offer</class>
+<class>app.models.OfferAcceptForm</class>
+<class>app.models.OfferForm</class>
+<class>app.models.Person</class>
+<class>app.models.PersonSettings</class>
+<class>app.models.Recommendation</class>
+<class>app.models.RecommendationSummary</class>
+<class>app.models.RecommendationType</class>
+<class>app.models.SearchAttributes</class>
+    
+    
+    <properties>
+    	<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+    	<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />
+    	<property name="javax.persistence.jdbc.user" value="sa" />
+    	<property name="javax.persistence.jdbc.password" value="" />
+    
+        <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+        <property name="hibernate.show_sql" value="true"/>
+        <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <property name="hibernate.format_sql" value="true"/>
+    </properties>
+</persistence-unit>
+
 </persistence>
