@@ -1,39 +1,47 @@
 @(offers: List[Offer])
 
-<!DOCTYPE html>
-	<body>
-
-		<div id="searchResults" style="text-align:center">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th style="text-align:center"> Picture </th>
-						<th style="text-align:center"> Description </th>
-						<th style="text-align:center"> Timeslot </th>
-						<th style="text-align:center"> Distance </th>
-						<th style="text-align:center"> Price (�/ per day) </th>
-					</tr>
-				</thead>
-				<tbody>
-
-					@for(offer <- offers){
-					<tr style="text-align:center">
-						@if(offer.picturePath1 == null ) {
-						<td style="text-align:center"><img height="60" width="80" src="@routes.Assets.at("images/defaultPicture.png")"  /></td>
-						}else{
+<div id="searchResults" style="text-align:center">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th style="text-align:center">Picture</th>
+				<th style="text-align:center">Description</th>
+				<th style="text-align:center">Timeslot</th>
+				<th style="text-align:center">Distance</th>
+				<th style="text-align:center">Price<br>(&euro;/ per day) </th>
+			</tr>
+		</thead>
+	
+		<tbody>
+			@for(offer <- offers){
+				<tr style="text-align:center">
+					@if(offer.picturePath1 == null ) {
+						<td style="text-align:center">
+							<img height="60" width="80" src="@routes.Assets.at("images/defaultPicture.png")"  />
+						</td>
+					} else {
 						picture to be placed here...
-						}
-						<td ><a href="@routes.OfferController.index(offer.id)"> @offer.description </a></td>
-						<td >@offer.offerFrom - @offer.offerTo </td>
-						<td > about x km away </td>
-						<td > @offer.price </td>
-					</tr>
-
-					<br>
 					}
-
-				</tbody>
-			</table>
-		</div>
-
-	</body>
+					<td><a href="@routes.OfferController.index(offer.id)">@offer.description</a></td>
+					<td>
+					@{
+						var date = offer.offerFrom
+						var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.TIMEFORMAT)
+						var strDate = format.format(date);
+						strDate
+					}
+					-
+					@{
+						var date = offer.offerTo
+						var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.TIMEFORMAT)
+						var strDate = format.format(date);
+						strDate
+					}
+					</td>
+					<td>about x km away</td>
+					<td>@offer.price</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

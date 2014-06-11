@@ -35,16 +35,16 @@ public class OfferForm{
 		subHeader = o.subHeader;
 		visitCount =o.visitCount;
 		if(o.contractedFrom != null){
-			contractedFrom = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.contractedFrom);
+			contractedFrom = new SimpleDateFormat(GlobalValues.DATEFORMAT).format( o.contractedFrom);
 		}
 		if(o.contractedUntil != null){
-					contractedUntil = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.contractedUntil);
+					contractedUntil = new SimpleDateFormat(GlobalValues.DATEFORMAT).format( o.contractedUntil);
 		}
 		if(o.offerFrom != null){
-			offerFrom = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.offerFrom);
+			offerFrom = new SimpleDateFormat(GlobalValues.DATEFORMAT).format( o.offerFrom);
 		}
 		if(o.offerTo != null){
-			offerTo = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.offerTo);
+			offerTo = new SimpleDateFormat(GlobalValues.DATEFORMAT).format( o.offerTo);
 		}
 	
 		transactionClosed = o.transactionClosed;

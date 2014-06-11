@@ -13,8 +13,8 @@ import play.libs.F.Tuple;
 public class IsDateNotPasteValidator extends play.data.validation.Constraints.Validator<Object> 
 		implements ConstraintValidator<IsDateNotPaste, Object> {
 
-	SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.TIMEFORMAT);
-	private String comparatorDate =  new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( new Timestamp(System.currentTimeMillis()));
+	SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.DATEFORMAT);
+	private String comparatorDate =  new SimpleDateFormat(GlobalValues.DATEFORMAT).format( new Timestamp(System.currentTimeMillis()));
 	private String comparedDate;
 	
 	private Timestamp comparatorTS;

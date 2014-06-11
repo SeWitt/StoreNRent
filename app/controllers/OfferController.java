@@ -43,9 +43,9 @@ public class OfferController extends Controller {
 		// create acceptance form
 		Form<OfferAcceptForm> offerForm = Form.form(OfferAcceptForm.class);
 		OfferAcceptForm oaf = new OfferAcceptForm();
-		oaf.from = new SimpleDateFormat(GlobalValues.TIMEFORMAT)
+		oaf.from = new SimpleDateFormat(GlobalValues.DATEFORMAT)
 				.format(new Timestamp(System.currentTimeMillis()));
-		oaf.to = new SimpleDateFormat(GlobalValues.TIMEFORMAT)
+		oaf.to = new SimpleDateFormat(GlobalValues.DATEFORMAT)
 				.format(o.offerTo);
 //		System.out.println("from index: " + oaf.from);
 //		System.out.println("to index: " + oaf.to);
@@ -94,9 +94,9 @@ public class OfferController extends Controller {
 				
 				//make validation check whether until date is later than from:
 				
-				boolean isDatevalid = TimeValidator.isDateAfter(oaf.to, oaf.from,new SimpleDateFormat(GlobalValues.TIMEFORMAT));
-				boolean beginDateinside = TimeValidator.isDateAfterTSS(o.offerFrom, oaf.from,new SimpleDateFormat(GlobalValues.TIMEFORMAT));
-				boolean endDateinside = TimeValidator.isDateBeforeSTS(oaf.to, o.offerTo,new SimpleDateFormat(GlobalValues.TIMEFORMAT));
+				boolean isDatevalid = TimeValidator.isDateAfter(oaf.to, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
+				boolean beginDateinside = TimeValidator.isDateAfterTSS(o.offerFrom, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
+				boolean endDateinside = TimeValidator.isDateBeforeSTS(oaf.to, o.offerTo,new SimpleDateFormat(GlobalValues.DATEFORMAT));
 				if((isDatevalid && beginDateinside && endDateinside) == false){
 					Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 					String error = "";
@@ -202,7 +202,7 @@ public class OfferController extends Controller {
 					OfferForm of = offerForm.get();
 					//make validation check whether until date is later than from:
 					
-					boolean isDatevalid = TimeValidator.isDateAfter(of.offerTo, of.offerFrom,new SimpleDateFormat(GlobalValues.TIMEFORMAT));
+					boolean isDatevalid = TimeValidator.isDateAfter(of.offerTo, of.offerFrom,new SimpleDateFormat(GlobalValues.DATEFORMAT));
 					
 					if(!isDatevalid){
 						Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);

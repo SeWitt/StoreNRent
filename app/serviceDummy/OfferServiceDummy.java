@@ -126,7 +126,10 @@ public class OfferServiceDummy implements OfferService {
 			offer.isActive = true;
 			offer.lastEditedDate = offer.createdDate;
 			offer.offerFrom = new Timestamp(System.currentTimeMillis());
-			offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
+			
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.add(GregorianCalendar.DATE, 555);
+			offer.offerTo = new Timestamp(cal.getTimeInMillis());
 			
 			offer.price = 8.5;
 			offer.owner = person;
