@@ -20,7 +20,9 @@ libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-core" % "4.3.5.Final",
   "org.javassist" % "javassist" % "3.18.1-GA",
   "org.jboss.logging" % "jboss-logging-processor" % "1.2.0.Final",
-  "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
+  "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
+  "org.seleniumhq.selenium" % "selenium-java" % "2.5.0" % "test",
+  "com.h2database" % "h2" % "1.4.178" % "test"
 )
 
 resolvers += Resolver.sonatypeRepo("releases")
