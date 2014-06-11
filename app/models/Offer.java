@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import appinfo.GlobalValues;
 
@@ -74,6 +75,12 @@ public class Offer {
 	
 	@Column(name="PRICE")
 	public double price;
+	
+	/**
+	 * in square meter
+	 */
+	@Column(name="SPACE_SIZE")
+	public double spaceSize;
 	
 	/**
 	 * true = is displayed ; false = "deleted"
@@ -150,6 +157,11 @@ public class Offer {
 	@Column(name="OFFER_TO")
 	public Timestamp offerTo;
 	
+	/**
+	 * distance to the location specified in the search query (unit is kilometers)
+	 */
+	@Transient
+	public double distance;
 	
 	@ManyToOne
 	@JoinColumn(name="OWNER_ID")
