@@ -2,25 +2,28 @@ package controllers;
 
 
 
+import geo.google.GeoAddressStandardizer;
+import geo.google.datamodel.GeoAddress;
+import geo.google.datamodel.GeoCoordinate;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
-import appinfo.GlobalValues;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Offer;
 import models.Person;
+import models.SearchAttributes;
 import play.api.templates.Html;
 import play.mvc.Controller;
-import scala.Int;
-import scala.Option;
+import play.mvc.Result;
 import service.DiscoveryService;
 import service.OfferService;
 import serviceDummy.DiscoveryServiceDummy;
 import serviceDummy.OfferServiceDummy;
-import views.html.*;
-
-import play.mvc.*;
+import views.html.search;
+import views.html.searchresults;
+import appinfo.GlobalValues;
 
 
 ;
@@ -56,13 +59,67 @@ public class SearchController extends Controller {
 	
 	public static Result query(String fromdate, String todate, String city, String postcode, Double spacesize, Double maxprice, Double radius, String lng, String lat){
 		
+		SearchAttributes sa = new SearchAttributes();
+		
+		if(fromdate != null){
+			try {
+				sa.from =  new Timestamp((new SimpleDateFormat(GlobalValues.TIMEFORMAT).parse(fromdate)).getTime());
+			} catch (ParseException e) {}
+		}
+		
+		if(todate != null){
+			try {
+				sa.to =  new Timestamp((new SimpleDateFormat(GlobalValues.TIMEFORMAT).parse(todate)).getTime());
+			} catch (ParseException e) {}
+		}
+		if(city != null){
+			sa.city = city;
+		}
+		if(postcode != null){
+			sa.postCode = postcode;
+		}
+		
+		if(spacesize != null){
+			sa.spaceSize = spacesize;
+		}
+		if(maxprice != null){
+			sa.maxPrice = maxprice;
+		}
+		if(radius != null){
+			sa.radius = radius;
+		}
+		
+		//make geocoords
+		
+		try {
+			// Initialize a new GeoAddressStandardizer-class with your API-Key
+			GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
+			String strAdd = 
+					
+					sa.postCode +
+					" " + 
+					sa.city;
+			
+			List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
+			GeoAddress address = addresses.get(0);
+			GeoCoordinate coords = address.getCoordinate();
+			double longitude = coords.getLongitude();
+			double latitude = coords.getLatitude();
+			sa.lng = longitude;
+			sa.lat = latitude;
+		} catch (Exception e) {}
+//Just DEBUGGING, DUMMY		
 		Person p = new Person();
     	p.id = 2;
     	p.lastName= "we";
     	p.surname ="dd";
     	List<Offer> o = offerService.findByOwnerID(p);
 		o.remove(0);
-		System.out.println("ja ich wurde angesprochen");
+//		System.out.println("ja ich wurde angesprochen");
+		 
+//PRODUCTIVE USE		
+		//List<Offer> o = discoveryService.findOffers(sa);
+		
 		System.out.println(fromdate +" "+todate+" "+city+" "+postcode+" "+spacesize+" "+maxprice+" "+radius);
 		return ok(searchresults.render(o));
 	}

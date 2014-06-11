@@ -1,5 +1,9 @@
 package controllers;
 
+import geo.google.GeoAddressStandardizer;
+import geo.google.datamodel.GeoAddress;
+import geo.google.datamodel.GeoCoordinate;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,30 +30,10 @@ import appinfo.GlobalValues;
  */
 public class OfferController extends Controller {
 
-	private static OfferService offerService = new OfferServiceDummy();// if the
-																		// backend
-																		// is
-																		// ready
-																		// switch
-																		// to
-																		// "..Impl"
-																		// instead
-																		// of
-																		// "..Dummy"
-	private RecommendationService recommendationService = new RecommendationServiceDummy();// if
-																							// the
-																							// backend
-																							// is
-																							// ready
-																							// switch
-																							// to
-																							// "..Impl"
-																							// instead
-																							// of
-																							// "..Dummy"
+	private static OfferService offerService = new OfferServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
 
 	public static Result index(Long id) {
-
 		// menue bar
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 
@@ -67,8 +51,7 @@ public class OfferController extends Controller {
 //		System.out.println("to index: " + oaf.to);
 		offerForm.fill(oaf);
 
-		Html content = views.html.offer.render(offerForm, menubar,
-				new OfferForm(o));
+		Html content = views.html.offer.render(offerForm, menubar, o);
 		return ok(content);
 	}
 
@@ -104,7 +87,7 @@ public class OfferController extends Controller {
 		            flash("error", "Please correct the following errors: " + errorMsg);
 		           
 				 Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
-				 result =  badRequest(views.html.offer.render(form, menubar, new OfferForm(o)));
+				 result =  badRequest(views.html.offer.render(form, menubar, o));
 			} else {
 							
 				OfferAcceptForm oaf = form.get();
@@ -128,7 +111,7 @@ public class OfferController extends Controller {
 					}
 					
 					flash("error", "Please correct the following errors: " + error);
-					return badRequest(views.html.offer.render(form, menubar, new OfferForm(o)));
+					return badRequest(views.html.offer.render(form, menubar, o));
 				}
 				//here all is valid!
 				
@@ -233,6 +216,30 @@ public class OfferController extends Controller {
 
 					//download pictures
 									
+					try {
+						// Initialize a new GeoAddressStandardizer-class with your API-Key
+						GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
+						String strAdd = 
+								o.street +
+								" " +
+								o.houseNr +
+								", " +
+								o.postCode +
+								" " + 
+								o.city +
+								", " +
+								o.country;
+						
+						List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
+						GeoAddress address = addresses.get(0);
+						GeoCoordinate coords = address.getCoordinate();
+						double longitude = coords.getLongitude();
+						double latitude = coords.getLatitude();
+						o.geolocX = longitude;
+						o.geolocY = latitude;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					
 					o = offerService.createOffer(o);
 					flash("success", "Successfully created!");

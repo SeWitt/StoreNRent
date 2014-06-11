@@ -1,7 +1,6 @@
 package models;
 
-import java.util.Date;
-
+import java.sql.Timestamp;
 
 
 
@@ -18,15 +17,15 @@ import java.util.Date;
 	public class SearchAttributes  {
 
 
-	public Date from;
-	public Date to;
+	public Timestamp from;
+	public Timestamp to;
 	public String city = "";
 	public String postCode = ""; 
 	public double spaceSize = 5;
 	public double maxPrice = 15;
 	public double radius = 1.5;
-	public String lng;
-	public String lat;
+	public double lng;
+	public double lat;
 //	@Override
 	
 	

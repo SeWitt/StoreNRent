@@ -1,4 +1,4 @@
-@(form: play.data.Form[models.HomePageSearchForm])(menubar: Html)
+@(form: play.data.Form[models.HomePageSearchForm])(menubar: Html)(footer: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +6,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Search</title>
+		
+		<title>Store 'n Rent</title>
 
 		<!-- Bootstrap -->
 
@@ -29,43 +30,69 @@
 		<![endif]-->
 
 	</head>
+	
 	<body >
 
 		@menubar
 
 		@helper.form(action = routes.HomeController.search()) {
-		<div class="row">
+		<div style="background-image:url(@routes.Assets.at("images/Background.png"))">
 
-			<div class="panel panel-default" style="center">
-				<div class="panel-heading" style="text-align:center">
-					Pricing, Rental Time
-				</div>
-				<div class="panel-body">
+		<div class="title" style="text-align: center">
+			<h1 style="color: #0800E3">
+				<b>Welcome to <br /> Store 'n Rent
+				</b>
+			</h1>
+			<h2 style="color: #0800E3">
+				<b>Find a storage area close to you:</b>
+			</h2>
+		</div>
 
-					<div class="row">
-						<div class="form-group">
-							<div class="col col-md-3">
-								<input id="city" class="form-control" type="text" name="city" value='@form("city").value' autofocus="" placeholder="City" >
-							</div>
-
-							<div class="col col-md-4">
-								<div id="radius" class="input-group">
-									<span class="input-group-addon">space size (min):</span>
-									<input id="spacesize" class="form-control" type="number" name="spacesize" value='@form("spacesize").value' min="1" value="5" max="100" step="0.5">
-									<span class="input-group-addon">m</span>
-								</div>
-							</div>
-							<div class="col col-md-4">
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="submit">
-									search
-								</button>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
+		<form class="form-inline" role="form">
+			<div class="col col-md-3" style="text-align: center">
+				<input id="city" class="form-control" type="text" autofocus=""
+					placeholder="City">
 			</div>
 
-		</div>
-		}
+			<div class="col col-md-4" style="text-align: center">
+
+				<div id="radius" class="input-group">
+					<span class="input-group-addon"></span> <input id="radiusinput"
+						class="form-control" type="number" name="circuit" min="1"
+						max="100" step="0.5" placeholder="Circuit"> <span
+						class="input-group-addon">km</span>
+				</div>
+			</div>
+
+			<div class="col col-md-4" style="text-align: center">
+				<div id="spacesize" class="input-group">
+					<span class="input-group-addon"></span> <input id="spacesizeinput"
+						class="form-control" type="number" name="size" min="1" max="100"
+						step="0.5" placeholder="Size"> <span
+						class="input-group-addon">m<sup>3</sup></span>
+				</div>
+			</div>
+
+			<button id="search" class="btn btn-default"
+				style="vertical-align: top; float: right" type="button">
+				Search</button>
+			<div class="row" style="text-align: center">
+				<h2 style="color: #0800E3">
+					<b >That's how it works:</b>
+				</h2>
+			</div>
+		</form>
+
+		<form class="form-inline" role="form">
+			<div id="images">
+				<img class="img-circle" src="@routes.Assets.at("images/Loupe.png")" alt="Store 'n Rent" /> 
+				<img class="img-circle"src="@routes.Assets.at("images/Person.png")" alt="Store 'n Rent" />
+				<img class="img-circle" src="@routes.Assets.at("images/Check.png")" alt="Store 'n Rent" />
+			</div>
+		</form>
+	</div>
+	@footer
+	
+	}
+	</body>
+</html>
