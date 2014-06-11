@@ -32,7 +32,6 @@
 		<div class="container">
 			@helper.form(action = routes.OfferController.doAction()) {
 			<div class="row">
-
 				@if(form.hasGlobalErrors) {
 				<p class="error">
 					@form.globalError.message
@@ -47,407 +46,409 @@
 
 			</div>
 			
-			<div class="row">
-				<div class="panel panel-default" >
-					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
-						@offer.header
-					</div>
-					<div class="panel-body" style="color: #0800E3; text-align: center; font-size: 20px">
-						@offer.subHeader
+			<section class="row">
+				<div class="row">
+					<div class="panel panel-default" >
+						<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
+							@offer.header
+						</div>
+						<div class="panel-body" style="color: #0800E3; text-align: center; font-size: 20px">
+							@offer.subHeader
+						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-heading" style="text-align:center">
-							Pictures
-						</div>
-						<div class="panel-body">
-							<div id="wrapper" class="well" style="border: 0">
-								<div id="images" >
-									<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger"  />
-									<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
-									<img src="@routes.Assets.at("dummy_img/ek-artsen.gif")" alt="ek-artsen" />
-									<img src="@routes.Assets.at("dummy_img/ek-brandweer.gif")" alt="ek-brandweer"  />
-									<img src="@routes.Assets.at("dummy_img/ek-dommel.gif")" alt="ek-dommel" />
-									<img src="@routes.Assets.at("dummy_img/ek-freudiaans.gif")" alt="ek-freudiaans" />
-									<img src="@routes.Assets.at("dummy_img/ek-kamikazepiloot.gif")" alt="ek-kamikazepiloot" />
-									<img src="@routes.Assets.at("dummy_img/ek-langselkaarheen.gif")" alt="ek-langselkaarheen" />
-									<img src="@routes.Assets.at("dummy_img/ek-perswee.gif")" alt="ek-perswee" />
-									<img src="@routes.Assets.at("dummy_img/ek-politiekannietzeggen.gif")" alt="ek-politiekannietzeggen" />
-									<img src="@routes.Assets.at("dummy_img/ek-rollenpatroon.gif")" alt="ek-rollenpatroon" />
+	
+				<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
+					<div class="row">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="text-align:center">
+								Pictures
+							</div>
+							<div class="panel-body">
+								<div id="wrapper" class="well" style="border: 0">
+									<div id="images" >
+										<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger"  />
+										<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
+										<img src="@routes.Assets.at("dummy_img/ek-artsen.gif")" alt="ek-artsen" />
+										<img src="@routes.Assets.at("dummy_img/ek-brandweer.gif")" alt="ek-brandweer"  />
+										<img src="@routes.Assets.at("dummy_img/ek-dommel.gif")" alt="ek-dommel" />
+										<img src="@routes.Assets.at("dummy_img/ek-freudiaans.gif")" alt="ek-freudiaans" />
+										<img src="@routes.Assets.at("dummy_img/ek-kamikazepiloot.gif")" alt="ek-kamikazepiloot" />
+										<img src="@routes.Assets.at("dummy_img/ek-langselkaarheen.gif")" alt="ek-langselkaarheen" />
+										<img src="@routes.Assets.at("dummy_img/ek-perswee.gif")" alt="ek-perswee" />
+										<img src="@routes.Assets.at("dummy_img/ek-politiekannietzeggen.gif")" alt="ek-politiekannietzeggen" />
+										<img src="@routes.Assets.at("dummy_img/ek-rollenpatroon.gif")" alt="ek-rollenpatroon" />
+									</div>
+									<div id="thumbs" style="overflow: hidden">
+										<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger" />
+										<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
+										<img src="@routes.Assets.at("dummy_img/ek-artsen.gif")" alt="ek-artsen"  />
+										<img src="@routes.Assets.at("dummy_img/ek-brandweer.gif")" alt="ek-brandweer"  />
+										<img src="@routes.Assets.at("dummy_img/ek-dommel.gif")" alt="ek-dommel"  />
+										<img src="@routes.Assets.at("dummy_img/ek-freudiaans.gif")" alt="ek-freudiaans"  />
+										<img src="@routes.Assets.at("dummy_img/ek-kamikazepiloot.gif")" alt="ek-kamikazepiloot" />
+										<img src="@routes.Assets.at("dummy_img/ek-langselkaarheen.gif")" alt="ek-langselkaarheen"  />
+										<img src="@routes.Assets.at("dummy_img/ek-perswee.gif")" alt="ek-perswee"  />
+										<img src="@routes.Assets.at("dummy_img/ek-politiekannietzeggen.gif")" alt="ek-politiekannietzeggen" />
+										<img src="@routes.Assets.at("dummy_img/ek-rollenpatroon.gif")" alt="ek-rollenpatroon" />
+									</div>
+									<a id="prev" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: 0 0"> </a>
+									<a id="next" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: -18px 0"> </a>
 								</div>
-								<div id="thumbs" style="overflow: hidden">
-									<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger" />
-									<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
-									<img src="@routes.Assets.at("dummy_img/ek-artsen.gif")" alt="ek-artsen"  />
-									<img src="@routes.Assets.at("dummy_img/ek-brandweer.gif")" alt="ek-brandweer"  />
-									<img src="@routes.Assets.at("dummy_img/ek-dommel.gif")" alt="ek-dommel"  />
-									<img src="@routes.Assets.at("dummy_img/ek-freudiaans.gif")" alt="ek-freudiaans"  />
-									<img src="@routes.Assets.at("dummy_img/ek-kamikazepiloot.gif")" alt="ek-kamikazepiloot" />
-									<img src="@routes.Assets.at("dummy_img/ek-langselkaarheen.gif")" alt="ek-langselkaarheen"  />
-									<img src="@routes.Assets.at("dummy_img/ek-perswee.gif")" alt="ek-perswee"  />
-									<img src="@routes.Assets.at("dummy_img/ek-politiekannietzeggen.gif")" alt="ek-politiekannietzeggen" />
-									<img src="@routes.Assets.at("dummy_img/ek-rollenpatroon.gif")" alt="ek-rollenpatroon" />
+							</div>
+						</div>
+					</div>
+	
+					<div class="row">
+						<div class="panel panel-default" style="center">
+							<div class="panel-heading" style="text-align: center">
+								Description
+							</div>
+							
+							<div class="panel-body">
+								<div class="col-md-10" 
+									style="float:none; margin: 0 auto; overflow: scroll; overflow-x: hidden; 
+										height: 50%; padding: 2% 0 2% 0">
+									@Html(offer.description)
 								</div>
-								<a id="prev" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: 0 0"> </a>
-								<a id="next" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: -18px 0"> </a>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align: center">
-							Description
-						</div>
-						
-						<div class="panel-body">
-							<div class="col-md-10" 
-								style="float:none; margin: 0 auto; overflow: scroll; overflow-x: hidden; 
-									height: 50%; padding: 2% 0 2% 0">
-								@Html(offer.description)
+	
+				<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
+					<div class="row">
+						<div class="panel panel-default" style="center">
+							<div class="panel-heading" style="text-align:center">
+								Pricing, Rental Time
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
-				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
-							Pricing, Rental Time
-						</div>
-						<div class="panel-body">
-							<!-- Price -->
-							<div class="row" style="padding: 0 2% 2% 2%">
-								<p style="text-align: center; font-size: 20px">
-									<strong style="font-size: 40px">@offer.price &euro; </strong>
-									<font size=20px>/</font> day
-								</p>
-							</div>
-
-							<!-- Time -->
-
-							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
-								
-									<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
-										<div id="dtpfrom" class="input-append date">
-											<div class="input-group">
-												<input id="dtpfrominput" class="form-control" name="from" type="text" 
-												value='@form("from").value' placeholder="From">
-												<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
+							<div class="panel-body">
+								<!-- Price -->
+								<div class="row" style="padding: 0 2% 2% 2%">
+									<p style="text-align: center; font-size: 20px">
+										<strong style="font-size: 40px">@offer.price &euro; </strong>
+										<font size=20px>/</font> day
+									</p>
+								</div>
+	
+								<!-- Time -->
+	
+								<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
+									
+										<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+											<div id="dtpfrom" class="input-append date">
+												<div class="input-group">
+													<input id="dtpfrominput" class="form-control" name="from" type="text" 
+													value='@form("from").value' placeholder="From">
+													<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
+												</div>
 											</div>
-										</div>
-
-										<script type="text/javascript">
-											$(function() {
-												$('#dtpfrom').datetimepicker({
-													format : '@appinfo.GlobalValues.DATEFORMAT',
-													language : 'pt-BR'
+	
+											<script type="text/javascript">
+												$(function() {
+													$('#dtpfrom').datetimepicker({
+														format : '@appinfo.GlobalValues.DATEFORMAT',
+														language : 'pt-BR'
+													});
 												});
-											});
-										</script>
-									</div>
-									
-									<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
-
-										<div id="dtpto" class="input-append date" >
-											<div class="input-group">
-												<input id="dtptoinput" class="form-control" name="to" type="text" 
-												value='@form("to").value' placeholder="To">
-												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+											</script>
+										</div>
+										
+										<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+	
+											<div id="dtpto" class="input-append date" >
+												<div class="input-group">
+													<input id="dtptoinput" class="form-control" name="to" type="text" 
+													value='@form("to").value' placeholder="To">
+													<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+												</div>
 											</div>
-										</div>
-
-										<script type="text/javascript">
-											$(function() {
-												$('#dtpto').datetimepicker({
-													format : '@appinfo.GlobalValues.DATEFORMAT',
-													language : 'pt-BR'
+	
+											<script type="text/javascript">
+												$(function() {
+													$('#dtpto').datetimepicker({
+														format : '@appinfo.GlobalValues.DATEFORMAT',
+														language : 'pt-BR'
+													});
 												});
-											});
-										</script>
-									</div>
-								
-
-								<div class="col-md-4">
-									<div class="input-group">
-										<span class="input-group-addon">Area</span>
-										<select class="form-control">
-											<option></option>
-											<option value="1">1 - 3 m<sup>3</sup></option>
-											<option value="2">3 - 5 m<sup>3</sup></option>
-											<option value="3">5 - 7 m<sup>3</sup></option>
-											<option value="4">7 - 9 m<sup>3</sup></option>
-											<option value="5">> 9 m<sup>3</sup></option>
-										</select>
+											</script>
+										</div>
+									
+	
+									<div class="col-md-4">
+										<div class="input-group">
+											<span class="input-group-addon">Area</span>
+											<select class="form-control">
+												<option></option>
+												<option value="1">1 - 3 m<sup>3</sup></option>
+												<option value="2">3 - 5 m<sup>3</sup></option>
+												<option value="3">5 - 7 m<sup>3</sup></option>
+												<option value="4">7 - 9 m<sup>3</sup></option>
+												<option value="5">> 9 m<sup>3</sup></option>
+											</select>
+										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="col-md-5" style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="submit"
-								style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
-									Accept Offer
-								</button>
+	
+								<div class="col-md-5" style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
+									<button type="submit" class="btn btn-default btn-lg" name="action" value="submit"
+									style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
+										Accept Offer
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
-							Map
-						</div>
-						
-						<div class="panel-body">
-							<div id="map-container" style="min-height: 300px; max-height: 500px;"></div>
-
-							<script>
-								var address = "@offer.street @offer.houseNr @offer.city";
-
-								var place;
-
-								var map;
-								var marker;
-								var infoWindow;
-
-								function initialize() {
-									/* DEBUG: Initialize with Berlin(52.519895, 13.405012) */
+	
+					<div class="row">
+						<div class="panel panel-default" style="center">
+							<div class="panel-heading" style="text-align:center">
+								Map
+							</div>
+							
+							<div class="panel-body">
+								<div id="map-container" style="min-height: 300px; max-height: 500px;"></div>
+	
+								<script>
+									var address = "@offer.street @offer.houseNr @offer.city";
+	
+									var place;
+	
+									var map;
+									var marker;
+									var infoWindow;
+	
+									function initialize() {
+										/* DEBUG: Initialize with Berlin(52.519895, 13.405012) */
+										
+										var location = new google.maps.LatLng(
+												@offer.geolocX, 
+												@offer.geolocY);
 									
-									var location = new google.maps.LatLng(
-											@offer.geolocX, 
-											@offer.geolocY);
-								
-									var mapoptions = {
-										center : location,
-										zoom : 14,
-										mapTypeId : google.maps.MapTypeId.ROADMAP,
-										mapTypeControl : true,
-										mapTypeControlOptions : {
-											mapTypeIds : [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
-											position : google.maps.ControlPosition.TOP_RIGHT,
-											style : google.maps.MapTypeControlStyle.HORIZONTAL_BAR
-										},
-										panControl : false,
-										rotateControl : false,
-										streetViewControl : false,
-										draggable : false,
-										keyboardShortcuts : false,
-										scrollwheel : false,
-										zoomControl : true,
-										zoomControlOptions : {
-											position : google.maps.ControlPosition.TOP_LEFT,
-											style : google.maps.ZoomControlStyle.LARGE
-										},
-										overviewMapControl : false,
-										minZoom : 6,
-										mapMaker : false,
-										disableDoubleClickZoom : true
-									};
-									
-									map = new google.maps.Map(document.getElementById("map-container"), mapoptions);
-									
-									marker = new google.maps.Marker({
-										position : location,
-										map : map,
-										title : "@offer.header",
-										clickable : true,
-										draggable : false,
-									});
-									
-									google.maps.event.addListener(marker, 'click', showInfoWindow);
-									
-									codeAddress();
-								}
-
-								function showInfoWindow() {
-									var street;
-									var city;
-									var country;
-									var number;
-
-									var addresses = place.address_components;
-									
-									for (var i in addresses) {
-										var address = addresses[i];
-										var types = address.types;
-										var longName = address.long_name;
-										var shortName = address.short_name;
-										if (types == "street_address" || types == "route") {
-											street = longName;
-											continue;
-										}
-										if (types == "locality,political") {
-											city = longName;
-											continue;
-										}
-										if (types == "country,political") {
-											country = longName;
-											continue;
-										}
-										if (types == "street_number") {
-											number = longName;
-											continue;
-										}
+										var mapoptions = {
+											center : location,
+											zoom : 14,
+											mapTypeId : google.maps.MapTypeId.ROADMAP,
+											mapTypeControl : true,
+											mapTypeControlOptions : {
+												mapTypeIds : [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
+												position : google.maps.ControlPosition.TOP_RIGHT,
+												style : google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+											},
+											panControl : false,
+											rotateControl : false,
+											streetViewControl : false,
+											draggable : false,
+											keyboardShortcuts : false,
+											scrollwheel : false,
+											zoomControl : true,
+											zoomControlOptions : {
+												position : google.maps.ControlPosition.TOP_LEFT,
+												style : google.maps.ZoomControlStyle.LARGE
+											},
+											overviewMapControl : false,
+											minZoom : 6,
+											mapMaker : false,
+											disableDoubleClickZoom : true
+										};
+										
+										map = new google.maps.Map(document.getElementById("map-container"), mapoptions);
+										
+										marker = new google.maps.Marker({
+											position : location,
+											map : map,
+											title : "@offer.header",
+											clickable : true,
+											draggable : false,
+										});
+										
+										google.maps.event.addListener(marker, 'click', showInfoWindow);
+										
+										codeAddress();
 									}
-
-									var contentString = '<div id="infowindow_content">' + '<p><strong>@offer.header</strong><br>' + '<hr style="margin: 1px 0 5px 0">' + street + ' ' + number + ', ' + city + '<br>' + country + '</p>' + '</div>';
-									infoWindow = new google.maps.InfoWindow({
-										content : contentString,
-										maxWidth : 500
-									});
-									infoWindow.open(map, marker);
-								}
-
-								function codeAddress() {
-									var geocoder = new google.maps.Geocoder();
-									geocoder.geocode({
-										'address' : address
-									}, function(results, status) {
-										if (status == google.maps.GeocoderStatus.OK) {
-											place = results[0];
-
-// 											var location = place.geometry.location;
-// 											map.setCenter(location);
-// 											marker.setPosition(location);
-										} else {
-											alert('Geocode was not successful for the following reason: ' + status);
+	
+									function showInfoWindow() {
+										var street;
+										var city;
+										var country;
+										var number;
+	
+										var addresses = place.address_components;
+										
+										for (var i in addresses) {
+											var address = addresses[i];
+											var types = address.types;
+											var longName = address.long_name;
+											var shortName = address.short_name;
+											if (types == "street_address" || types == "route") {
+												street = longName;
+												continue;
+											}
+											if (types == "locality,political") {
+												city = longName;
+												continue;
+											}
+											if (types == "country,political") {
+												country = longName;
+												continue;
+											}
+											if (types == "street_number") {
+												number = longName;
+												continue;
+											}
 										}
+	
+										var contentString = '<div id="infowindow_content">' + '<p><strong>@offer.header</strong><br>' + '<hr style="margin: 1px 0 5px 0">' + street + ' ' + number + ', ' + city + '<br>' + country + '</p>' + '</div>';
+										infoWindow = new google.maps.InfoWindow({
+											content : contentString,
+											maxWidth : 500
+										});
+										infoWindow.open(map, marker);
+									}
+	
+									function codeAddress() {
+										var geocoder = new google.maps.Geocoder();
+										geocoder.geocode({
+											'address' : address
+										}, function(results, status) {
+											if (status == google.maps.GeocoderStatus.OK) {
+												place = results[0];
+	
+	// 											var location = place.geometry.location;
+	// 											map.setCenter(location);
+	// 											marker.setPosition(location);
+											} else {
+												alert('Geocode was not successful for the following reason: ' + status);
+											}
+										});
+									}
+	
+	
+									google.maps.event.addDomListener(window, 'load', function() {
+										initialize();
 									});
-								}
-
-
-								google.maps.event.addDomListener(window, 'load', function() {
-									initialize();
-								});
-							</script>
+								</script>
+							</div>
+						</div>
+					</div>
+					<!-- End of 'Map' -->
+					
+					<div class="row">
+						<div class="panel panel-default" style="center">
+							<div class="panel-heading" style="text-align: center">
+								Contact Person
+							</div>
+							<div class="panel-body" style="text-align: center">
+								<div class="col-md-9" style="float:none; margin: 0 auto; padding: 2%">
+									<table class="table">
+										<tbody>
+											<tr>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													Name:
+												</td>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													<label>@offer.owner.surname @offer.owner.lastName</label>
+												</td>
+											</tr>
+											
+											<tr>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													Birthdate:
+												</td>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													<label>@{
+														var birthdate = offer.owner.dateOfBirth
+														var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
+														var strDate = format.format(birthdate);
+														strDate
+													}</label>
+												</td>
+											</tr>
+											
+											<tr>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													Id Verified:
+												</td>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													<img alt="@if(offer.owner.isVerified) {Yes} else {No}" 
+														src='@{
+															if(offer.owner.isVerified) {
+																routes.Assets.at("images/icon-ok.png")
+															} else {
+																routes.Assets.at("images/icon-false.png")
+															}
+														}'>
+												</td>
+											</tr>
+											
+											<tr>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													Activity Status:
+												</td>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													<label>@if(offer.owner.isActive) {
+														<font color=green>Active</font>
+													} else {
+														<font color=red>Inactive</font>
+													}</label>
+												</td>
+											</tr>
+											
+											<tr>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													Offer last edited:
+												</td>
+												<td style="vertical-align: middle; border-top: 0; line-height: 1">
+													<label>@{
+														var date = offer.lastEditedDate
+														var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
+														var strDate = format.format(date);
+														strDate
+													}</label>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+					<div class="row">
+						<div class="panel panel-default" style="center">
+							<div class="panel-heading" style="text-align: center">
+								Actions
+							</div>
+							<div class="panel-body" style="text-align: center">
+	
+								<div class="col-md-4" >
+									<button type="submit" class="btn btn-default btn-lg" name="action" value="contact" style="border: 0px ">
+										<span class="glyphicon glyphicon-envelope" style="font-size: 40px" > </span>
+										<br>Contact Host
+									</button>
+								</div>
+	
+								<div class="col-md-4" >
+									<button type="submit" class="btn btn-default btn-lg" name="action" value="search" style="border: 0px ">
+										<span class="glyphicon glyphicon-search" style="font-size: 40px" > </span>
+										<br>New Search
+									</button>
+								</div>
+	
+								<div class="col-md-4">
+									<button type="submit" class="btn btn-default btn-lg" name="action" value="newOffer" style="border: 0px ">
+										<span class="glyphicon glyphicon-plus" style="font-size: 40px" > </span>
+										<br>Create<br>Own Offer
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- End of 'Map' -->
 				
-				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align: center">
-							Contact Person
-						</div>
-						<div class="panel-body" style="text-align: center">
-							<div class="col-md-9" style="float:none; margin: 0 auto; padding: 2%">
-								<table class="table">
-									<tbody>
-										<tr>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												Name:
-											</td>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												<label>@offer.owner.surname @offer.owner.lastName</label>
-											</td>
-										</tr>
-										
-										<tr>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												Birthdate:
-											</td>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												<label>@{
-													var birthdate = offer.owner.dateOfBirth
-													var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
-													var strDate = format.format(birthdate);
-													strDate
-												}</label>
-											</td>
-										</tr>
-										
-										<tr>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												Id Verified:
-											</td>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												<img alt="@if(offer.owner.isVerified) {Yes} else {No}" 
-													src='@{
-														if(offer.owner.isVerified) {
-															routes.Assets.at("images/icon-ok.png")
-														} else {
-															routes.Assets.at("images/icon-false.png")
-														}
-													}'>
-											</td>
-										</tr>
-										
-										<tr>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												Activity Status:
-											</td>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												<label>@if(offer.owner.isActive) {
-													<font color=green>Active</font>
-												} else {
-													<font color=red>Inactive</font>
-												}</label>
-											</td>
-										</tr>
-										
-										<tr>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												Offer last edited:
-											</td>
-											<td style="vertical-align: middle; border-top: 0; line-height: 1">
-												<label>@{
-													var date = offer.lastEditedDate
-													var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
-													var strDate = format.format(date);
-													strDate
-												}</label>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align: center">
-							Actions
-						</div>
-						<div class="panel-body" style="text-align: center">
-
-							<div class="col-md-4" >
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="contact" style="border: 0px ">
-									<span class="glyphicon glyphicon-envelope" style="font-size: 40px" > </span>
-									<br>Contact Host
-								</button>
-							</div>
-
-							<div class="col-md-4" >
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="search" style="border: 0px ">
-									<span class="glyphicon glyphicon-search" style="font-size: 40px" > </span>
-									<br>New Search
-								</button>
-							</div>
-
-							<div class="col-md-4">
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="newOffer" style="border: 0px ">
-									<span class="glyphicon glyphicon-plus" style="font-size: 40px" > </span>
-									<br>Create<br>Own Offer
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
+			</section>
 			}
-		</div>
+		</div> <!-- End of container -->
 	</body>
 
 </html>
