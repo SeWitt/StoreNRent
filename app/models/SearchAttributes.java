@@ -24,8 +24,8 @@ import java.sql.Timestamp;
 	public double spaceSize = 5;
 	public double maxPrice = 15;
 	public double radius = 1.5;
-	public double lng;
-	public double lat;
+	public double lng;					// o.geolocX = longitude;
+	public double lat;					// o.geolocY = latitude
 //	@Override
 	
 	
