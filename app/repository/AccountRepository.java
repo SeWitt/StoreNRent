@@ -14,10 +14,7 @@ import models.Account;
  */
 public class AccountRepository {
 	
-	EntityManager em;
-	
 	public AccountRepository(){
-		em = JPA.em();
 	}
 
 	public void finalize() throws Throwable {
@@ -31,6 +28,7 @@ public class AccountRepository {
 	 */
 	@Transactional
 	public Account createAccount(Account account){
+		EntityManager em = JPA.em();
 		em.persist(account);
 		em.flush();
 		return account;
@@ -42,6 +40,7 @@ public class AccountRepository {
 	 */
 	@Transactional
 	public Account updateAccount(Account account){
+		EntityManager em = JPA.em();
 		em.merge(account);
 		em.flush();
 		return account;
@@ -53,16 +52,22 @@ public class AccountRepository {
 	 */
 	@Transactional(readOnly=true)
 	public Account findAccountByMail(String mail){
-		List tmp = em.createQuery(
-			    "SELECT c FROM ACCOUNT c WHERE c.mail LIKE :custMail")
-			    .setParameter("custMail", mail)
+		EntityManager em = JPA.em();
+		List tmp = em.createNativeQuery(
+			    "Select * FROM ACCOUNT a where a.email = ?", Account.class)
+			    .setParameter(1, mail)
 			    .setMaxResults(10)
 			    .getResultList();
+		if(tmp != null) {
 		return (Account) tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 	
 	@Transactional
 	public Account findAccountById(int id) {
+		EntityManager em = JPA.em();
 		return em.find(Account.class, id);
 	}
 

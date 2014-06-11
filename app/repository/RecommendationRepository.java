@@ -1,4 +1,5 @@
 package repository;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -54,11 +55,15 @@ public class RecommendationRepository {
 	@Transactional
 	public RecommendationSummary getRecommendationSummary(Person person){
 		List tmp = em.createQuery(
-			    "SELECT c FROM RECOMMENDATION_SUMMARY c WHERE c.person_id LIKE :custID")
-			    .setParameter("custID", person.id)
-			    .setMaxResults(10)
-			    .getResultList();
-		return (RecommendationSummary) tmp.get(0);
+				"SELECT * FROM RECOMMENDATION_SUMMARY c WHERE c.person_id = ?", RecommendationSummary.class)
+				.setParameter(1, person.id)
+				.setMaxResults(10)
+				.getResultList();
+		if(tmp != null) {
+			return (RecommendationSummary) tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -67,11 +72,16 @@ public class RecommendationRepository {
 	 */
 	@Transactional
 	public List <Recommendation> findRecommendationByReceiver(Person person){
-		return  em.createQuery(
-			    "SELECT c FROM RECOMMENDATION c WHERE c.RECEIVER_ID LIKE :custID")
+		List<Recommendation> tmp =  em.createQuery(
+			    "SELECT * FROM RECOMMENDATION c WHERE c.RECEIVER_ID = ?", Recommendation.class)
 			    .setParameter("custID", person.id)
 			    .setMaxResults(10)
 			    .getResultList();
+		if (tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Recommendation>();
+		}
 	}
 
 }

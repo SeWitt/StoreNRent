@@ -57,12 +57,16 @@ public class SettingsRepository {
 	 */
 	@Transactional
 	public PersonSettings findSettingsByPersonID(Person person){
-		List tmp = em.createQuery(
-			    "SELECT c FROM PERSON_SETTINGS c WHERE c.person_id LIKE :custId")
-			    .setParameter("custId", person.id)
-			    .setMaxResults(10)
-			    .getResultList();
-		return (PersonSettings) tmp.get(0);
+		List<PersonSettings> tmp = em.createQuery(
+				"SELECT * FROM PERSON_SETTINGS c WHERE c.person_id = ?", PersonSettings.class)
+				.setParameter("custId", person.id)
+				.setMaxResults(10)
+				.getResultList();
+		if (tmp != null) {
+			return (PersonSettings) tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

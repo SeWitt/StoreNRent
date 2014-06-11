@@ -55,15 +55,15 @@ public class OfferRepository extends Controller{
 	@Transactional
 	public static List<Offer> findOfferByOwner(Person owner){
 		EntityManager em = JPA.em();
-//		return em.createQuery(
-//			    "SELECT c FROM OFFER c WHERE c.owner_id LIKE :custId")
-//			    .setParameter("custId", owner.id)
-//			    .setMaxResults(10)
-//			    .getResultList();
-		return em.createNativeQuery("Select OFFER from OFFER o where o.owner.person_id = ?1")
+		List<Offer> tmp =  em.createNativeQuery("SELECT * FROM offer o where o.owner_id = ?", Offer.class)
 				.setParameter(1, owner.id)
 				.setMaxResults(10)
 				.getResultList();
+		if(tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Offer>();
+		}
 	}
 
 	/**
@@ -83,9 +83,9 @@ public class OfferRepository extends Controller{
 	@Transactional
 	public static List<Offer> findOfferByAcceptor(Person acceptor){
 		EntityManager em = JPA.em();
-		List<Offer> tmp = em.createQuery(
-			    "SELECT c FROM OFFER c WHERE c.acceptor_id LIKE :custId")
-			    .setParameter("custId", acceptor.id)
+		List<Offer> tmp = em.createNativeQuery(
+			    "SELECT * FROM offer o where o.acceptor_id = ?", Offer.class)
+			    .setParameter(1, acceptor.id)
 			    .setMaxResults(10)
 			    .getResultList();
 		if(tmp != null) {

@@ -1,4 +1,5 @@
 package repository;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -52,12 +53,16 @@ public class MessageRepository {
 	 */
 	@Transactional
 	public MessageSummary getMessageSummary(Person person){
-		List tmp = em.createQuery(
-			    "SELECT c FROM MESSAGE_SUMMARY c WHERE c.PERSON_ID LIKE :custID")
-			    .setParameter("custID", person.id)
+		List<MessageSummary> tmp = em.createNativeQuery(
+			    "select * from MESSAGE_SUMMARY ms where ms.person_id = ?", MessageSummary.class)
+			    .setParameter(1, person.id)
 			    .setMaxResults(10)
 			    .getResultList();
-		return (MessageSummary) tmp.get(0);
+		if(tmp != null) {
+			return (MessageSummary) tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -66,11 +71,16 @@ public class MessageRepository {
 	 */
 	@Transactional
 	public List<Message> findMessagesByTransmitter(Person person){
-		return  em.createQuery(
-			    "SELECT c FROM MESSAGE c WHERE c.TRANSMITTER_ID LIKE :custID")
+		List<Message> tmp = em.createNativeQuery(
+			    "SELECT * FROM MESSAGE m where m.transmitter_id = ?", Message.class)
 			    .setParameter("custID", person.id)
 			    .setMaxResults(10)
 			    .getResultList();
+		if (tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Message>();
+		}
 	}
 
 	/**
@@ -78,12 +88,17 @@ public class MessageRepository {
 	 * @param personID
 	 */
 	@Transactional
-	public List <Message> findMessagesByReceiver(Person person){
-		return  em.createQuery(
-			    "SELECT c FROM MESSAGE c WHERE c.RECEIVER_ID LIKE :custID")
+	public List<Message> findMessagesByReceiver(Person person){
+		List<Message> tmp = em.createNativeQuery(
+			    "SELECT * FROM MESSAGE m where m.receiver_id = ?", Message.class)
 			    .setParameter("custID", person.id)
 			    .setMaxResults(10)
 			    .getResultList();
+		if (tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Message>();
+		}
 	}
 
 }
