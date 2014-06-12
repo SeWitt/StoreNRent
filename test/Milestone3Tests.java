@@ -29,17 +29,26 @@ public class Milestone3Tests extends Assert {
 	private AccountRepository accountRepo = new AccountRepository();
 	
 
+	/**
+	 * sets up the entity manager because it can not be provided by the play application server during junit tests
+	 */
 	@Before
 	public void begin() {
 		JPA.bindForCurrentThread(emf.createEntityManager());
 		JPA.em().getTransaction().begin();
 	}
 
+	/**
+	 * commits open transactions
+	 */
 	@After
 	public void end() {
 		JPA.em().getTransaction().commit();
 	}
 	
+	/**
+	 * tests database connection by inserting an account object and retrieving it by its email address
+	 */
 	@Test
 	public void testDbConnection() {
 		String email = "test@test.com";
@@ -51,6 +60,13 @@ public class Milestone3Tests extends Assert {
 		assertNotNull(res);
 	}
 	
+	
+	/**
+	 * tests the foreign key constraint between offer and person.
+	 * Therefore a person object and an offer object will be created, linked (the person is the owner of the offer) and persisted.
+	 * The test then tries to retrieve the offer object by its foreign key.
+	 * 
+	 */
 	@Test
 	public void foreignKeyTest() {
 		Person p = new Person();
@@ -70,12 +86,18 @@ public class Milestone3Tests extends Assert {
 		
 	}
 	
+	/**
+	 * tests the bounding box generator by comparing its results with (manually) verified data 
+	 */
 	@Test
 	public void testGeoForecasting() {
 		String test = Arrays.toString(OfferRepository.boundingBoxGenerator(48.193005, 11.4841205, 1));
 		assertTrue("[48.1840218471588, 48.201988152841196, 11.479015963357584, 11.497355793956412]".equals(test) );
 	}
 	
+	/**
+	 * tests if the sql generator is able to generate proper sql statements for several kombinations of input parameters
+	 */
 	@Test
 	public void testSQLGenerator() {
 		SearchAttributes sa = new SearchAttributes();
@@ -106,7 +128,12 @@ public class Milestone3Tests extends Assert {
 				
 	}
 	
-	
+	/**
+	 * tests the discovery service.
+	 * three offers are persisted and a searchAttribute object are generated.
+	 * the discovery service is supposed to retrieve all 3 offers based on the searchAttribute object.
+	 * the search results of the discovery service are tested for an ascending or descending order.
+	 */
 	@Test
 	public void testSearch() {
 		
