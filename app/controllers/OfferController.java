@@ -20,6 +20,7 @@ import service.OfferService;
 import service.RecommendationService;
 import serviceDummy.OfferServiceDummy;
 import serviceDummy.RecommendationServiceDummy;
+import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
 import appinfo.GlobalValues;
 
@@ -30,7 +31,7 @@ import appinfo.GlobalValues;
  */
 public class OfferController extends Controller {
 
-	private static OfferService offerService = new OfferServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static OfferService offerService = new OfferServiceImpl();// if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
 
 	public static Result index(Long id) {
