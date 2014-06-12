@@ -21,8 +21,8 @@ import java.sql.Timestamp;
 	public Timestamp to;
 	public String city = "";
 	public String postCode = ""; 
-	public double spaceSize = 5;
-	public double maxPrice = 15;
+	public double spaceSize = 0;
+	public double maxPrice = 0;
 	public double radius = 1.5;
 	public double lng;					// o.geolocX = longitude;
 	public double lat;					// o.geolocY = latitude

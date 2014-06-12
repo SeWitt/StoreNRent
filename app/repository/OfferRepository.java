@@ -1,4 +1,5 @@
 package repository;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +48,20 @@ public class OfferRepository extends Controller{
 		em.merge(offer);
 		em.flush();
 		return offer;
+	}
+	
+	@Transactional
+	public static List<Offer> findAllOffers(){
+		EntityManager em = JPA.em();
+		List<Offer> tmp = em.createNativeQuery(
+			    "SELECT * FROM offer", Offer.class)
+			    .setMaxResults(10)
+			    .getResultList();
+		if(tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Offer>();
+		}
 	}
 
 	/**
@@ -103,13 +118,68 @@ public class OfferRepository extends Controller{
 	@Transactional
 	public static List<Offer> findOfferByAttributes(SearchAttributes searchAttributs){
 		EntityManager em = JPA.em();
-		return null;
+		List<Offer> tmp = em.createNativeQuery(queryGenerator(searchAttributs), Offer.class)
+			    .setMaxResults(10)
+			    .getResultList();
+		if(tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Offer>();
+		}
+		
+	}
+	
+	public static void main(String args[]) {
+		SearchAttributes sa = new SearchAttributes();
+		sa.radius = 1;
+		sa.lat = 11.0;
+		sa.lng = 48.0;
+		sa.maxPrice = 15;
+		sa.spaceSize = 23;
+		sa.from = new Timestamp(10000);
+		String res = queryGenerator(sa);
+		System.out.println(res);
 	}
 	
 	public static String queryGenerator(SearchAttributes sa) {
 		
+		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
+			return null;
+		}
 		
-		return null;
+		if(sa.from == null && sa.to != null) {
+			sa.from = sa.to;
+		} 
+		if(sa.from != null && sa.to == null) {
+			sa.to = sa.from;
+		}
+		
+		double[] bBox = boundingBoxGenerator(sa.lat, sa.lng, sa.radius);
+		
+		String selectFrom = "select * from offer o";
+		String where = "where o.geolocX between " + bBox[2] + " and " + bBox[3] + " and o.geolocY between " + bBox[0] + " and " + bBox[1];
+		String andIsActive = "and o.is_active = true";
+		String andPrice = "and o.price <= " + sa.maxPrice;
+		String andSpaceSize = "and o.space_size >= " + sa.spaceSize;
+		String andNotContracted = "";
+		String andAvailable = "";
+		if(sa.from != null && sa.to != null) {
+			andNotContracted = "and to_timestamp(" + sa.from.getTime() + ") not between o.contracted_from and o.contracted_until and to_timestamp(" + sa.to.getTime() + ") not between o.contracted_from and o.contracted_until";
+			andAvailable = "and to_timestamp(" + sa.from.getTime() + ") between o.offer_from and o.offer_to and to_timestamp(" + sa.to.getTime() + ") between o.offer_from and o.offer_to";
+		}
+		
+		String result = selectFrom + " " + where + " " + andIsActive;
+		if(sa.maxPrice > 0) {
+			result = result + " " + andPrice;
+		}
+		if(sa.spaceSize > 0) {
+			result = result + " " + andSpaceSize;
+		}
+		if(sa.from != null) {
+			result = result + " " + andNotContracted + " " + andAvailable;
+		}
+		
+		return result;
 	}
 	
 	/**
