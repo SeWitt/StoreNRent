@@ -130,7 +130,7 @@ public class Milestone3Tests extends Assert {
 	
 	/**
 	 * tests the discovery service.
-	 * three offers are persisted and a searchAttribute object are generated.
+	 * three offers are persisted and a searchAttribute object is generated.
 	 * the discovery service is supposed to retrieve all 3 offers based on the searchAttribute object.
 	 * the search results of the discovery service are tested for an ascending or descending order.   
 	 */
