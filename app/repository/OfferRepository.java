@@ -129,22 +129,12 @@ public class OfferRepository extends Controller{
 		
 	}
 	
-	public static void main(String args[]) {
-		SearchAttributes sa = new SearchAttributes();
-		sa.radius = 1;
-		sa.lat = 11.0;
-		sa.lng = 48.0;
-		sa.maxPrice = 15;
-		sa.spaceSize = 23;
-		sa.from = new Timestamp(10000);
-		String res = queryGenerator(sa);
-		System.out.println(res);
-	}
-	
 	public static String queryGenerator(SearchAttributes sa) {
 		
+		String noResultQuery = "select * from offer where 1 = 2";
+		
 		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
-			return null;
+			return noResultQuery;
 		}
 		
 		if(sa.from == null && sa.to != null) {
