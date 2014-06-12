@@ -1,15 +1,15 @@
 @(city: String)(spacesize: Double)(offers: List[Offer])(menubar: Html)
 
-<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta content="text/html; charset=utf-8" http-equiv="content-type">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Search</title>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+		
+		<title>Store 'n Rent - Search</title>
 
 		<!-- Bootstrap -->
-
 		<link href="@routes.Assets.at("fonts/glyphicons-halflings-regular.svg")">
 		<link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
 		<link href="@routes.Assets.at("stylesheets/slider.css")" rel="stylesheet">
@@ -324,236 +324,204 @@
 		</style>
 
 	</head>
+
 	<body onload="init();">
 
 		@menubar
-		<div class="title" style="text-align:center">
-			<h1>Look for offers</h1>
-		</div>
-		<hr>
+		
+		<!-- Main Container -->
+		<div class="container" style="background: #fff">
 
-		<section class="row">
-
-			<!-- begin of map-->
-			<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
+			<section class="row">			
 				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
-							Map
+					<div class="panel panel-default" >
+						<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
+							Search for offers
 						</div>
+					</div>
+				</div>
+				
+				<!-- begin of map-->
+				<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
+					<div class="row">
+						<div class="panel panel-default" style="">
+							<div class="panel-heading" style="text-align: center">
+								Map
+							</div>
+							<div class="panel-body">
+								<div style="width: 100%; height: 100%" id="map">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- end of map -->
+		
+				<!-- Begin of search input -->
+				<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
+					<div class="row">
+						<div id="searchWarning">
+							<div class="alert alert-warning">Please enter a city and postcode!
+							</div>
+						</div>
+					</div>
+		
+					<div class="panel panel-default">
+						<div class="panel-heading" style="text-align: center">
+							Pricing, Rental Time
+						</div>
+						
 						<div class="panel-body">
-							<br>
-							<div style="width:100%; height:100%" id="map"></div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- End of container -->
-
-			<!-- end of map -->
-
-			<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
-
-				<div class="row">
-					<div id="searchWarning" >
-						<div class="alert alert-warning">
-							Please enter a city and postcode!
-						</div>
-					</div>
-				</div>
-
-				<div class="panel panel-default" style="center">
-					<div class="panel-heading" style="text-align:center">
-						Pricing, Rental Time
-					</div>
-					<div class="panel-body">
-						<div class="row">
-
-							<div>
-								<div class="row">
-
-									<script>
-										$("#searchWarning").hide();
-									</script>
-									<div class ="" style="text-align:center">
-										<h2> Location</h2>
-									</div>
-									<div class="col col-md-3">
-										@if(city != null){
+							<script>
+									$("#searchWarning").hide();
+							</script>
+							
+							<div class="" style="text-align: center">
+								<h3>Location</h3>
+							</div>
+							
+							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
+								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+									@if(city != null){
 										<input id="city" class="form-control" type="text" value= "@city" autofocus="" placeholder="City" >
-										}else{
+									} else {
 										<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
-										}
-
-									</div>
-									<div class="col col-md-3">
-										<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
-									</div>
-									<div class="col col-md-4">
-
-										<div id="radius" class="input-group">
-											<span class="input-group-addon">search area:</span>
-											<input id="radiusinput" class="form-control" type="number" name="circuit" min="1" value="5" max="100" step="0.5">
-											<span class="input-group-addon">km</span>
-										</div>
-									</div>
+									}
 								</div>
-								<hr>
-								<div class="row">
-									<div style="text-align:center">
-										<h2>Space</h2>
-									</div>
-									<div class="col col-md-4">
-										<div id="spacesize" class="input-group">
-											<span class="input-group-addon">size:</span>
-											@if(spacesize !=null){
-											<input id="spacesizeinput" class="form-control" type="number" value="@spacesize" name="size" min="1" value="5" max="100" step="0.5">
-											}else{
-											<input id="spacesizeinput" class="form-control" type="number" name="size" min="1" value="5" max="100" step="0.5">
+								
+								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+									<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
+								</div>
+								
+								<div class="col-md-4">
+									<div id="spacesize" class="input-group">
+										<input id="spacesizeinput" class="form-control" type="number" 
+											@if(spacesize != null){
+												value="@spacesize" 
+											} else {
+												placeholder="Radius"
 											}
-
-											<span class="input-group-addon">m²</span>
-										</div>
+										name="size" min="0" value="5" max="100" step="5">
+										<span class="input-group-addon">km</span>
 									</div>
 								</div>
-								<br>
-								<div class="row">
-
-									<div class="col-md-4">
-
-										<div id="dtpfrom" class="input-append date">
-											<div class="input-group">
-												<span class="input-group-addon">From:</span>
-												<input id="dtpfrominput" class="form-control" type="text">
-												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-
-											</div>
-										</div>
-
-										<script type="text/javascript">
-											$(function() {
-												$('#dtpfrom').datetimepicker({
-													format : 'dd.MM.yyyy',
-													language : 'pt-BR'
-												});
-											});
-										</script>
-									</div>
-									<div class="col-md-4 col-md-offset-1">
-										<div id="dtpto" class="input-append date">
-											<div class="input-group">
-												<span class="input-group-addon">To:</span>
-												<input id="dtptoinput" class="form-control"  type="text">
-												<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-											</div>
-										</div>
-
-										<script type="text/javascript">
-											$(function() {
-												$('#dtpto').datetimepicker({
-													format : 'dd.MM.yyyy',
-													language : 'pt-BR'
-												});
-											});
-										</script>
-									</div>
-
-								</div>
-								<hr>
-								<div class="row">
-
-									<div class ="" style="text-align:center">
-										<h2>Pricing</h2>
-
-										Max price:
-										<b> 0 </b>
-										<div  class="slider slider-horizontal" style="width: 200px;">
-
-											<div class="slider-track"></div>
-											<div class="tooltip top" style="top: -40px; left: 79.5px;"></div>
-											<input id="maxPrice" class="span2" type="text" style="" >
-
-										</div>
-										<b> 100 € </b>
-										<script type="text/javascript">
-											$(function() {
-												$('#maxPrice').slider({
-													min : '0',
-													step : '1',
-													max : '100'
-												});
-											});
-										</script>
+							</div>
+							
+							<hr>
+							
+							<div style="text-align: center">
+								<h3>Space</h3>
+							</div>
+						
+							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0">
+								<div class="col-md-4">
+									<div class="input-group">
+										<span class="input-group-addon">Area</span>
+										<select class="form-control">
+											<option></option>
+											<option value="1">1 - 3 m<sup>3</sup></option>
+											<option value="2">3 - 5 m<sup>3</sup></option>
+											<option value="3">5 - 7 m<sup>3</sup></option>
+											<option value="4">7 - 9 m<sup>3</sup></option>
+											<option value="5">> 9 m<sup>3</sup></option>
+										</select>
 									</div>
 								</div>
-
-								<hr>
-								<button id="search" class="btn btn-default" style="vertical-align: top; float: right" type="button" >
+								
+								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+									<div id="dtpfrom" class="input-append date">
+										<div class="input-group">
+											<input id="dtpfrominput" class="form-control" name="from" type="text" placeholder="From">
+											<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
+										</div>
+									</div>
+	
+									<script type="text/javascript">
+										$(function() {
+											$('#dtpfrom').datetimepicker({
+												format : '@appinfo.GlobalValues.DATEFORMAT',
+												language : 'pt-BR'
+											});
+										});
+									</script>
+								</div>
+								
+								<div class="form-group col-md-4" style="padding-left: 5px; padding-right: 5px">
+									<div id="dtpto" class="input-append date" >
+										<div class="input-group">
+											<input id="dtptoinput" class="form-control" name="to" type="text" placeholder="To">
+											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
+										</div>
+									</div>
+	
+									<script type="text/javascript">
+										$(function() {
+											$('#dtpto').datetimepicker({
+												format : '@appinfo.GlobalValues.DATEFORMAT',
+												language : 'pt-BR'
+											});
+										});
+									</script>
+								</div>
+							</div>
+							
+							<hr>
+							
+							<div style="text-align: center">
+								<h3>Pricing</h3>
+							</div>
+							
+							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0; text-align: center">
+								Price (max.): <b>0 &euro;</b>
+								
+								<div class="slider slider-horizontal" style="width: 200px; margin: 0 2% 0 2%">
+									<input id="maxPrice" class="span2" type="text">
+								</div>
+								
+								<b>100 &euro;</b>
+								
+								<script type="text/javascript">
+									$(function() {
+										$('#maxPrice').slider({
+											min : '0',
+											step : '1',
+											max : '100'
+										});
+									});
+								</script>
+							</div>
+		
+							<div style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
+								<button id="search" class="btn btn-default" style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
 									Search
 								</button>
 							</div>
 						</div>
-
+					</div>
+				</div> <!-- end search input -->
+			</section>
+			
+			<section class="row">
+				<div class="col" style="width: 100%">
+					<div class="panel panel-default" >
+						<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
+							Search Results
+						</div>
 					</div>
 				</div>
-			</div>
-
-		</section>
-		<!-- end search input -->
-		<hr>
-		<div style="text-align:center">
-			<h1 > Search results </h1>
-		</div>
-		<!-- begin search results-->
-		<div>
-			<section class="row">
-				<div id ="resultContainer">
-					<div id="searchResults" style="text-align:center">
-						@if(offers != null){
-						<table id="resultTable"   class="table table-striped">
-
-							<thead>
-								<tr>
-									<th style="text-align:center"> Picture </th>
-									<th style="text-align:center"> Description </th>
-									<th style="text-align:center"> Timeslot </th>
-									<th style="text-align:center"> Distance </th>
-									<th style="text-align:center"> Price (&euro; / per day) </th>
-								</tr>
-							</thead>
-							<tbody>
-
-								@for(offer <- offers){
-								<tr style="text-align:center">
-									@if(offer.picturePath1 == null ) {
-									<td style="text-align:center"><img height="60" width="80" src="@routes.Assets.at("images/defaultPicture.png")"  /></td>
-									}else{
-									picture to be placed here...
-									}
-									<td ><a href="@routes.OfferController.index(offer.id)"> @offer.description </a></td>
-									<td >@offer.offerFrom - @offer.offerTo </td>
-									<td > about x km away </td>
-									<td > @offer.price </td>
-								</tr>
-								<br>
-								}
-							</tbody>
+		
+				<!-- begin search results-->
+				<div id="resultContainer">
+					<div id="searchResults" style="text-align: center">
+						<table id="resultTable" class="table table-striped">
+							<tr>
+								<td style="text-align: center">Nothing to display.</td>
+							</tr>
 						</table>
-						}else{
-						<tr style="text-align:center">
-
-							<h3>nothing to display!</h3>
-
-						</tr>
-						}
-
 					</div>
 				</div>
 			</section>
-		</div>
-
+		</div> <!-- End of Container -->
+	
 		<!--	//===================================SCRIPTS============================================================================================== -->
 		<script>
 			$('#search').click(function() {
@@ -606,17 +574,19 @@
 						data : 'html',
 						contentType : 'html',
 						success : function(data) {
-
 							$("#searchResults").remove();
-
 							$("#resultContainer").append(data);
 
+							scrollToSearchResultTable();
 						}
 					});
 				}
-
+				
 			});
-
+			
+			function scrollToSearchResultTable() {
+				$("#resultContainer")[0].scrollIntoView(true);
+			}
 		</script>
 
 	</body>

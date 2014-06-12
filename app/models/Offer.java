@@ -180,7 +180,7 @@ public class Offer {
 
 	public Offer(OfferForm of) {
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.TIMEFORMAT);
+		SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.DATEFORMAT);
 		
 		
 		

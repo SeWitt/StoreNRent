@@ -6,8 +6,6 @@ autoScalaLibrary := false
 
 scalaVersion := "2.10.3"
 
-
-
 libraryDependencies ++= Seq(
   javaJdbc,
   javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
@@ -28,3 +26,9 @@ libraryDependencies ++= Seq(
 resolvers += Resolver.sonatypeRepo("releases")
 
 play.Project.playJavaSettings
+
+javaOptions ++= Seq(
+	"-Xms1024M", 
+	"-Xmx2048M", 
+	"-XX:MaxPermSize=2048M"
+)

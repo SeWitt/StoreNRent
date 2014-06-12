@@ -63,13 +63,13 @@ public class SearchController extends Controller {
 		
 		if(fromdate != null){
 			try {
-				sa.from =  new Timestamp((new SimpleDateFormat(GlobalValues.TIMEFORMAT).parse(fromdate)).getTime());
+				sa.from =  new Timestamp((new SimpleDateFormat(GlobalValues.DATEFORMAT).parse(fromdate)).getTime());
 			} catch (ParseException e) {}
 		}
 		
 		if(todate != null){
 			try {
-				sa.to =  new Timestamp((new SimpleDateFormat(GlobalValues.TIMEFORMAT).parse(todate)).getTime());
+				sa.to =  new Timestamp((new SimpleDateFormat(GlobalValues.DATEFORMAT).parse(todate)).getTime());
 			} catch (ParseException e) {}
 		}
 		if(city != null){

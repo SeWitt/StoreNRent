@@ -17,6 +17,17 @@ public class GlobalValues {
 	 */
 	public static final String NAVBAR_SEARCH = "Search";
 	
+	/**
+	 * Format für Datumsanzeige.
+	 * <br>
+	 * Format: <b>dd.MM.yyyy</b>
+	 */
+	public static final String DATEFORMAT = "dd.MM.yyyy";
 	
-	public static final String TIMEFORMAT = "dd.MM.yyyy";
+	/**
+	 * Format für Datumsanzeige inklusive Zeitstempel.
+	 * <br>
+	 * Format: <b>dd.MM.yyyy H</b>
+	 */
+	public static final String TIMEFORMAT = "dd.MM.yyyy H";
 }

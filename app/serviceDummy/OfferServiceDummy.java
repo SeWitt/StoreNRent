@@ -2,13 +2,13 @@ package serviceDummy;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
 import models.Offer;
 import models.Person;
 import models.PersonSettings;
-import repository.PersonRepository;
 import service.OfferService;
 import service.PersonalSettingsService;
 
@@ -58,7 +58,11 @@ public class OfferServiceDummy implements OfferService {
 		offer.country = "Germany";
 		offer.geolocX = 48.138914;
 		offer.geolocY = 11.580177;
-		offer.createdDate = new Timestamp(System.currentTimeMillis());
+		
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.add(GregorianCalendar.DATE, -25);
+		offer.createdDate = new Timestamp(cal.getTimeInMillis());
+		
 		offer.description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr.<br><br> Sed diam "
 				+ "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed "
 				+ "diam voluptua. <br><br>At vero eos et accusam et justo duo dolores et ea rebum. Stet "
@@ -122,7 +126,10 @@ public class OfferServiceDummy implements OfferService {
 			offer.isActive = true;
 			offer.lastEditedDate = offer.createdDate;
 			offer.offerFrom = new Timestamp(System.currentTimeMillis());
-			offer.offerTo = new Timestamp(2014, 12, 12, 23, 25, 50, 15);
+			
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.add(GregorianCalendar.DATE, 555);
+			offer.offerTo = new Timestamp(cal.getTimeInMillis());
 			
 			offer.price = 8.5;
 			offer.owner = person;
