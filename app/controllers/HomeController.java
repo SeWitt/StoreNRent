@@ -15,6 +15,8 @@ import service.OfferService;
 import serviceDummy.DiscoveryServiceDummy;
 import serviceDummy.NewsServiceDummy;
 import serviceDummy.OfferServiceDummy;
+import serviceImpl.DiscoveryServiceImpl;
+import serviceImpl.OfferServiceImpl;
 import appinfo.GlobalValues;
 /**
  * @author Sebastian
@@ -23,9 +25,9 @@ import appinfo.GlobalValues;
  */
 public class HomeController extends Controller {
 
-	private NewsService newsService = new NewsServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
-	private static DiscoveryService discoveryService =  new DiscoveryServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
-	private static OfferService offerService = new OfferServiceDummy();
+//	private NewsService newsService = new NewsServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static DiscoveryService discoveryService =  new DiscoveryServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static OfferService offerService = new OfferServiceImpl();
 
 		
 	public static Result index(){
@@ -74,14 +76,14 @@ public class HomeController extends Controller {
 						System.out.println("city: "+city);
 						System.out.println("size: "+spacesize);
 						//TODO: Replace through discovery service (real query, no dummy!)
-						Person p = new Person();
-				    	p.id = 2;
-				    	p.lastName= "we";
-				    	p.surname ="dd";
-				    	offers = offerService.findByOwnerID(p);
-					
+//						Person p = new Person();
+//				    	p.id = 2;
+//				    	p.lastName= "we";
+//				    	p.surname ="dd";
+//				    	offers = offerService.findByOwnerID(p);
+//					
 				    	//TODO: Discovery service implementieren
-//						offers = discoveryService.findOffers(sa);
+						offers = discoveryService.findOffers(sa);
 					}
 					
 					result = ok(views.html.search.render(city, spacesize, offers, menubar));
