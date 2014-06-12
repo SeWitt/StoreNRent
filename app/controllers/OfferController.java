@@ -14,6 +14,7 @@ import models.OfferForm;
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.OfferService;
@@ -33,12 +34,14 @@ public class OfferController extends Controller {
 
 	private static OfferService offerService = new OfferServiceImpl();// if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
-
-	public static Result index(Long id) {
+	@Transactional
+	public static Result index(Integer id) {
 		// menue bar
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 
 		// search offer
+//		int offerID = id.intValue();
+//		Integer offerID = 1;
 		Offer o = offerService.findByOfferID(id.intValue());
 		session("offerid", "" + o.id);
 		// create acceptance form
@@ -56,6 +59,7 @@ public class OfferController extends Controller {
 		return ok(content);
 	}
 
+	@Transactional
 	public static Result doAction() {
 
 		Form<OfferAcceptForm> form = Form.form(OfferAcceptForm.class)
@@ -146,7 +150,7 @@ public class OfferController extends Controller {
 
 		return result;
 	}
-
+	@Transactional
 	public static Result newOffer() {
 
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
@@ -156,8 +160,8 @@ public class OfferController extends Controller {
 		return ok(content);
 
 	}
-
-	public static Result edit(Long id) {
+	@Transactional
+	public static Result edit(Integer id) {
 
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		Offer o = offerService.findByOfferID(id.intValue());
@@ -170,7 +174,7 @@ public class OfferController extends Controller {
 		Html content = views.html.offerform.render(offerForm, menubar);
 		return ok(content);
 	}
-
+	@Transactional
 	public static Result create() {
 
 		Form<OfferForm> offerForm = Form.form(OfferForm.class)

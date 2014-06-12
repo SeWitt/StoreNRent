@@ -87,7 +87,7 @@ public class OfferRepository extends Controller{
 	 * @param id
 	 */
 	@Transactional
-	public static Offer findOfferByID(long id){
+	public static Offer findOfferByID(int id){
 		EntityManager em = JPA.em();
 		return em.find(Offer.class, id);
 	}
