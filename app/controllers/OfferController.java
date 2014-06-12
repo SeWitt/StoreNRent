@@ -11,6 +11,7 @@ import java.util.List;
 import models.Offer;
 import models.OfferAcceptForm;
 import models.OfferForm;
+import models.Person;
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -40,19 +41,25 @@ public class OfferController extends Controller {
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 
 		// search offer
-//		int offerID = id.intValue();
-//		Integer offerID = 1;
+
 		Offer o = offerService.findByOfferID(id.intValue());
-		session("offerid", "" + o.id);
+		
+		Person p = new Person();
+    	p.id = 2;
+    	p.lastName= "we";
+    	p.surname ="dd";
+    	p.isActive = true;
+    	p.isVerified = true;
+    	
+		
+		session("offerid", "" + id.toString());
 		// create acceptance form
 		Form<OfferAcceptForm> offerForm = Form.form(OfferAcceptForm.class);
 		OfferAcceptForm oaf = new OfferAcceptForm();
-		oaf.from = new SimpleDateFormat(GlobalValues.DATEFORMAT)
-				.format(new Timestamp(System.currentTimeMillis()));
-		oaf.to = new SimpleDateFormat(GlobalValues.DATEFORMAT)
-				.format(o.offerTo);
-//		System.out.println("from index: " + oaf.from);
-//		System.out.println("to index: " + oaf.to);
+		oaf.from = new SimpleDateFormat(GlobalValues.DATEFORMAT).format(new Timestamp(System.currentTimeMillis()));
+		oaf.to = new SimpleDateFormat(GlobalValues.DATEFORMAT).format(o.offerTo);
+		System.out.println("from index: " + oaf.from);
+		System.out.println("to index: " + oaf.to);
 		offerForm.fill(oaf);
 
 		Html content = views.html.offer.render(offerForm, menubar, o);
@@ -220,7 +227,7 @@ public class OfferController extends Controller {
 					Offer o = new Offer(of);
 
 					//download pictures
-									
+//						System.out.println("stret: "+o.street+" hnr: "+o.houseNr+" pc: "+o.postCode + " city "+o.city+ "ctr "+o.country);			
 					try {
 						// Initialize a new GeoAddressStandardizer-class with your API-Key
 						GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
@@ -242,9 +249,12 @@ public class OfferController extends Controller {
 						double latitude = coords.getLatitude();
 						o.geolocX = longitude;
 						o.geolocY = latitude;
+						System.out.println("long:"+longitude+ "lang: "+latitude);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+//					o.geolocX = 48.14188;
+//					o.geolocY = 11.56645;
 					
 					o = offerService.createOffer(o);
 					flash("success", "Successfully created!");
