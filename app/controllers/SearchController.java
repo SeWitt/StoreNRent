@@ -103,11 +103,11 @@ public class SearchController extends Controller {
 		try {
 			// Initialize a new GeoAddressStandardizer-class with your API-Key
 			GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
-			String strAdd = 
-					
+			String strAdd = "  , "+					
 					sa.postCode +
 					" " + 
-					sa.city;
+					sa.city+
+					", ";
 			
 			List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
 			GeoAddress address = addresses.get(0);

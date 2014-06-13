@@ -190,18 +190,25 @@ public class Offer {
 		postCode = of.postCode;
 		houseNr = of.houseNr;
 		country = of.country;
-		try{
-			geolocX = (new Double(of.geolocX)).doubleValue();
-		} catch(Exception e) {
-			e.printStackTrace();
-			//TODO
+		
+		if(of.geolocX != null){
+				try{
+				geolocX = (new Double(of.geolocX)).doubleValue();
+			} catch(Exception e) {
+				e.printStackTrace();
+				//TODO
+			}
 		}
-		try{
-			geolocY = (new Double(of.geolocY)).doubleValue();
-		} catch(Exception e) {
-			e.printStackTrace();
-			//TODO
+		
+		if(of.geolocY != null){
+			try{
+				geolocY = (new Double(of.geolocY)).doubleValue();
+			} catch(Exception e) {
+				e.printStackTrace();
+				//TODO
+			}
 		}
+			
 //		picture = of.picture;
 		price = of.price;
 		isActive = of.isActive;

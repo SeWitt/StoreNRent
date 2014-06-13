@@ -31,26 +31,74 @@
 
 	</head>
 
-	<body >
+	<body>
 
 		@menubar
 
-		<div style="background-image:url(@routes.Assets.at("images/Background.png"))">
-
-			<div class="title" style="text-align: center">
+			<div class="title" style="text-align: center; "> <!-- position:absolute; top:200px -->
 				<h1 style="color: #0800E3"><b>Welcome to
 				<br />
 				Store 'n Rent </b></h1>
+			</div>
+			
+			<div class="container fill">
+			<div id="myCarousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="active item">
+      <div class="fill" style="background-image:url(@routes.Assets.at("images/Slideshow9.jpg")" alt="Store 'n Rent">
+        <div class="container">
+          <img src="@routes.Assets.at("images/Slideshow1.jpg")" alt="TEST"  />
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="fill" style="background-image:url(@routes.Assets.at("images/Slideshow8.jpg")" alt="Store 'n Rent">
+        <div class="container">
+          
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="fill" style="background-image:url(@routes.Assets.at("images/Slideshow7.jpg")" alt="Store 'n Rent">
+        <div class="container">
+          
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="fill" style="background-image:url(@routes.Assets.at("images/Slideshow5.jpg")" alt="Store 'n Rent">
+        <div class="container">
+          
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="fill" style="background-image:url(@routes.Assets.at("images/Slideshow4.jpg")" alt="Store 'n Rent">
+        <div class="container">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pull-center">
+	<a class="carousel-control left" href="#myCarousel" data-slide="prev">‹</a>
+	<a class="carousel-control right" href="#myCarousel" data-slide="next">›</a>
+  </div>
+</div>
+</div>			
+			<div class="title" style="text-align: center; position:absolute; top:400px">
 				<h2 style="color: #0800E3"><b>Find a storage area close to you:</b></h2>
 			</div>
+
+			<div class="row" style="text-align: center; position:absolute; top:500px">
 			@helper.form(action = routes.HomeController.search()) {
 			<form class="form-inline" role="form">
 				<div class="col col-md-3" style="text-align: center">
 					<input id="city" class="form-control" type="text" name="city" value='@form("city").value' autofocus="" placeholder="City" >
-					
+
 				</div>
 
-				<div class="col col-md-4" style="text-align: center">
+				<div class="col col-md-2" style="text-align: center">
 
 					<div id="radius" class="input-group">
 						<input id="radiusinput" class="form-control" type="number" name="circuit" min="1"max="100" step="0.5" placeholder="Circuit">	
@@ -58,7 +106,7 @@
 					</div>
 				</div>
 
-				<div class="col col-md-4" style="text-align: center">
+				<div class="col col-md-2" style="text-align: center">
 					<div id="spacesizeinput" class="input-group">
 						<input id="spacesize" class="form-control" type="number" name="spacesize" placeholder="Spacesize" value='@form("spacesize").value' min="1" value="5" max="100" step="0.5">
 						<span class="input-group-addon">m</span>
@@ -67,19 +115,22 @@
 				<button type="submit" class="btn btn-default" name="action" value="submit" style="vertical-align: top; float: right" >
 					Search
 				</button>
-				<div class="row" style="text-align: center">
-					<h2 style="color: #0800E3"><b >That's how it works:</b></h2>
-				</div>
 			</form>
-			}
+			}			
+			</div>					
+
+			<div class="row" style="text-align: center; position:absolute; top:700px">
+					<h2 style="color: #0800E3"><b >That's how it works:</b></h2>
+			</div>
+			
 			<div class="row">
-				<div id="images">
+				<div id="images" style="text-align: center; margin-right:20px position:absolute; top:900px">
 					<img class="img-circle" src="@routes.Assets.at("images/Loupe.png")" alt="Store 'n Rent" />
 					<img class="img-circle"src="@routes.Assets.at("images/Person.png")" alt="Store 'n Rent" />
 					<img class="img-circle" src="@routes.Assets.at("images/Check.png")" alt="Store 'n Rent" />
 				</div>
 			</div>
-		</div>
+
 		@footer
 
 	</body>

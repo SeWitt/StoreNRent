@@ -11,9 +11,11 @@ import java.util.List;
 import models.Offer;
 import models.OfferAcceptForm;
 import models.OfferForm;
+import models.Person;
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.OfferService;
@@ -33,29 +35,38 @@ public class OfferController extends Controller {
 
 	private static OfferService offerService = new OfferServiceImpl();// if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
-
-	public static Result index(Long id) {
+	@Transactional
+	public static Result index(Integer id) {
 		// menue bar
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 
 		// search offer
+
 		Offer o = offerService.findByOfferID(id.intValue());
-		session("offerid", "" + o.id);
+		
+		Person p = new Person();
+    	p.id = 2;
+    	p.lastName= "we";
+    	p.surname ="dd";
+    	p.isActive = true;
+    	p.isVerified = true;
+    	
+		
+		session("offerid", "" + id.toString());
 		// create acceptance form
 		Form<OfferAcceptForm> offerForm = Form.form(OfferAcceptForm.class);
 		OfferAcceptForm oaf = new OfferAcceptForm();
-		oaf.from = new SimpleDateFormat(GlobalValues.DATEFORMAT)
-				.format(new Timestamp(System.currentTimeMillis()));
-		oaf.to = new SimpleDateFormat(GlobalValues.DATEFORMAT)
-				.format(o.offerTo);
-//		System.out.println("from index: " + oaf.from);
-//		System.out.println("to index: " + oaf.to);
+		oaf.from = new SimpleDateFormat(GlobalValues.DATEFORMAT).format(new Timestamp(System.currentTimeMillis()));
+		oaf.to = new SimpleDateFormat(GlobalValues.DATEFORMAT).format(o.offerTo);
+		System.out.println("from index: " + oaf.from);
+		System.out.println("to index: " + oaf.to);
 		offerForm.fill(oaf);
 
 		Html content = views.html.offer.render(offerForm, menubar, o);
 		return ok(content);
 	}
 
+	@Transactional
 	public static Result doAction() {
 
 		Form<OfferAcceptForm> form = Form.form(OfferAcceptForm.class)
@@ -146,7 +157,7 @@ public class OfferController extends Controller {
 
 		return result;
 	}
-
+	@Transactional
 	public static Result newOffer() {
 
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
@@ -156,8 +167,8 @@ public class OfferController extends Controller {
 		return ok(content);
 
 	}
-
-	public static Result edit(Long id) {
+	@Transactional
+	public static Result edit(Integer id) {
 
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		Offer o = offerService.findByOfferID(id.intValue());
@@ -170,7 +181,7 @@ public class OfferController extends Controller {
 		Html content = views.html.offerform.render(offerForm, menubar);
 		return ok(content);
 	}
-
+	@Transactional
 	public static Result create() {
 
 		Form<OfferForm> offerForm = Form.form(OfferForm.class)
@@ -216,7 +227,7 @@ public class OfferController extends Controller {
 					Offer o = new Offer(of);
 
 					//download pictures
-									
+//						System.out.println("stret: "+o.street+" hnr: "+o.houseNr+" pc: "+o.postCode + " city "+o.city+ "ctr "+o.country);			
 					try {
 						// Initialize a new GeoAddressStandardizer-class with your API-Key
 						GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
@@ -238,9 +249,12 @@ public class OfferController extends Controller {
 						double latitude = coords.getLatitude();
 						o.geolocX = longitude;
 						o.geolocY = latitude;
+						System.out.println("long:"+longitude+ "lang: "+latitude);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+//					o.geolocX = 48.14188;
+//					o.geolocY = 11.56645;
 					
 					o = offerService.createOffer(o);
 					flash("success", "Successfully created!");

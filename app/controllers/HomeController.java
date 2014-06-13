@@ -7,6 +7,7 @@ import models.Person;
 import models.SearchAttributes;
 import play.api.templates.Html;
 import play.data.Form;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.DiscoveryService;
@@ -29,7 +30,7 @@ public class HomeController extends Controller {
 	private static DiscoveryService discoveryService =  new DiscoveryServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private static OfferService offerService = new OfferServiceImpl();
 
-		
+	@Transactional
 	public static Result index(){
 		//menue bar
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
@@ -42,7 +43,7 @@ public class HomeController extends Controller {
         return ok(content);
 	}
 	
-	
+	@Transactional
 	public static Result search(){
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class).bindFromRequest();
