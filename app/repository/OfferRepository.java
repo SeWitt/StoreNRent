@@ -32,6 +32,17 @@ public class OfferRepository extends Controller{
 	 */
 	@Transactional
 	public static Offer createOffer(Offer offer){
+		Person p = null;
+		if(offer.owner == null) {
+			List<Person> ps = PersonRepository.findAllPersons();
+			if(ps.size()==0) {
+				p = PersonRepository.getDummyPerson();
+				PersonRepository.createPerson(p);
+			} else {
+				p = ps.get(0);
+			}
+			offer.owner = p;
+		}
 		EntityManager em = JPA.em();
 		em.persist(offer);
 		em.flush();
@@ -197,5 +208,7 @@ public class OfferRepository extends Controller{
 		result[3] = (lng + (180/pi)*((rds*1000)/6378137)/Math.cos(Math.PI/180.0*lng)) * 1.000354;
 		return result;
 	}
+	
+	
 
 }

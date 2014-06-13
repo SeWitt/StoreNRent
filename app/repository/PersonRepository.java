@@ -1,9 +1,14 @@
 package repository;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
+import models.Offer;
 import models.Person;
 
 /**
@@ -45,6 +50,17 @@ public class PersonRepository extends Controller{
 		em.flush();
 		return person;
 	}
+	
+	@Transactional
+	public static List<Person> findAllPersons() {
+		EntityManager em = JPA.em();
+		List<Person> tmp = em.createNativeQuery("select * from person p", Person.class).getResultList();
+		if(tmp != null) {
+			return tmp;
+		} else {
+			return new ArrayList<Person>();
+		}
+	}
 
 	/**
 	 * 
@@ -56,4 +72,22 @@ public class PersonRepository extends Controller{
 		return em.find(Person.class, id);
 	}
 
+	
+	
+	public static Person getDummyPerson() {
+		Person p = new Person();
+		p.city = "munich";
+		p.country = "germany";
+		p.created = new Timestamp(System.currentTimeMillis());
+		p.dateOfBirth = new Timestamp(System.currentTimeMillis());
+		p.houseNr = "1";
+		p.isActive = true;
+		p.isVerified = true;
+		p.lastEdited = new Timestamp(System.currentTimeMillis());
+		p.lastName = "von Haase";
+		p.postCode = "07743";
+		p.street = "Fürstengraben";
+		p.surname = "Victor";
+		return p;
+	}
 }
