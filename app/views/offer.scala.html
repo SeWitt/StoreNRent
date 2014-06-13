@@ -67,30 +67,14 @@
 							<div class="panel-body">
 								<div id="wrapper" class="well" style="border: 0">
 									<div id="images" >
-										<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger"  />
-										<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
-										<img src="@routes.Assets.at("dummy_img/ek-artsen.gif")" alt="ek-artsen" />
-										<img src="@routes.Assets.at("dummy_img/ek-brandweer.gif")" alt="ek-brandweer"  />
-										<img src="@routes.Assets.at("dummy_img/ek-dommel.gif")" alt="ek-dommel" />
-										<img src="@routes.Assets.at("dummy_img/ek-freudiaans.gif")" alt="ek-freudiaans" />
-										<img src="@routes.Assets.at("dummy_img/ek-kamikazepiloot.gif")" alt="ek-kamikazepiloot" />
-										<img src="@routes.Assets.at("dummy_img/ek-langselkaarheen.gif")" alt="ek-langselkaarheen" />
-										<img src="@routes.Assets.at("dummy_img/ek-perswee.gif")" alt="ek-perswee" />
-										<img src="@routes.Assets.at("dummy_img/ek-politiekannietzeggen.gif")" alt="ek-politiekannietzeggen" />
-										<img src="@routes.Assets.at("dummy_img/ek-rollenpatroon.gif")" alt="ek-rollenpatroon" />
+										@for(index <- 1 until 5) {
+											<img src="@(routes.Assets.at("dummy_img/storage-" + index + ".jpg"))" alt="Storage-@index"  />
+										}
 									</div>
 									<div id="thumbs" style="overflow: hidden">
-										<img src="@routes.Assets.at("dummy_img/ek-aanhanger.gif")" alt="ek-aanhanger" />
-										<img src="@routes.Assets.at("dummy_img/ek-alien.gif")" alt="ek-alien" />
-										<img src="@routes.Assets.at("dummy_img/ek-artsen.gif")" alt="ek-artsen"  />
-										<img src="@routes.Assets.at("dummy_img/ek-brandweer.gif")" alt="ek-brandweer"  />
-										<img src="@routes.Assets.at("dummy_img/ek-dommel.gif")" alt="ek-dommel"  />
-										<img src="@routes.Assets.at("dummy_img/ek-freudiaans.gif")" alt="ek-freudiaans"  />
-										<img src="@routes.Assets.at("dummy_img/ek-kamikazepiloot.gif")" alt="ek-kamikazepiloot" />
-										<img src="@routes.Assets.at("dummy_img/ek-langselkaarheen.gif")" alt="ek-langselkaarheen"  />
-										<img src="@routes.Assets.at("dummy_img/ek-perswee.gif")" alt="ek-perswee"  />
-										<img src="@routes.Assets.at("dummy_img/ek-politiekannietzeggen.gif")" alt="ek-politiekannietzeggen" />
-										<img src="@routes.Assets.at("dummy_img/ek-rollenpatroon.gif")" alt="ek-rollenpatroon" />
+										@for(index <- 1 until 5) {
+											<img src="@(routes.Assets.at("dummy_img/storage-" + index + ".jpg"))" alt="Storage-@index"  />
+										}
 									</div>
 									<a id="prev" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: 0 0"> </a>
 									<a id="next" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: -18px 0"> </a>
