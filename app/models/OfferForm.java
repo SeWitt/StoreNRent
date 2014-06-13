@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Blob;
+
 import java.text.SimpleDateFormat;
 
 import play.data.validation.Constraints.MaxLength;
@@ -23,6 +23,7 @@ public class OfferForm{
 		country = o.country;
 		geolocX = o.geolocX + "";
 		geolocY = o.geolocY + "";
+		spacesize = o.spaceSize;
 		picturePath1 = o.picturePath1;
 		picturePath2 = o.picturePath2;
 		picturePath3 = o.picturePath3;
@@ -77,6 +78,9 @@ public class OfferForm{
 	public String geolocX;
 	
 	public String geolocY;
+	
+	@Required(message = "Please insert your free space size!" )
+	public double spacesize;
 	
 	public String picturePath1;
 	
