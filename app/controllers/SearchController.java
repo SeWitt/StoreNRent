@@ -2,25 +2,23 @@ package controllers;
 
 
 
-import geo.google.GeoAddressStandardizer;
-import geo.google.datamodel.GeoAddress;
-import geo.google.datamodel.GeoCoordinate;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import models.Offer;
-import models.Person;
 import models.SearchAttributes;
+
+import org.json.JSONObject;
+import org.json.JsonGeoLocator;
+
 import play.api.templates.Html;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.DiscoveryService;
 import service.OfferService;
-import serviceDummy.DiscoveryServiceDummy;
 import serviceDummy.OfferServiceDummy;
 import serviceImpl.DiscoveryServiceImpl;
 import views.html.search;
@@ -101,21 +99,24 @@ public class SearchController extends Controller {
 		//make geocoords
 		
 		try {
-			// Initialize a new GeoAddressStandardizer-class with your API-Key
-			GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
-			String strAdd = "  , "+					
+			String address = "  , "+					
 					sa.postCode +
 					" " + 
 					sa.city+
 					", ";
 			
-			List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
-			GeoAddress address = addresses.get(0);
-			GeoCoordinate coords = address.getCoordinate();
-			double longitude = coords.getLongitude();
-			double latitude = coords.getLatitude();
-			sa.lng = longitude;
-			sa.lat = latitude;
+			final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
+	        if (response != null) {
+	        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+	        	location = location.getJSONObject("geometry");
+	            location = location.getJSONObject("location");
+	            double lng1 = location.getDouble("lng");// longitude
+	            double lat1 = location.getDouble("lat");// latitude
+	            System.out.println(String.format("%f, %f", lat1, lng1));
+	            
+	            sa.lng = lng1;
+				sa.lat = lat1;	            
+	        }
 		} catch (Exception e) {}
 //Just DEBUGGING, DUMMY		
 //		Person p = new Person();

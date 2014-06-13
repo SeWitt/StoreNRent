@@ -1,9 +1,5 @@
 package controllers;
 
-import geo.google.GeoAddressStandardizer;
-import geo.google.datamodel.GeoAddress;
-import geo.google.datamodel.GeoCoordinate;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -12,6 +8,10 @@ import models.Offer;
 import models.OfferAcceptForm;
 import models.OfferForm;
 import models.Person;
+
+import org.json.JSONObject;
+import org.json.JsonGeoLocator;
+
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -20,7 +20,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import service.OfferService;
 import service.RecommendationService;
-import serviceDummy.OfferServiceDummy;
 import serviceDummy.RecommendationServiceDummy;
 import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
@@ -229,9 +228,7 @@ public class OfferController extends Controller {
 					//download pictures
 //						System.out.println("stret: "+o.street+" hnr: "+o.houseNr+" pc: "+o.postCode + " city "+o.city+ "ctr "+o.country);			
 					try {
-						// Initialize a new GeoAddressStandardizer-class with your API-Key
-						GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
-						String strAdd = 
+						String address = 
 								o.street +
 								" " +
 								o.houseNr +
@@ -242,14 +239,19 @@ public class OfferController extends Controller {
 								", " +
 								o.country;
 						
-						List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
-						GeoAddress address = addresses.get(0);
-						GeoCoordinate coords = address.getCoordinate();
-						double longitude = coords.getLongitude();
-						double latitude = coords.getLatitude();
-						o.geolocX = longitude;
-						o.geolocY = latitude;
-						System.out.println("long:"+longitude+ "lang: "+latitude);
+//						String address = "Ganghoferstr 71 81373 munich Germany";
+						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
+				        if (response != null) {
+				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+				        	location = location.getJSONObject("geometry");
+				            location = location.getJSONObject("location");
+				            final double lng = location.getDouble("lng");// longitude
+				            final double lat = location.getDouble("lat");// latitude
+				            System.out.println(String.format("%f, %f", lat, lng));
+				            
+				            o.geolocX = lng;
+				            o.geolocY = lat;
+				        }
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

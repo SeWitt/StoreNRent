@@ -1,4 +1,8 @@
 package serviceImpl;
+import geo.google.datamodel.GeoAltitude;
+import geo.google.datamodel.GeoCoordinate;
+import geo.google.datamodel.GeoUtils;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -6,11 +10,8 @@ import java.util.List;
 import models.Offer;
 import models.SearchAttributes;
 import models.SortAttribute;
-import service.DiscoveryService;
 import repository.OfferRepository;
-import geo.google.datamodel.GeoAltitude;
-import geo.google.datamodel.GeoCoordinate;
-import geo.google.datamodel.GeoUtils;
+import service.DiscoveryService;
 
 /**
  * @author Sebastian
