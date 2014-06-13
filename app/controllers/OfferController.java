@@ -1,9 +1,5 @@
 package controllers;
 
-import geo.google.GeoAddressStandardizer;
-import geo.google.datamodel.GeoAddress;
-import geo.google.datamodel.GeoCoordinate;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -12,6 +8,10 @@ import models.Offer;
 import models.OfferAcceptForm;
 import models.OfferForm;
 import models.Person;
+
+import org.json.JSONObject;
+import org.json.JsonGeoLocator;
+
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -19,9 +19,6 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.OfferService;
-import service.RecommendationService;
-import serviceDummy.OfferServiceDummy;
-import serviceDummy.RecommendationServiceDummy;
 import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
 import appinfo.GlobalValues;
@@ -33,8 +30,9 @@ import appinfo.GlobalValues;
  */
 public class OfferController extends Controller {
 
-	private static OfferService offerService = new OfferServiceImpl();// if the backend is ready switch to "..Impl" instead of "..Dummy"
-	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static OfferService offerService = new OfferServiceImpl();
+//	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
+	
 	@Transactional
 	public static Result index(Integer id) {
 		// menue bar
@@ -125,11 +123,11 @@ public class OfferController extends Controller {
 					flash("error", "Please correct the following errors: " + error);
 					return badRequest(views.html.offer.render(form, menubar, o));
 				}
-				//here all is valid!
+				//From her all Data are valid!
 				
 				
-				
-				// o.acceptor = //TODO implement after authentication
+				 //TODO Set authenticated person as acceptor
+				// o.acceptor =
 				// o.contractedFrom = oaf.from;
 				// o.contractedUntil = oaf.to;
 				o.isActive = false;
@@ -211,9 +209,11 @@ public class OfferController extends Controller {
 					 Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 					 return badRequest(views.html.offerform.render(offerForm, menubar));
 				} else {
-					OfferForm of = offerForm.get();
-					//make validation check whether until date is later than from:
 					
+					
+					OfferForm of = offerForm.get();
+					
+					//make validation check whether until date is later than from:				
 					boolean isDatevalid = TimeValidator.isDateAfter(of.offerTo, of.offerFrom,new SimpleDateFormat(GlobalValues.DATEFORMAT));
 					
 					if(!isDatevalid){
@@ -222,16 +222,15 @@ public class OfferController extends Controller {
 						flash("error", "The timespan is not ok! Start date has to be before end date!");
 						return badRequest(views.html.offerform.render(offerForm, menubar));
 					}
-					//here all is valid!
+					
+					//Now, all data are valid!
 					
 					Offer o = new Offer(of);
 
-					//download pictures
-//						System.out.println("stret: "+o.street+" hnr: "+o.houseNr+" pc: "+o.postCode + " city "+o.city+ "ctr "+o.country);			
+					//TODO download pictures
+
 					try {
-						// Initialize a new GeoAddressStandardizer-class with your API-Key
-						GeoAddressStandardizer st = new GeoAddressStandardizer("AABBCC");
-						String strAdd = 
+						String address = 
 								o.street +
 								" " +
 								o.houseNr +
@@ -242,14 +241,19 @@ public class OfferController extends Controller {
 								", " +
 								o.country;
 						
-						List<GeoAddress> addresses = st.standardizeToGeoAddresses(strAdd);
-						GeoAddress address = addresses.get(0);
-						GeoCoordinate coords = address.getCoordinate();
-						double longitude = coords.getLongitude();
-						double latitude = coords.getLatitude();
-						o.geolocX = longitude;
-						o.geolocY = latitude;
-						System.out.println("long:"+longitude+ "lang: "+latitude);
+
+						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
+				        if (response != null) {
+				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+				        	location = location.getJSONObject("geometry");
+				            location = location.getJSONObject("location");
+				            final double lng = location.getDouble("lng");// longitude
+				            final double lat = location.getDouble("lat");// latitude
+				            System.out.println(String.format("%f, %f", lat, lng));
+				            
+				            o.geolocX = lng;
+				            o.geolocY = lat;
+				        }
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
