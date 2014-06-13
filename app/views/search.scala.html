@@ -81,7 +81,7 @@
 				//		        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
 				//		    }
 
-				//		    popup.setContentHTML("<h2>"+feature.attributes.title + "</h2><div class=\"mapPopupContent\">" + description + "</div>");
+				//		    popup.setContentHTML("<h2>"+feature.attributes.HEADER + "</h2><div class=\"mapPopupContent\">" + feature.attributes.PRICE + "</div>");
 			}
 
 			function onFeatureUnselect(evt) {
@@ -119,6 +119,11 @@
 					numZoomLevels : 22,
 					isBaseLayer : true
 				});
+			var gmap = new OpenLayers.Layer.Google("Google Streets", {
+					numZoomLevels: 20
+					
+				});
+				
 				//			var osm            = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
 				var printer = new OpenLayers.Layer.OSM("S/W Straßenkartei", "/karten/swtiles/${z}/${x}/${y}.png", {
 					minZoomLevel : 9,
@@ -126,13 +131,13 @@
 				});
 				//			var blank          = new OpenLayers.Layer.OSM("Kein Hintergrund",  "/karten/404.png",                        { maxZoomLevel: 17, numZoomLevels: 18 });
 				//
-				var einsatz = new OpenLayers.Layer.OSM("Einsätze", '@routes.Assets.at("images/tiles.json")', {
-					minZoomLevel : 9,
-					maxZoomLevel : 18,
-					alpha : false,
-					isBaseLayer : false,
-					attribution : '<b>VS - NfD</b>'
-				});
+			//	//var einsatz = new OpenLayers.Layer.OSM("Offers", '@routes.Assets.at("images/tiles.json")', {
+			//	//	minZoomLevel : 9,
+			//		maxZoomLevel : 18,
+			//		alpha : false,
+			//		isBaseLayer : false,
+			//		attribution : '<s>VS - NfD</s>'
+			//	});
 				//			var hydranten      = new OpenLayers.Layer.OSM("Hydranten"        , "/karten/hytiles/${z}/${x}/${y}.png",     {minZoomLevel:10, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
 				//			var hydrantenref   = new OpenLayers.Layer.OSM("Hydranten Ref"    , "/karten/hyreftiles/${z}/${x}/${y}.png",  {minZoomLevel:15, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
 				//			var hausnummern    = new OpenLayers.Layer.OSM("Hausnummern LHM"  , "/karten/hnrtiles/${z}/${x}/${y}.png",    {minZoomLevel:14, maxZoomLevel: 18, alpha:false, isBaseLayer: false, visibility : false });
@@ -261,7 +266,7 @@
 				});
 
 				// Create a vector layers
-				var einsatz = new OpenLayers.Layer.Vector("Einsätze", {
+				var einsatz = new OpenLayers.Layer.Vector("Offer", {
 					protocol : new OpenLayers.Protocol.HTTP({
 						url : '@routes.Assets.at("images/Offer.json")',
 						//                    url: "fire.json",
@@ -279,7 +284,7 @@
 				});
 
 				//map.addLayers([ gsat,printer, mitglieder]);
-				map.addLayers([einsatz, gsat]);
+				map.addLayers([einsatz, gsat, gmap]);
 
 				selectControl = new OpenLayers.Control.SelectFeature(einsatz);
 				map.addControl(selectControl);
@@ -474,7 +479,7 @@
 								Price (max.): <b>0 &euro;</b>
 								
 								<div class="slider slider-horizontal" style="width: 200px; margin: 0 2% 0 2%">
-									<input id="maxPrice" class="span2" type="text">
+									<input id="maxPrice" class="span2" type="text" >
 								</div>
 								
 								<b>100 &euro;</b>
@@ -484,7 +489,8 @@
 										$('#maxPrice').slider({
 											min : '0',
 											step : '1',
-											max : '100'
+											max : '100',
+											value : '6'
 										});
 									});
 								</script>
@@ -557,7 +563,7 @@
 					spaceSize = null;
 				}
 
-				if ($('#maxPrice').value == '' || $('#maxPrice').value == $('#maxPrice').defaultValue) {
+				if ($('#maxPrice').value == '') {
 					maxPrice = null;
 				}
 
