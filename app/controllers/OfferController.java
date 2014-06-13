@@ -241,7 +241,7 @@ public class OfferController extends Controller {
 								o.city +
 								", " +
 								o.country;
-						
+
 						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
 				        if (response != null) {
 				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
