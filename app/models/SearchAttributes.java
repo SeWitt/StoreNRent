@@ -27,7 +27,7 @@ import java.sql.Timestamp;
 	public double lng;					// o.geolocX = longitude;
 	public double lat;					// o.geolocY = latitude
 	
-	
+	 
 //	@Override
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

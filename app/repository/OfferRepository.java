@@ -161,7 +161,7 @@ public class OfferRepository extends Controller{
 			andNotContracted = "and (" + notContracted1 + " or " + notContracted2 + ")";
 			andAvailable = "and to_timestamp(" + sa.from.getTime()/1000 + ") between o.offer_from and o.offer_to and to_timestamp(" + sa.to.getTime()/1000 + ") between o.offer_from and o.offer_to";
 		}
-		
+		 
 		String result = selectFrom + " " + where + " " + andIsActive;
 		if(sa.maxPrice > 0) {
 			result = result + " " + andPrice;
