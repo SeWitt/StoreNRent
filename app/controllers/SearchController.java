@@ -36,7 +36,7 @@ import appinfo.GlobalValues;
 public class SearchController extends Controller {
 
 	private static DiscoveryService discoveryService = new DiscoveryServiceImpl();
-//	private static OfferService offerService = new OfferServiceDummy();
+
 
 	/**Method for the home site search
 	 * 

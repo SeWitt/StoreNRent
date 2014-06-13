@@ -479,7 +479,7 @@
 								Price (max.): <b>0 &euro;</b>
 								
 								<div class="slider slider-horizontal" style="width: 200px; margin: 0 2% 0 2%">
-									<input id="maxPrice" class="span2" type="text" >
+									<input id="maxPrice" class="span2" type="text" value ="6">
 								</div>
 								
 								<b>100 &euro;</b>
@@ -536,7 +536,7 @@
 				var city = $('#city').val();
 				var postCode = $('#postcode').val();
 				var spaceSize = $('#spacesizeinput').val();
-				var maxPrice = $('#maxPrice').val()+1;
+				var maxPrice = $('#maxPrice').val();
 				var radius = $('#radiusinput').val();
 				//has to be computed with the help of google...
 				var lng = null;
