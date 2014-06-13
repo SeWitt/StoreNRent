@@ -26,8 +26,22 @@ import java.sql.Timestamp;
 	public double radius = 1.5;
 	public double lng;					// o.geolocX = longitude;
 	public double lat;					// o.geolocY = latitude
-//	@Override
 	
+	
+//	@Override
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SearchAttributes ["
+				+ (from != null ? "from=" + from + ", " : "")
+				+ (to != null ? "to=" + to + ", " : "")
+				+ (city != null ? "city=" + city + ", " : "")
+				+ (postCode != null ? "postCode=" + postCode + ", " : "")
+				+ "spaceSize=" + spaceSize + ", maxPrice=" + maxPrice
+				+ ", radius=" + radius + ", lng=" + lng + ", lat=" + lat + "]";
+	}
 	
 	
 	

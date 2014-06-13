@@ -117,10 +117,12 @@ public class OfferRepository extends Controller{
 	 */
 	@Transactional
 	public static List<Offer> findOfferByAttributes(SearchAttributes searchAttributs){
+		System.out.println("[OfferRepository] [findOfferByAttributes] [" + searchAttributs.toString() + "]");
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(queryGenerator(searchAttributs), Offer.class)
 			    .setMaxResults(10)
 			    .getResultList();
+		System.out.println("[OfferRepository] [findOfferByAttributes] [" + queryGenerator(searchAttributs) + "]");
 		if(tmp != null) {
 			return tmp;
 		} else {
@@ -133,9 +135,9 @@ public class OfferRepository extends Controller{
 		
 		String noResultQuery = "select * from offer where 1 = 2";
 		
-		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
-			return noResultQuery;
-		}
+//		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
+//			return noResultQuery;
+//		}
 		
 		if(sa.from == null && sa.to != null) {
 			sa.from = sa.to;
@@ -154,8 +156,10 @@ public class OfferRepository extends Controller{
 		String andNotContracted = "";
 		String andAvailable = "";
 		if(sa.from != null && sa.to != null) {
-			andNotContracted = "and to_timestamp(" + sa.from.getTime() + ") not between o.contracted_from and o.contracted_until and to_timestamp(" + sa.to.getTime() + ") not between o.contracted_from and o.contracted_until";
-			andAvailable = "and to_timestamp(" + sa.from.getTime() + ") between o.offer_from and o.offer_to and to_timestamp(" + sa.to.getTime() + ") between o.offer_from and o.offer_to";
+			String notContracted1 = "(to_timestamp(" + sa.from.getTime()/1000 + ") not between o.contracted_from and o.contracted_until and to_timestamp(" + sa.to.getTime()/1000 + ") not between o.contracted_from and o.contracted_until)";
+			String notContracted2 = "(o.contracted_from is null and o.contracted_until is null)";
+			andNotContracted = "and (" + notContracted1 + " or " + notContracted2 + ")";
+			andAvailable = "and to_timestamp(" + sa.from.getTime()/1000 + ") between o.offer_from and o.offer_to and to_timestamp(" + sa.to.getTime()/1000 + ") between o.offer_from and o.offer_to";
 		}
 		
 		String result = selectFrom + " " + where + " " + andIsActive;
@@ -168,7 +172,7 @@ public class OfferRepository extends Controller{
 		if(sa.from != null) {
 			result = result + " " + andNotContracted + " " + andAvailable;
 		}
-		
+	
 		return result;
 	}
 	
