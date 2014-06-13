@@ -19,6 +19,7 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.OfferService;
+
 import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
 import appinfo.GlobalValues;
@@ -241,7 +242,6 @@ public class OfferController extends Controller {
 								", " +
 								o.country;
 						
-
 						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
 				        if (response != null) {
 				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
