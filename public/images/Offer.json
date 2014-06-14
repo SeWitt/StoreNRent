@@ -5,17 +5,75 @@
 ,
 { "type": "Feature", "properties": { "HEADER": "13 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.531470446 , 48.118907207 ] } }
 ,
-{ "type": "Feature", "properties": { "HEADER": "14 basement room", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.539414536 , 48.125729543 ] } }
+{ "type": "Feature", "properties": { "HEADER": "14 basement room", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5394842 , 48.1318693 ] } }
 ,
-{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.531470446 , 48.118907210 ] } }
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5753112 , 48.1520866 ] } }
 ,
-{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.539414536 , 48.125729400 ] } }
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.57753 , 48.15163 ] } }
 ,
-{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.531470446 , 48.118907300 ] } }
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5795093 , 48.1523731 ] } }
 ,
-{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.539414536 , 48.125729100 ] } }
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5783303 , 48.1528553 ] } }
 ,
-{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.531470446 , 48.118907500] } }
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5783303 , 48.1528553 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "13 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5770055 , 48.1525447 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "14 basement room", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [  11.5760541 , 48.1544775 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5768072 , 48.1540831 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5768072 , 48.1540831] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5770817 , 48.1522448 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.578283 , 48.1549454 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "13 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5789734 , 48.1558416 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "14 basement room", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5786864 , 48.1568102 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5796237 , 48.1571458 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5796237 , 48.1571458 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5832125 , 48.1575873 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5829096 , 48.1576472 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.582479 , 48.157738 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "13 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5894542 , 48.1587198 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "14 basement room", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [   11.5899026 , 48.1576438 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5900981 , 48.1578086 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.58825 , 48.15704 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5883208 ,  48.156728] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5854676 , 48.1568946 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5859345 , 48.1567686 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5863 , 48.15487 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5866807 , 48.1548233 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [  11.5847855 , 48.1540479 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5845734 , 48.1538904 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "13 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.58351 , 48.15312 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "14 basement room", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5828934 , 48.1535808 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5839186 , 48.1519237 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.5819681 , 48.1456942 ] } }
+,
+{ "type": "Feature", "properties": { "HEADER": "10 square meter for rent", "PRICE": "4 Euro", "ID": "3"}, "geometry": { "type": "Point", "coordinates": [ 11.584391 , 48.1517167 ] } }
 
 ]
 }

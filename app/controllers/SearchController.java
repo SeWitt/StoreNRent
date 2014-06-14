@@ -137,6 +137,10 @@ public class SearchController extends Controller {
 //PRODUCTIVE USE		
 		List<Offer> o = discoveryService.findOffers(sa);
 		
+		if(o.isEmpty()){
+			o= null;
+		}
+		
 //		System.out.println("DEBUG"+fromdate +" "+todate+" "+city+" "+postcode+" "+spacesize+" "+maxprice+" "+radius);
 		return ok(searchresults.render(o));
 	}
