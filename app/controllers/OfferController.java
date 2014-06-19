@@ -147,7 +147,7 @@ public class OfferController extends Controller {
 
 			} else if (action.equals("search")) {
 //				System.out.println("search");
-				result = redirect(routes.SearchController.search(null, null));
+				result = redirect(routes.SearchController.search(null, null,null, null));
 			} else if (action.equals("newOffer")) {
 //				System.out.println("new");
 				result = redirect(routes.OfferController.newOffer());

@@ -45,10 +45,10 @@ public class SearchController extends Controller {
 	 * @return a rendered html file
 	 */
 	@Transactional
-	public static Result search(String city, Double radius){
+	public static Result search(String city,String postCode, Double radius, Double spaceSize){
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
-		if(city == null && radius == null){
-			return ok(search.render(city, radius, null, menubar));
+		if(city == null && radius == null && postCode == null){
+			return ok(search.render(city, postCode, radius, spaceSize, null, menubar));
 		}else{
 			
 			SearchAttributes sa = new SearchAttributes();
@@ -56,10 +56,10 @@ public class SearchController extends Controller {
 			sa.spaceSize = radius;
 			//find offers
 			List<Offer> o = discoveryService.findOffers(sa);
-	
-			return ok(search.render(city, radius,o , menubar));
+			Html offerResult = views.html.searchresults.render(o);
+			return ok(search.render(city,postCode, radius,spaceSize, offerResult , menubar));
 		}
-		
+
 	}
 	
 	/**search method for search site search
@@ -112,6 +112,7 @@ public class SearchController extends Controller {
 		}
 		
 		//make geocoords
+		//TODO: refactor -> exclude into new service
 		
 		try {
 			String address = "  , "+					

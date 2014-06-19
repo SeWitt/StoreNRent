@@ -56,10 +56,14 @@
 						<input id="city" class="form-control" type="text" name="city" value='@form("city").value' 
 							autofocus="" placeholder="City" >
 					</div>
+					<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
+						<input id="postcode" class="form-control" type="text" name="postCode" value='@form("postCode").value' 
+							autofocus="" placeholder="Post  Code" >
+					</div>
 	
 					<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
 						<div id="radius" class="input-group">
-							<input id="radiusinput" class="form-control" type="number" name="circuit" min="1"max="100" step="0.5" 
+							<input id="radiusinput" class="form-control" type="number" name="radius" value='@form("radius").value'min="1.0"max="100.0" step="0.5" 
 								placeholder="Circuit">	
 							<span class="input-group-addon">km</span>
 						</div>
