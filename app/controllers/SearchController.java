@@ -38,7 +38,7 @@ public class SearchController extends Controller {
 	private static DiscoveryService discoveryService = new DiscoveryServiceImpl();
 
 
-	/**Method for the home site search
+	/**initial search method
 	 * 
 	 * @param city city parameter
 	 * @param radius radius
@@ -48,7 +48,7 @@ public class SearchController extends Controller {
 	public static Result search(String city,String postCode, Double radius, Double spaceSize){
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		if(city == null && radius == null && postCode == null){
-			return ok(search.render(city, postCode, radius, spaceSize, null, menubar));
+			return ok(search.render(city, postCode, radius, spaceSize, null,null,null, menubar));
 		}else{
 			
 			SearchAttributes sa = new SearchAttributes();
@@ -57,12 +57,11 @@ public class SearchController extends Controller {
 			//find offers
 			List<Offer> o = discoveryService.findOffers(sa);
 			Html offerResult = views.html.searchresults.render(o);
-			return ok(search.render(city,postCode, radius,spaceSize, offerResult , menubar));
+			return ok(search.render(city,postCode, radius,spaceSize , null, null, offerResult, menubar));
 		}
-
 	}
 	
-	/**search method for search site search
+	/**search method 
 	 * 
 	 * Parameters:
 	 * encapsulates all in an Searchattributes

@@ -1,4 +1,4 @@
-@(city: String)(postcode: String)(radius: Double)(spacesize: Double)(offers: Html)(menubar: Html)
+@(city: String)(postcode: String)(radius: Double)(spacesize: Double)(longitude: Double)(latitude: Double)(offers: Html)(menubar: Html)
 
 <html lang="en">
 	<head>
@@ -37,8 +37,18 @@
 		<![endif]-->
 
 		<script type="text/javascript">
+		@if(longitude != null){
+			var lon = @longitude;
+		}else{
 			var lon = 11.56645;
+		}
+		
+		@if(latitude != null){
+			var lat = @latitude;
+		}else{
 			var lat = 48.14188;
+		}
+			
 			var zoom = 12;
 
 			OpenLayers.Lang.setCode('de');
@@ -412,12 +422,12 @@
 									<div class="input-group">
 										<span class="input-group-addon">Area</span>
 										<select id="spacesizeinput" class="form-control">
-											<option value="0"></option>
-											<option value="1">1 - 3 m<sup>3</sup></option>
-											<option value="2">3 - 5 m<sup>3</sup></option>
-											<option value="3">5 - 7 m<sup>3</sup></option>
-											<option value="4">7 - 9 m<sup>3</sup></option>
-											<option value="5">> 9 m<sup>3</sup></option>
+											<option value="0"> </option>
+											<option value="3">1 - 3 m<sup>3</sup></option>
+											<option value="5">3 - 5 m<sup>3</sup></option>
+											<option value="7">5 - 7 m<sup>3</sup></option>
+											<option value="9">7 - 9 m<sup>3</sup></option>
+											<option value="200">> 9 m<sup>3</sup></option>
 										</select>
 									</div>
 								</div>
@@ -537,9 +547,7 @@
 				var spaceSize = $('#spacesizeinput').val();
 				var maxPrice = $('#maxPrice').val();
 				var radius = $('#radiusinput').val();
-				//has to be computed with the help of google...
-				var lng = null;
-				var lat = null;
+
 
 				// validation
 				if (fromDate.length <= 4) {
@@ -558,10 +566,8 @@
 					postCode = null;
 				}
 
-				if ($('#spacesizeinput').value == '' || $('#spacesizeinput').value == $('#spacesizeinput').defaultValue) {
-					spaceSize = null;
-				}
-
+				//if ($('#spacesizeinput').value == '' || $('#spacesizeinput').value == $('#spacesizeinput').defaultValue) {
+				//}
 				if ($('#maxPrice').value == '') {
 					maxPrice = null;
 				}

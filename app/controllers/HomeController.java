@@ -123,7 +123,7 @@ public class HomeController extends Controller {
 					
 					
 					
-					result = ok(views.html.search.render(city,postCode,radius, spacesize, offerResults, menubar));
+					result = ok(views.html.search.render(city,postCode,radius, spacesize, sa.lng, sa.lat, offerResults, menubar));
 
 			}else {
 				result = redirect(routes.HomeController.index());
