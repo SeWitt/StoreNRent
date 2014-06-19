@@ -19,7 +19,7 @@ public class IsDateNotPasteValidator extends play.data.validation.Constraints.Va
 	
 	private Timestamp comparatorTS;
 	private Timestamp comparedTS;
-	final static public String message = "The date is not ok!";
+	final static public String message = "The date is in the past!";
 
 	@Override
 	public void initialize(IsDateNotPaste annotation) {
