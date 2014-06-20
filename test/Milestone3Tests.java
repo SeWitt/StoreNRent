@@ -75,14 +75,14 @@ public class Milestone3Tests extends Assert {
 		 
 		
 		Offer o = new Offer();
-		o.geolocX = 48.0;
-		o.geolocY = 7.0;
+		o.lng = 48.0;
+		o.lat = 7.0;
 		o.owner = pp;
 		OfferRepository.createOffer(o);
 		
 		List<Offer> res = OfferRepository.findOfferByOwner(pp);
 		assertNotNull(res.get(0));
-		assertTrue(res.get(0).geolocX == 48.0);
+		assertTrue(res.get(0).lng == 48.0);
 		
 	}
 	
@@ -143,20 +143,20 @@ public class Milestone3Tests extends Assert {
 		sa.lng = 48.0;
 		
 		Offer o1 = new Offer();
-		o1.geolocX = 48.0;
-		o1.geolocY = 11.0001;
+		o1.lng = 48.0;
+		o1.lat = 11.0001;
 		o1.isActive = true;
 		OfferRepository.createOffer(o1);
 		
 		Offer o2 = new Offer();
-		o2.geolocX = 48.0;
-		o2.geolocY = 11.0002;
+		o2.lng = 48.0;
+		o2.lat = 11.0002;
 		o2.isActive = true;
 		OfferRepository.createOffer(o2);
 		
 		Offer o3 = new Offer();
-		o3.geolocX = 48.0;
-		o3.geolocY = 11.0003;
+		o3.lng = 48.0;
+		o3.lat = 11.0003;
 		o3.isActive = true;
 		OfferRepository.createOffer(o3);
 		

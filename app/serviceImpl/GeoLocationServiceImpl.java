@@ -53,22 +53,25 @@ public class GeoLocationServiceImpl implements GeoLocationService{
 	}
 	
 	private double[] getLngandLat(String address) {
-		
 		double[] result = new double[]{0.0, 0.0};
 		
 		final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
         if (response != null) {
-        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
-        	location = location.getJSONObject("geometry");
-            location = location.getJSONObject("location");
-            double lng1 = location.getDouble("lng");// longitude
-            double lat1 = location.getDouble("lat");// latitude
-            
-            result[0] = lng1;
-			result[1] = lat1;	
+        	try {
+	        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+	        	location = location.getJSONObject("geometry");
+	            location = location.getJSONObject("location");
+	            double lng1 = location.getDouble("lng");// longitude
+	            double lat1 = location.getDouble("lat");// latitude
+	            
+	            result[0] = lng1;
+				result[1] = lat1;
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	}
         }	
 			
-			return result;
+		return result;
 	}
 	
 	@Override
