@@ -21,7 +21,7 @@
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.carouFredSel-6.0.4-packed.js")"></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datetimepicker.min.js")"></script>
-
+		
 	</head>
 
 	<body>
@@ -30,7 +30,7 @@
 		@menubar
 
 		<!-- Main Container -->
-		<div class="container">
+		<div class="container text-center">
 			@helper.form(action = routes.OfferController.create()) {
 			<div class="row">
 
@@ -49,74 +49,73 @@
 			</div>
 
 			<div class="row">
-				<div class="panel panel-default" style="center">
-					<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
-						<div class="form-group col-md-6 col-md-offset-3">
-							<input id="header" class="form-control" type="text" name="header" placeholder="Header" value='@form("header").value' autofocus=""  >
-						</div>
+				<div class="panel panel-default" >
+					<div class="panel-heading" 
+						style="background: #0800E3; color: #fff">
+						Header, Subheader
 					</div>
-					<br>
-					<div class="panel-body" style="color: #0800E3; text-align: center; font-size: 20px">
-						<div class="form-group col-md-6 col-md-offset-3">
-							<input id="subheader" class="form-control" type="text" name="subHeader" placeholder="Subheader" value='@form("subHeader").value' >
+	
+					<div class="panel-body" 
+						style="color: #0800E3; font-size: 20px; padding: 1% 1% 1% 0">
+						
+						<div class="form-group row" style="margin: 0 0 0 1%">
+							<div class="col-md-2">
+								<p>Header</p>
+							</div>
+							
+							<div class="col-md-10">
+								<input id="header" class="form-control" type="text" name="header" 
+									placeholder="Header" value='@form("header").value' autofocus="" >
+							</div>
+						</div>
+						
+						<div class="form-group row" style="margin: 1% 0 0 1%">
+							<div class="col-md-2">
+								<p>Subheader</p>
+							</div>
+							
+							<div class="col-md-10">
+								<input id="subheader" class="form-control" type="text" name="subHeader" 
+									placeholder="Subheader" value='@form("subHeader").value' >
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			
 			<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
 				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
+					<div class="panel panel-default" >
+						<div class="panel-heading" >
 							Pictures
 						</div>
+
 						<div class="panel-body">
-							<br>
-							<div class="form-group">
-								<input type="file" id="pic1" name="pic1">
-								<p class="help-block">
-									Please select a picture to upload
-								</p>
-							</div>
-							<div class="form-group">
-								<input type="file" id="pic2" name="pic2">
-								<p class="help-block">
-									Please select a picture to upload
-								</p>
-							</div>
-							<div class="form-group">
-								<input type="file" id="pic3" name="pic3">
-								<p class="help-block">
-									Please select a picture to upload
-								</p>
-							</div>
-							<div class="form-group">
-								<input type="file" id="pic4" name="pic4">
-								<p class="help-block">
-									Please select a picture to upload
-								</p>
-							</div>
-							<div class="form-group">
-								<input type="file" id="pic5" name="pic5">
-								<p class="help-block">
-									Please select a picture to upload
-								</p>
+							<div class="form-group" style="padding: 0 3% 0 3%">
+								<p class="help-block">Please select (a) picture(s) to upload.</p>
+								<input type="file" multiple id="pic" name="pic">
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="panel panel-default" style="center">
-						<div class="panel-heading" style="text-align:center">
+					<div class="panel panel-default" >
+						<div class="panel-heading" >
 							Description
 						</div>
-						<div class="panel-body">
-							<br>
-							<div class="form-group">
-								<textarea id="description" class="form-control" rows="3" name="description" placeholder="describe your storage area here..." value='@form("description").value' style="resize: none; padding-right: 25px; padding-left: 20px"> </textarea>
+
+						<div class="panel-body" style="padding-top: 1%">
+							<p style="text-align: center">
+								<label>Describe your storage area here</label>
+							</p>
+							
+							<div class="form-group" style="padding: 0 3% 0 3%">
+								<textarea id="description" class="form-control" rows="30" name="description" 
+									value='@form("description").value' 
+									style="resize: none; text-align: left; ">
+								</textarea>
 							</div>
-							<br>
 						</div>
 					</div>
 				</div>
@@ -124,44 +123,47 @@
 
 			<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
 				<div class="row">
-					<div class="panel panel-default" style="center">
+					<div class="panel panel-default">
 						<div class="panel-heading" style="text-align:center">
 							Pricing, Rental Time
 						</div>
-						<div class="panel-body">
-
-							<div class="row">
-								<br>
-								<div class="form-group col-md-6 col-md-offset-3">
-									<div class="input-group">
-										<span class="input-group-addon">Price: </span>
-										<input id="price" class="form-control" value='@form("price").value' name="price" type="number" min="1" value="5" max="100" step="0.5">
-										<span class="input-group-addon">&euro; /day</span>
-									</div>
+						
+						<div class="panel-body" style="padding: 1% 0 1% 0">
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									Price
+								</div>
+								
+								<div class="input-group col-md-7" >
+									<input id="price" class="form-control" value='@form("price").value' name="price" type="number" min="1" value="5" max="100" step="0.5">
+									<span class="input-group-addon">&euro; /day</span>
 								</div>
 							</div>
 							
-							<div class="row">
-								<br>
-								<div class="form-group col-md-6 col-md-offset-3">
-									<div class="input-group">
-										<span class="input-group-addon">Size: </span>
-										<input id="spacesize" class="form-control" value='@form("spacesize").value' name="spacesize" type="number" min="1" value="5" max="100" step="0.5">
-										<span class="input-group-addon"> m<sup>3</sup></span>
-									</div>
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									Size
+								</div>
+								
+								<div class="input-group col-md-7">
+									<input id="spacesize" class="form-control" value='@form("spacesize").value' name="spacesize" type="number" min="1" value="5" max="100" step="0.5">
+									<span class="input-group-addon">m<sup>3</sup></span>
 								</div>
 							</div>
 
-							<div class="row">
-								<br>
-								<div class="form-group col-md-6 col-md-offset-3">
-									<div id="dtpfrom" class="input-append date">
-										<div class="input-group">
-											<span class="input-group-addon">From:</span>
-											<input id="dtpfrominput" class="form-control" value='@form("offerFrom").value' name="offerFrom" type="text">
-											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-
-										</div>
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									From
+								</div>
+								
+								<div class="input-append date col-md-7">
+									<div id="dtpfrom" class="input-group">
+										<input id="dtpfrominput" class="form-control" value='@form("offerFrom").value' name="offerFrom" type="text">
+										<span class="input-group-addon">
+											<span class="add-on" style="cursor: pointer;"> 
+												<span class="glyphicon glyphicon-calendar" ></span> 
+											</span>
+										</span>
 									</div>
 
 									<script type="text/javascript">
@@ -175,16 +177,19 @@
 								</div>
 							</div>
 
-							<div class="row">
-								<br>
-								<div class="form-group col-md-6 col-md-offset-3">
-									<div id="dtpto" class="input-append date">
-										<div class="input-group">
-											<span class="input-group-addon">Until: </span>
-											<input id="dtptoinput" class="form-control"  type="text"  name="offerTo" value='@form("offerTo").value'>
-
-											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
-										</div>
+							<div class="form-group row">
+								<div class="col-md-2 col-md-offset-1 align-center">
+									Until
+								</div>
+								
+								<div class="input-append date col-md-7">
+									<div id="dtpto" class="input-group">
+										<input id="dtptoinput" class="form-control"  type="text"  name="offerTo" value='@form("offerTo").value'>
+										<span class="input-group-addon">
+											<span class="add-on" style="cursor: pointer;"> 
+												<span class="glyphicon glyphicon-calendar" ></span> 
+											</span>
+										</span>
 									</div>
 
 									<script type="text/javascript">
@@ -197,51 +202,60 @@
 									</script>
 								</div>
 							</div>
-							<br>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="panel panel-default" style="center">
+					<div class="panel panel-default">
 						<div class="panel-heading" style="text-align:center">
 							Address Information
 						</div>
-						<div class="panel-body">
 
-							<div class="row">
-								<br>
-								<div class="form-group col col-md-6 col-md-offset-3">
+						<div class="panel-body" style="padding: 1% 1% 1% 0">
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									Street, Nr.
+								</div>
+								
+								<div class="col-md-7" style="margin-right: 1%">
 									<input id="street" class="form-control" type="text" name="street" value='@form("street").value' placeholder="Street" >
 								</div>
 
-								<div class="form-group col col-md-2" style="padding-left: 15px">
+								<div class="col-md-1">
 									<input id="houseNr" class="form-control" type="text"  name="houseNr" value='@form("houseNr").value'placeholder="Nr.">
 								</div>
-
 							</div>
 
-							<div class="row">
-								<br>
-								<div class="form-group col col-md-6 col-md-offset-3">
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									City
+								</div>
+								
+								<div class="col-md-7" style="margin-right: 1%">
 									<input id="city" class="form-control" type="text" name="city" value='@form("city").value' placeholder="City" >
 								</div>
 							</div>
 
-							<div class="row">
-								<br>
-								<div class="form-group col col-md-6 col-md-offset-3">
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									Postcode
+								</div>
+								
+								<div class="col-md-7" >
 									<input id="postCode" class="form-control" type="text" name="postCode" value='@form("postCode").value' placeholder="Postcode" >
 								</div>
 							</div>
 
-							<div class="row">
-								<br>
-								<div class="form-group col col-md-6 col-md-offset-3">
+							<div class="form-group row" >
+								<div class="col-md-2 col-md-offset-1 align-center">
+									Country
+								</div>
+								
+								<div class="col-md-7" style="margin-right: 1%">
 									<input id="country" class="form-control" type="text" name="country" value='@form("country").value' placeholder="Country" >
 								</div>
 							</div>
-							<br>
 						</div>
 					</div>
 				</div>
