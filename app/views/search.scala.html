@@ -1,4 +1,4 @@
-@(city: String)(spacesize: Double)(offers: List[Offer])(menubar: Html)
+@(city: String)(postcode: String)(radius: Double)(spacesize: Double)(longitude: Double)(latitude: Double)(offers: Html)(menubar: Html)
 
 <html lang="en">
 	<head>
@@ -6,7 +6,7 @@
 		<meta content="text/html; charset=utf-8" http-equiv="content-type">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-		
+
 		<title>Store 'n Rent - Search</title>
 
 		<!-- Bootstrap -->
@@ -37,8 +37,18 @@
 		<![endif]-->
 
 		<script type="text/javascript">
+		@if(longitude != null){
+			var lon = @longitude;
+		}else{
 			var lon = 11.56645;
+		}
+		
+		@if(latitude != null){
+			var lat = @latitude;
+		}else{
 			var lat = 48.14188;
+		}
+			
 			var zoom = 12;
 
 			OpenLayers.Lang.setCode('de');
@@ -73,17 +83,16 @@
 				popup.feature = feature;
 				map.addPopup(popup, true);
 
-						   // var description=null;
+				// var description=null;
 
-						 //   description = GetAjax('data.php?type=info&output=html&id='+feature.attributes.description);
+				//   description = GetAjax('data.php?type=info&output=html&id='+feature.attributes.description);
 
-						//    if(description == null) {
-						//        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
-						 //   }
+				//    if(description == null) {
+				//        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
+				//   }
 
-						    popup.setContentHTML("<h2>"+ "<a href='@routes.OfferController.index(5)'>'about 30 sqare meter for rent' </a>" +  "</h2><div class=\"mapPopupContent\"> Price: 4 euro a day </div>" );
-						   
-									
+				popup.setContentHTML("<h2>" + "<a href='@routes.OfferController.index(5)'>'about 30 sqare meter for rent' </a>" + "</h2><div class=\"mapPopupContent\"> Price: 4 euro a day </div>");
+
 			}
 
 			function onFeatureUnselect(evt) {
@@ -121,17 +130,16 @@
 					numZoomLevels : 22,
 					isBaseLayer : true
 				});
-			var gmap = new OpenLayers.Layer.Google("Google Streets", {
-					numZoomLevels: 20
-					
+				var gmap = new OpenLayers.Layer.Google("Google Streets", {
+					numZoomLevels : 20
+
 				});
-				
+
 				//			var osm            = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
 				var printer = new OpenLayers.Layer.OSM("S/W Straßenkartei", "/karten/swtiles/${z}/${x}/${y}.png", {
 					minZoomLevel : 9,
 					maxZoomLevel : 18
 				});
-
 
 				var colors = {
 					verylow : '#00FF00', // < 5
@@ -332,11 +340,11 @@
 	<body onload="init();">
 
 		@menubar
-		
+
 		<!-- Main Container -->
 		<div class="container" style="background: #fff">
 
-			<section class="row">			
+			<section class="row">
 				<div class="row">
 					<div class="panel panel-default" >
 						<div class="panel-heading" style="background: #0800E3; color: #fff; text-align: center;font-size: 24px">
@@ -344,7 +352,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- begin of map-->
 				<div class="col-md-6" style="padding-right: 25px; padding-left: 20px">
 					<div class="row">
@@ -353,30 +361,31 @@
 								Map
 							</div>
 							<div class="panel-body">
-								<div style="width: 100%; height: 100%" id="map">
-								</div>
+								<div style="width: 100%; height: 100%" id="map"></div>
 							</div>
 						</div>
 					</div>
-				</div> <!-- end of map -->
-		
+				</div>
+				<!-- end of map -->
+
 				<!-- Begin of search input -->
 				<div class="col-md-6" style="padding-left: 25px; padding-right: 20px">
 					<div class="row">
 						<div id="searchWarning">
-							<div class="alert alert-warning">Please enter a city and postcode!
+							<div class="alert alert-warning">
+								Please enter a city and postcode!
 							</div>
 						</div>
 					</div>
-		
+
 					<div class="panel panel-default">
 						<div class="panel-heading" style="text-align: center">
 							Pricing, Rental Time
 						</div>
-						
+
 						<div class="panel-body">
 							<script>
-									$("#searchWarning").hide();
+								$("#searchWarning").hide();
 							</script>
 							
 							<div class="col-md-12" style="text-align: center; margin-bottom: 3%">
@@ -400,30 +409,30 @@
 							<div class="form-group row">
 								<div class="col-md-4">
 									@if(city != null){
-										<input id="city" class="form-control" type="text" value= "@city" autofocus="" placeholder="City" >
+									<input id="city" class="form-control" type="text" value= "@city" autofocus="" placeholder="City" >
 									} else {
-										<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
+									<input id="city" class="form-control" type="text" autofocus="" placeholder="City" >
 									}
 								</div>
 								
 								<div class="col-md-4">
 									<input id="postcode" class="form-control" type="text" placeholder="Postcode" >
 								</div>
-								
+
 								<div class="col-md-4">
-									<div id="spacesize" class="input-group">
-										<input id="radiusinput" class="form-control" type="number" 
-											@if(spacesize != null){
-												value="@spacesize" 
-											} else {
-												placeholder="Radius"
-											}
+									<div class="input-group">
+										<input id="radiusinput" class="form-control" type="number"
+										@if(radius != null){
+										value="@radius"
+										} else {
+										placeholder="Radius"
+										}
 										name="size" min="0" value="5" max="100" step="5">
 										<span class="input-group-addon">km</span>
 									</div>
 								</div>
 							</div>
-							
+
 							<hr>
 							
 							<div class="col-md-12" style="text-align: center; margin-bottom: 3%">
@@ -463,7 +472,7 @@
 											<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
 										</div>
 									</div>
-	
+
 									<script type="text/javascript">
 										$(function() {
 											$('#dtpfrom').datetimepicker({
@@ -472,6 +481,9 @@
 											});
 										});
 									</script>
+
+									
+
 								</div>
 								
 								<div class="col-md-4">
@@ -481,7 +493,7 @@
 											<span class="input-group-addon"><span class="add-on" style="cursor: pointer;"> <span class="glyphicon glyphicon-calendar" > </span> </span></span>
 										</div>
 									</div>
-	
+
 									<script type="text/javascript">
 										$(function() {
 											$('#dtpto').datetimepicker({
@@ -492,22 +504,22 @@
 									</script>
 								</div>
 							</div>
-							
+
 							<hr>
 							
 							<div class="col-md-12" style="text-align: center; margin-bottom: 3%">
 								<h3>Pricing</h3>
 							</div>
-							
+
 							<div class="row" style="margin: 0 2% 0 2%; padding: 1% 0 1% 0; text-align: center">
 								Price (max.): <b>0 &euro;</b>
-								
+
 								<div class="slider slider-horizontal" style="width: 200px; margin: 0 2% 0 2%">
 									<input id="maxPrice" class="span2" type="text" value ="6">
 								</div>
-								
+
 								<b>100 &euro;</b>
-								
+
 								<script type="text/javascript">
 									$(function() {
 										$('#maxPrice').slider({
@@ -519,7 +531,7 @@
 									});
 								</script>
 							</div>
-		
+
 							<div style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
 								<button id="search" class="btn btn-default" style="background: #0800E3; color: #fff; font-size: 24px; border-radius: 8px; border: 0">
 									Search
@@ -527,9 +539,10 @@
 							</div>
 						</div>
 					</div>
-				</div> <!-- end search input -->
+				</div>
+				<!-- end search input -->
 			</section>
-			
+
 			<section class="row">
 				<div class="col" style="width: 100%">
 					<div class="panel panel-default" >
@@ -538,9 +551,10 @@
 						</div>
 					</div>
 				</div>
-		
+
 				<!-- begin search results-->
 				<div id="resultContainer">
+					@if(offers == null){
 					<div id="searchResults" style="text-align: center">
 						<table id="resultTable" class="table table-striped">
 							<tr>
@@ -548,10 +562,14 @@
 							</tr>
 						</table>
 					</div>
+					}else{
+						@offers
+					}
 				</div>
 			</section>
-		</div> <!-- End of Container -->
-	
+		</div>
+		<!-- End of Container -->
+
 		<!--	//===================================SCRIPTS============================================================================================== -->
 		<script>
 			$('#search').click(function() {
@@ -562,9 +580,7 @@
 				var spaceSize = $('#spacesizeinput').val();
 				var maxPrice = $('#maxPrice').val();
 				var radius = $('#radiusinput').val();
-				//has to be computed with the help of google...
-				var lng = null;
-				var lat = null;
+
 
 				// validation
 				if (fromDate.length <= 4) {
@@ -583,10 +599,8 @@
 					postCode = null;
 				}
 
-				if ($('#spacesizeinput').value == '' || $('#spacesizeinput').value == $('#spacesizeinput').defaultValue) {
-					spaceSize = null;
-				}
-
+				//if ($('#spacesizeinput').value == '' || $('#spacesizeinput').value == $('#spacesizeinput').defaultValue) {
+				//}
 				if ($('#maxPrice').value == '') {
 					maxPrice = null;
 				}
@@ -611,9 +625,9 @@
 						}
 					});
 				}
-				
+
 			});
-			
+
 			function scrollToSearchResultTable() {
 				$("#resultContainer")[0].scrollIntoView(true);
 			}

@@ -56,8 +56,8 @@ public class OfferServiceDummy implements OfferService {
 		offer.houseNr = "12";
 		offer.city = "München";
 		offer.country = "Germany";
-		offer.geolocX = 48.138914;
-		offer.geolocY = 11.580177;
+		offer.lng = 48.138914;
+		offer.lat = 11.580177;
 		
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.add(GregorianCalendar.DATE, -25);

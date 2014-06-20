@@ -3,21 +3,20 @@ import java.util.List;
 
 import models.HomePageSearchForm;
 import models.Offer;
-import models.Person;
 import models.SearchAttributes;
+
+import org.json.JSONObject;
+import org.json.JsonGeoLocator;
+
 import play.api.templates.Html;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.DiscoveryService;
-import service.NewsService;
-import service.OfferService;
-import serviceDummy.DiscoveryServiceDummy;
-import serviceDummy.NewsServiceDummy;
-import serviceDummy.OfferServiceDummy;
+import service.GeoLocationService;
 import serviceImpl.DiscoveryServiceImpl;
-import serviceImpl.OfferServiceImpl;
+import serviceImpl.GeoLocationServiceImpl;
 import appinfo.GlobalValues;
 /**
  * @author Sebastian
@@ -28,7 +27,7 @@ public class HomeController extends Controller {
 
 //	private NewsService newsService = new NewsServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private static DiscoveryService discoveryService =  new DiscoveryServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
-	private static OfferService offerService = new OfferServiceImpl();
+	private static GeoLocationService geoService = new GeoLocationServiceImpl();
 
 	@Transactional
 	public static Result index(){
@@ -45,6 +44,7 @@ public class HomeController extends Controller {
 	
 	@Transactional
 	public static Result search(){
+		Html offerResults = null;
 		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class).bindFromRequest();
 		HomePageSearchForm hpsf = searchForm.get();
@@ -62,32 +62,79 @@ public class HomeController extends Controller {
 				
 					String city = null;
 					Double spacesize =null;
+					Double radius = null;
+					String postCode = null;
 					SearchAttributes sa = new SearchAttributes();
 					List<Offer> offers = null;
 					
-					
-					if(hpsf.city != null){
+					//Check if necessary attributes are not null -> only start search if it is so
+					if(hpsf.city != null && hpsf.postCode != null){
 						city = hpsf.city;
+						postCode = hpsf.postCode;
 						spacesize =hpsf.spacesize;
+						radius = hpsf.radius;
 						
+						//fill search attributes object for data base query
+						sa.postCode = postCode;
 						sa.city = city;
 						if(spacesize != null){
 							sa.spaceSize = spacesize;
 						}
-						System.out.println("city: "+city);
-						System.out.println("size: "+spacesize);
-						//TODO: Replace through discovery service (real query, no dummy!)
-//						Person p = new Person();
-//				    	p.id = 2;
-//				    	p.lastName= "we";
-//				    	p.surname ="dd";
-//				    	offers = offerService.findByOwnerID(p);
-//					
-				    	//TODO: Discovery service implementieren
+						if(radius != null){
+							sa.radius = radius;
+						}
+						
+						
+						//make geocoords
+						//TODO: refactor -> exclude into new service
+						
+						
+						// new Service for GeoCoords
+						// in place alteration of sa (SearchAttributes)
+						//
+						geoService.calculateGeoCoords(sa);	
+						
+						
+						// Legacy code below !!
+						//
+//						try {
+//							String address = "  , "+					
+//									sa.postCode +
+//									" " + 
+//									sa.city+
+//									", ";
+//							
+//							final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
+//					        if (response != null) {
+//					        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+//					        	location = location.getJSONObject("geometry");
+//					            location = location.getJSONObject("location");
+//					            double lng1 = location.getDouble("lng");// longitude
+//					            double lat1 = location.getDouble("lat");// latitude
+//					            System.out.println(String.format("%f, %f", lat1, lng1));
+//					            
+//					            sa.lng = lng1;
+//								sa.lat = lat1;	            
+//					        }
+//						} catch (Exception e) {}
+						
+//						//DEBUG
+//						System.out.println("city: "+city);
+//						System.out.println("postcode: "+postCode);
+//						System.out.println("area: "+radius);
+
 						offers = discoveryService.findOffers(sa);
+						
+						
+						if(offers.isEmpty() != true){
+							offerResults = views.html.searchresults.render(offers);
+						}
+						System.out.println("count_ "+offers.size());
 					}
 					
-					result = ok(views.html.search.render(city, spacesize, offers, menubar));
+					
+					
+					result = ok(views.html.search.render(city,postCode,radius, spacesize, sa.lng, sa.lat, offerResults, menubar));
 
 			}else {
 				result = redirect(routes.HomeController.index());

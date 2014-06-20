@@ -12,4 +12,7 @@ public interface DiscoveryService {
 	
 	public List<Offer> findOffersSortBy(SearchAttributes sa, SortAttribute param);
 
+	public List<Offer> findOffersWithinRadius(SearchAttributes sa, SortAttribute param);
+	
+	public List<Offer> findOffersWithinRadius(SearchAttributes sa);
 }

@@ -144,11 +144,11 @@ public class OfferRepository extends Controller{
 	
 	public static String queryGenerator(SearchAttributes sa) {
 		
+//		this section prevents unwanted search querys
 		String noResultQuery = "select * from offer where 1 = 2";
-		
-//		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
-//			return noResultQuery;
-//		}
+		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
+			return noResultQuery;
+		}
 		
 		if(sa.from == null && sa.to != null) {
 			sa.from = sa.to;
@@ -208,7 +208,5 @@ public class OfferRepository extends Controller{
 		result[3] = (lng + (180/pi)*((rds*1000)/6378137)/Math.cos(Math.PI/180.0*lng)) * 1.000354;
 		return result;
 	}
-	
-	
 
 }
