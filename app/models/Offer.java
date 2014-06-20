@@ -47,10 +47,10 @@ public class Offer {
 	public String country;
 	
 	@Column(name="GEOLOCX")
-	public double geolocX;
+	public double lng;
 	
 	@Column(name="GEOLOCY")
-	public double geolocY;
+	public double lat;
 	
 //	@Lob
 //	@Column(length=100000, name="PICTURE")
@@ -193,7 +193,7 @@ public class Offer {
 		
 		if(of.geolocX != null){
 				try{
-				geolocX = (new Double(of.geolocX)).doubleValue();
+				lng = (new Double(of.geolocX)).doubleValue();
 			} catch(Exception e) {
 				e.printStackTrace();
 				//TODO
@@ -202,7 +202,7 @@ public class Offer {
 		
 		if(of.geolocY != null){
 			try{
-				geolocY = (new Double(of.geolocY)).doubleValue();
+				lat = (new Double(of.geolocY)).doubleValue();
 			} catch(Exception e) {
 				e.printStackTrace();
 				//TODO

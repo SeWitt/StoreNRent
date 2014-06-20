@@ -12,6 +12,7 @@ import models.SearchAttributes;
 import models.SortAttribute;
 import repository.OfferRepository;
 import service.DiscoveryService;
+import service.GeoLocationService;
 
 /**
  * @author Sebastian
@@ -19,8 +20,13 @@ import service.DiscoveryService;
  * @created 23-Mai-2014 16:53:18
  */
 public class DiscoveryServiceImpl implements DiscoveryService {
+	
+	private double altitudeMunich = 520.0;
+	
 
 //	private OfferRepository offerRepo = new OfferRepository();
+	
+	private GeoLocationService geoService = new GeoLocationServiceImpl();
 
 	public DiscoveryServiceImpl(){
 
@@ -41,12 +47,28 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 		return offers;
 	}
 	
+	@Override
+	public List<Offer> findOffersWithinRadius(SearchAttributes sa, SortAttribute param) {
+		List<Offer> offers = findOffersSortBy(sa, param);
+		
+		int i = 0;
+		for(Offer o : offers) {
+			if(o.distance > sa.radius) {
+				offers.remove(i);
+			}
+			i++;
+		}
+		return offers;
+	}
+	
+	@Override
+	public List<Offer> findOffersWithinRadius(SearchAttributes sa) {
+		return findOffersWithinRadius(sa, null);
+	}
+	
 	private List<Offer> calculateDist(List<Offer> offers, SearchAttributes sa) {
-		GeoAltitude munichAltitude = new GeoAltitude(520.0);
 		for(Offer offer : offers) {
-			GeoCoordinate gcO = new GeoCoordinate(offer.geolocX, offer.geolocY, munichAltitude);
-			GeoCoordinate gcL = new GeoCoordinate(sa.lng, sa.lat, munichAltitude);
-			offer.distance = GeoUtils.distanceBetweenInKm(gcO, gcL);
+			offer.distance = geoService.getDistanceBetweenInKm(offer.lng, offer.lat, sa.lng, sa.lat, altitudeMunich);
 		}
 		return offers;
 	}
@@ -79,6 +101,9 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 		}
 		
 	}
+	
+	
+	
 
 	
 
