@@ -1765,6 +1765,21 @@ input[type=date] {
 	line-height: 34px
 }
 
+.input-group-addon+.form-control,.form-control+.input-group-addon {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.input-group-addon~.form-control {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.input-group .input-group-addon:not(:last-child):first-child,.form-control:not(:last-child):first-child {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
 .form-group {
 	margin-bottom: 15px
 }
@@ -5162,7 +5177,7 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:hover,a.list-gro
 	border-bottom: 1px solid transparent;
 	border-top-right-radius: 3px;
 	border-top-left-radius: 3px;
-	text-align: left;
+	text-align: center;
 	font-size: 18px
 }
 
@@ -6236,4 +6251,14 @@ button.close {
 
 .input-append .btn.dropdown-toggle {
     float: none;
+}
+
+.align-center {
+	font-weight: 400; 
+	line-height: 1; 
+	padding-top: 6px;
+	text-align: left;
+}
+.form-group {
+	margin: 2% 0 2% 0;
 }
