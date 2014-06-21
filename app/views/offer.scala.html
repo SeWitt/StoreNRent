@@ -45,19 +45,19 @@
 			@helper.form(action = routes.OfferController.doAction()) {
 			<div class="row">
 				@if(form.hasGlobalErrors) {
-				<p class="bg-danger">
+				<p class="alert alert-danger">
 					@form.globalError.message
 				</p>
 				}
 				
 				@if(flash.contains("success")) {
-				<p class="bg-success">
+				<p class="alert alert-success">
 					@flash.get("success")
 				</p>
 				}
 				
 				@if(form.hasErrors) {
-				<p class="bg-danger">
+				<p class="alert alert-danger">
 					@flash.get("error")
 				</p>
 				}
