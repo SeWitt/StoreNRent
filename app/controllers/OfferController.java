@@ -11,9 +11,6 @@ import models.OfferAcceptForm;
 import models.OfferForm;
 import models.Person;
 
-import org.json.JSONObject;
-import org.json.JsonGeoLocator;
-
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -24,6 +21,10 @@ import play.mvc.*;
 import service.AccountService;
 import service.OfferService;
 import serviceDummy.AccountServiceDummy;
+import play.mvc.Controller;
+import play.mvc.Result;
+import service.GeoLocationService;
+import serviceImpl.GeoLocationServiceImpl;
 import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
 import appinfo.GlobalValues;
@@ -38,6 +39,7 @@ public class OfferController extends Controller {
 	private static OfferService offerService = new OfferServiceImpl();
 	private static AccountService accountService = new AccountServiceDummy();
 //	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
+	private static GeoLocationService geoService = new GeoLocationServiceImpl();
 	
 	@Transactional
 	public static Result index(Integer id) {
@@ -320,33 +322,41 @@ public class OfferController extends Controller {
 
 					//TODO download pictures
 
-					try {
-						String address = 
-								o.street +
-								" " +
-								o.houseNr +
-								", " +
-								o.postCode +
-								" " + 
-								o.city +
-								", " +
-								o.country;
-
-						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
-				        if (response != null) {
-				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
-				        	location = location.getJSONObject("geometry");
-				            location = location.getJSONObject("location");
-				            final double lng = location.getDouble("lng");// longitude
-				            final double lat = location.getDouble("lat");// latitude
-				            System.out.println(String.format("%f, %f", lat, lng));
-				            
-				            o.geolocX = lng;
-				            o.geolocY = lat;
-				        }
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					// get geo location
+					// in place transformation of Offer o
+					//
+					geoService.calculateGeoCoords(o);
+					
+					
+					// legacy code below!!
+					//
+//					try {
+//						String address = 
+//								o.street +
+//								" " +
+//								o.houseNr +
+//								", " +
+//								o.postCode +
+//								" " + 
+//								o.city +
+//								", " +
+//								o.country;
+//
+//						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
+//				        if (response != null) {
+//				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+//				        	location = location.getJSONObject("geometry");
+//				            location = location.getJSONObject("location");
+//				            final double lng = location.getDouble("lng");// longitude
+//				            final double lat = location.getDouble("lat");// latitude
+//				            System.out.println(String.format("%f, %f", lat, lng));
+//				            
+//				            o.lng = lng;
+//				            o.lat = lat;
+//				        }
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
 //					o.geolocX = 48.14188;
 //					o.geolocY = 11.56645;
 					

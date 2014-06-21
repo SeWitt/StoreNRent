@@ -14,7 +14,9 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.DiscoveryService;
+import service.GeoLocationService;
 import serviceImpl.DiscoveryServiceImpl;
+import serviceImpl.GeoLocationServiceImpl;
 import appinfo.GlobalValues;
 /**
  * @author Sebastian
@@ -25,7 +27,7 @@ public class HomeController extends Controller {
 
 //	private NewsService newsService = new NewsServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private static DiscoveryService discoveryService =  new DiscoveryServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
-
+	private static GeoLocationService geoService = new GeoLocationServiceImpl();
 
 	@Transactional
 	public static Result index(){
@@ -86,26 +88,35 @@ public class HomeController extends Controller {
 						//make geocoords
 						//TODO: refactor -> exclude into new service
 						
-						try {
-							String address = "  , "+					
-									sa.postCode +
-									" " + 
-									sa.city+
-									", ";
-							
-							final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
-					        if (response != null) {
-					        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
-					        	location = location.getJSONObject("geometry");
-					            location = location.getJSONObject("location");
-					            double lng1 = location.getDouble("lng");// longitude
-					            double lat1 = location.getDouble("lat");// latitude
-					            System.out.println(String.format("%f, %f", lat1, lng1));
-					            
-					            sa.lng = lng1;
-								sa.lat = lat1;	            
-					        }
-						} catch (Exception e) {}
+						
+						// new Service for GeoCoords
+						// in place alteration of sa (SearchAttributes)
+						//
+						geoService.calculateGeoCoords(sa);	
+						
+						
+						// Legacy code below !!
+						//
+//						try {
+//							String address = "  , "+					
+//									sa.postCode +
+//									" " + 
+//									sa.city+
+//									", ";
+//							
+//							final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
+//					        if (response != null) {
+//					        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
+//					        	location = location.getJSONObject("geometry");
+//					            location = location.getJSONObject("location");
+//					            double lng1 = location.getDouble("lng");// longitude
+//					            double lat1 = location.getDouble("lat");// latitude
+//					            System.out.println(String.format("%f, %f", lat1, lng1));
+//					            
+//					            sa.lng = lng1;
+//								sa.lat = lat1;	            
+//					        }
+//						} catch (Exception e) {}
 						
 //						//DEBUG
 //						System.out.println("city: "+city);

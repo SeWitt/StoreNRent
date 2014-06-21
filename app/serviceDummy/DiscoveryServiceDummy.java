@@ -30,4 +30,17 @@ public class DiscoveryServiceDummy implements DiscoveryService {
 		return null;
 	}
 
+	
+	@Override
+	public List<Offer> findOffersWithinRadius(SearchAttributes sa, SortAttribute param) {
+		
+		return null;
+	}
+	
+	@Override
+	public List<Offer> findOffersWithinRadius(SearchAttributes sa) {
+		return null;
+	}
+	
+	
 }
