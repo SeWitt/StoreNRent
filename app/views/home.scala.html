@@ -37,6 +37,13 @@
 
 		@menubar
 
+<!--- flash message window -->
+	@if(flash.contains("success")) {
+    	<p class="bg-success">
+        	@flash.get("success")
+    	</p>
+}
+
 <!-- Intro -->
 	<div class="container text-center" >
 	

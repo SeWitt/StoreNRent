@@ -46,7 +46,9 @@ public class SearchController extends Controller {
 	 */
 	@Transactional
 	public static Result search(String city,String postCode, Double radius, Double spaceSize){
-		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
+
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		session("lasturl",request().uri());
 		if(city == null && radius == null && postCode == null){
 			return ok(search.render(city, postCode, radius, spaceSize, null,null,null, menubar));
 		}else{

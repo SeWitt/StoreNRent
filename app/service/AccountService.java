@@ -1,5 +1,7 @@
 package service;
 
+import exception.InvalidCredentialsException;
+import exception.UnkwonEmailException;
 import models.Account;
 
 public interface AccountService {
@@ -27,5 +29,8 @@ public interface AccountService {
 	 * @param mail
 	 */
 	public abstract Account findAccountByMail(String mail);
+	
+	
+	public abstract int authenticate(String mail, String pwd) throws InvalidCredentialsException, UnkwonEmailException;
 
 }

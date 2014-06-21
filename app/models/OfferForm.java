@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
-import validators.IsDateNotPaste;
 
 import appinfo.GlobalValues;
 
@@ -140,7 +139,7 @@ public class OfferForm{
 	/**
 	 * first possible day of the contract
 	 */
-	@IsDateNotPaste()
+//	@IsDateNotPaste()
 	@Required(message = "Please insert a vaild start date!" )
 	public String offerFrom;
 	

@@ -331,6 +331,13 @@
 		<!-- Main Container -->
 		<div class="container" style="background: #fff">
 
+			<div class="row">
+			@if(flash.contains("error")) {
+				<p class="bg-danger">
+					@flash.get("error")
+				</p>
+				}		
+			</div>	
 			<section class="row">
 				<div class="row">
 					<div class="panel panel-default" >

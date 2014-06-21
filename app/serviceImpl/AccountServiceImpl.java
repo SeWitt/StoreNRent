@@ -1,6 +1,9 @@
 package serviceImpl;
 import java.util.Date;
 
+import exception.InvalidCredentialsException;
+import exception.UnkwonEmailException;
+
 import repository.AccountRepository;
 import service.AccountService;
 import service.PersonService;
@@ -72,6 +75,15 @@ public class AccountServiceImpl implements AccountService {
 	 */
 	public Account findAccountByMail(String mail){
 		return accountRepo.findAccountByMail(mail);
+	}
+
+
+
+	@Override
+	public int authenticate(String mail, String pwd)
+			throws InvalidCredentialsException, UnkwonEmailException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
