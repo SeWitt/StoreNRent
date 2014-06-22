@@ -23,7 +23,7 @@ INSERT INTO person( person_id, city, country, created, date_of_birth, house_nr, 
 INSERT INTO person( person_id, city, country, created, date_of_birth, house_nr, is_active, is_verified, last_edited, lastname, picturepath, post_code, street, surname) VALUES (22, 'Muenchen', 'Germany', to_timestamp(1402869600), to_timestamp(1402869600),  '3',  true, true, to_timestamp(1402869600), 'Grün', null, '80535', 'Schackstraße', 'Andrea');
 INSERT INTO person( person_id, city, country, created, date_of_birth, house_nr, is_active, is_verified, last_edited, lastname, picturepath, post_code, street, surname) VALUES (23, 'Muenchen', 'Germany', to_timestamp(1402869600), to_timestamp(1402869600),  '7',  true, true, to_timestamp(1402869600), 'Scherer', null, '80539', 'Schönfeldstraße', 'Maximilian');
 
-
+INSERT INTO account( account_id, created_date, email, is_active, password, person_id) VALUES (1 , '2012-04-13', 'sebis@tum.de', TRUE, '$2a$10$8w4/j2kcWMBXc5ChtQqOlerm09Qrp.fxTZ40YA3MottXTlvPcVxuO', 1);
 
 
 INSERT INTO offer(offer_id, city, contracted_from, contracted_until, country, created_date, description, geolocx, geolocy, header, house_nr, is_active, last_edited_date, offer_from, offer_to, picture_path_1, picture_path_2, picture_path_3,picture_path_4, picture_path_5, postcode, price, space_size, street, sub_header, transaction_closed, visit_count, acceptor_id, owner_id) VALUES (1, 'Muenchen', null, null, 'Germany', to_timestamp(1402869600), 'Nice Room to store everything you want', 11.5394842, 48.1318693, 'Basement, about 30 square meters', '53', true, to_timestamp(1402869600), to_timestamp(1402869600), to_timestamp(1402969600), null, null, null, null, null, '81373', 4.0 , 30, 'Ganghoferstr', 'Lift available', false, 0, null, 1);

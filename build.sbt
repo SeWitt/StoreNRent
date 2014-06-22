@@ -20,7 +20,8 @@ libraryDependencies ++= Seq(
   "org.jboss.logging" % "jboss-logging-processor" % "1.2.0.Final",
   "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
   "org.seleniumhq.selenium" % "selenium-java" % "2.5.0" % "test",
-  "com.h2database" % "h2" % "1.4.178" % "test"
+  "com.h2database" % "h2" % "1.4.178" % "test",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )
 
 resolvers += Resolver.sonatypeRepo("releases")

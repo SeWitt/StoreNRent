@@ -52,21 +52,9 @@ public class OfferController extends Controller {
 
 		try{
 			Offer o = offerService.findByOfferID(id.intValue());
-			//TODO: make "true" -> null
-			String isowner = "true";
-
-			//check if this is the owner
-	    	String user = session("email");
-	    	
-	    	if (user != null){
-	    		Person p = accountService.findAccountByMail(user).person;
-	    		
-	    		if(o.owner.equals(p)){
-	    			isowner = "true";
-	    			System.out.println("[Offer Controller][show][is owner == true]");
-	    		}
-	    		
-	    	}
+			
+			//check whether it is the owner
+			String isowner = isOwner(o);
 	    	
 			
 			session("offerid", "" + id.toString());
@@ -75,8 +63,8 @@ public class OfferController extends Controller {
 			OfferAcceptForm oaf = new OfferAcceptForm();
 			oaf.from = new SimpleDateFormat(GlobalValues.DATEFORMAT).format(new Timestamp(System.currentTimeMillis()));
 			oaf.to = new SimpleDateFormat(GlobalValues.DATEFORMAT).format(o.offerTo);
-			System.out.println("from index: " + oaf.from);
-			System.out.println("to index: " + oaf.to);
+//			System.out.println("from index: " + oaf.from);
+//			System.out.println("to index: " + oaf.to);
 			offerForm.fill(oaf);
 
 			content = views.html.offer.render(offerForm, menubar, o, isowner);
@@ -110,19 +98,7 @@ public class OfferController extends Controller {
 				if (form.hasErrors()) {
 					Offer o = offerService.findByOfferID(offerid);
 					//check whether it is the owner
-					String isowner = null;
-
-					//check if this is the owner
-			    	String user = session("email");
-			    	
-			    	if (user != null){
-			    		Person p = accountService.findAccountByMail(user).person;
-			    		
-			    		if(o.owner.equals(p)){
-			    			isowner = "true";
-			    		}
-			    		
-			    	}
+					String isowner = isOwner(o);
 			    	
 		            String errorMsg = "";
 		            java.util.Map<String, List<play.data.validation.ValidationError>> errorsAll = form.errors();
@@ -143,7 +119,7 @@ public class OfferController extends Controller {
 				OfferAcceptForm oaf = form.get();
 				
 				//make validation check whether until date is later than from:
-				
+//TODO: switch on validation, when valid bulk data are available				
 //				boolean isDatevalid = TimeValidator.isDateAfter(oaf.to, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
 //				boolean beginDateinside = TimeValidator.isDateAfterTSS(o.offerFrom, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
 //				boolean endDateinside = TimeValidator.isDateBeforeSTS(oaf.to, o.offerTo,new SimpleDateFormat(GlobalValues.DATEFORMAT));
@@ -158,19 +134,7 @@ public class OfferController extends Controller {
 					Offer o = offerService.findByOfferID(offerid);
 					
 					//check whether it is the owner
-					String isowner = null;
-
-					//check if this is the owner
-			    	String user = session("email");
-			    	
-			    	if (user != null){
-			    		Person p = accountService.findAccountByMail(user).person;
-			    		
-			    		if(o.owner.equals(p)){
-			    			isowner = "true";
-			    		}
-			    		
-			    	}
+					String isowner = isOwner(o);
 					
 					String error = "";
 					if(isDatevalid == false){
@@ -319,6 +283,9 @@ public class OfferController extends Controller {
 					//Now, all data are valid!
 					
 					Offer o = new Offer(of);
+					
+					
+					o.owner =  accountService.findAccountByMail(session("email")).person;
 
 					//TODO download pictures
 
@@ -326,40 +293,7 @@ public class OfferController extends Controller {
 					// in place transformation of Offer o
 					//
 					geoService.calculateGeoCoords(o);
-					
-					
-					// legacy code below!!
-					//
-//					try {
-//						String address = 
-//								o.street +
-//								" " +
-//								o.houseNr +
-//								", " +
-//								o.postCode +
-//								" " + 
-//								o.city +
-//								", " +
-//								o.country;
-//
-//						final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
-//				        if (response != null) {
-//				        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
-//				        	location = location.getJSONObject("geometry");
-//				            location = location.getJSONObject("location");
-//				            final double lng = location.getDouble("lng");// longitude
-//				            final double lat = location.getDouble("lat");// latitude
-//				            System.out.println(String.format("%f, %f", lat, lng));
-//				            
-//				            o.lng = lng;
-//				            o.lat = lat;
-//				        }
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//					o.geolocX = 48.14188;
-//					o.geolocY = 11.56645;
-					
+
 					o = offerService.createOffer(o);
 					flash("success", "Successfully created!");
 
@@ -371,6 +305,31 @@ public class OfferController extends Controller {
 		}
 		return result;
 	}
+	
+	
+	private static String isOwner(Offer o){
+		//check whether it is the owner
+		String isowner = null;
+
+		//check if this is the owner
+		String user = session("email");
+//		System.out.println("[offercontroller][index user:] "+user);
+		
+		if (user != null){
+			Person p = accountService.findAccountByMail(user).person;
+			
+//			System.out.println("[offercontroller][index user:] user is logged in");
+//			System.out.println("[offercontroller][site   user:] "+p.id);
+//			System.out.println("[offercontroller][offer owner:] "+o.owner.id);
+			if(o.owner.id == p.id){
+//				System.out.println("[offercontroller][index user:] is actual owner");
+				isowner = "true";
+			}
+			
+		}
+		return isowner;
+	}
+	
 
 //	public static Result getMapData() {
 //		String resultString = "";

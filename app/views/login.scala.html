@@ -38,6 +38,12 @@
 			@form.globalError.message
 		</p>
 		}
+		@if(flash.contains("error")) {
+				<p class="alert alert-danger">
+					@flash.get("error")
+				</p>
+				}	
+		
 		<header>
 			Please enter login data
 		</header>
