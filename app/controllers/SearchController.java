@@ -9,6 +9,7 @@ import java.util.List;
 
 import models.Offer;
 import models.SearchAttributes;
+import models.SortAttribute;
 
 import org.json.JSONObject;
 import org.json.JsonGeoLocator;
@@ -77,12 +78,10 @@ public class SearchController extends Controller {
 	 * @param spacesize
 	 * @param maxprice
 	 * @param radius
-	 * @param lng
-	 * @param lat
 	 * @return
 	 */
 	@Transactional
-	public static Result query(String fromdate, String todate, String city, String postcode, Double spacesize, Double maxprice, Double radius, String lng, String lat){
+	public static Result query(String fromdate, String todate, String city, String postcode, Double spacesize, Double maxprice, Double radius, Integer orderBy){
 		
 		SearchAttributes sa = new SearchAttributes();
 		
@@ -114,13 +113,15 @@ public class SearchController extends Controller {
 			sa.radius = radius;
 		}
 		
+		
+		
 		//make geocoords
 		//TODO: refactor -> exclude into new service
 		
 		// new Service for GeoCoords
 		// in place alteration of sa (SearchAttributes)
 		//
-		geoService.calculateGeoCoords(sa);	
+			
 		
 		// Legacy code below !!
 		//
@@ -145,9 +146,48 @@ public class SearchController extends Controller {
 //	        }
 //		} catch (Exception e) {}
 
-//PRODUCTIVE USE		
-		List<Offer> o = discoveryService.findOffers(sa);
-		
+//PRODUCTIVE USE	
+		geoService.calculateGeoCoords(sa);
+		List<Offer> o = null;
+//		try {
+
+			if (orderBy > 0) {
+				SortAttribute s = null;
+
+				switch (orderBy) {
+				case 1:
+					s = SortAttribute.Distance;
+					break;
+				case 2:
+					s = SortAttribute.Price;
+					break;
+				case 3:
+					break;
+				case 4:
+					s = SortAttribute.From;
+					break;
+				case 5:
+					s = SortAttribute.To;
+					break;
+
+				default:
+					break;
+				}
+
+				if (s != null) {
+
+					o = discoveryService.findOffersSortBy(sa, s);
+				} else {
+					o = discoveryService.findOffers(sa);
+				}
+
+			} else {
+				o = discoveryService.findOffers(sa);
+			}
+//		} catch (Exception e) {
+//			o = null;
+//		}
+			
 		if(o.isEmpty()){
 			o= null;
 		}
@@ -158,5 +198,4 @@ public class SearchController extends Controller {
 	
 
 	
-
 }
