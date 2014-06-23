@@ -93,7 +93,21 @@
 						<div class="panel-body">
 							<div class="form-group" style="padding: 0 3% 0 3%">
 								<p class="help-block">Please select (a) picture(s) to upload.</p>
-								<input type="file" multiple id="pic" name="pic">
+								<input type="file" multiple id="pics" name="pics">
+								
+								<script type="text/javascript">
+									var control = document.getElementById("pics");
+									control.addEventListener("change", function(event) {
+									    // When the control has changed, there are new files
+									    var i = 0,
+									        files = control.files,
+									        len = files.length;
+									    if (len > 5) {
+									    	alert("Maximum number of uploadable images: 5!");
+									    	control.value = null;
+									    }
+									}, false);
+								</script>
 							</div>
 						</div>
 					</div>
