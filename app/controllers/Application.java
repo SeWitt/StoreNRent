@@ -1,20 +1,33 @@
 package controllers;
 
 
+import models.LoginForm;
+import models.Person;
+
 import java.io.Reader;
 import java.sql.Clob;
 
 import org.apache.commons.io.IOUtils;
 
+import exception.InvalidCredentialsException;
+import exception.UnkwonEmailException;
+
 import play.Logger;
 import play.Routes;
+import play.data.Form;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.api.templates.Html;
+import service.AccountService;
+import serviceDummy.AccountServiceDummy;
+import serviceImpl.AccountServiceImpl;
+
 
 
 public class Application extends Controller {
 
-	
+	private static AccountService as = new AccountServiceImpl();
 	
 	
 	
@@ -24,6 +37,7 @@ public class Application extends Controller {
 	    return ok(Routes.javascriptRouter("appRoutes", //appRoutes will be the JS object available in our view
 	                                      routes.javascript.SearchController.query()));
 	}
+	
 	
 	/**
 	 * Called within HTML in order to render an image out of a <code>java.sql.Clob</code> by using 
@@ -48,6 +62,93 @@ public class Application extends Controller {
 		}
 		return internalServerError("An IO Exception is occured while extracting byte[] out of Clob!");
 	}
-    
+	
+	
+//Login methods	
+	public static Result login() {
+	    return ok(views.html.login.render( Form.form(LoginForm.class)));
+	}
+	
+	public static Result logout() {
+		String url = session("lasturl");
+		session().clear();
+	    flash("success", "You've been logged out");
 
+	    if(url == null){
+	    	url = "/";
+	    }
+	    
+	    return redirect(url);
+	        
+	    
+	}
+	
+    @Transactional
+	public static Result authenticate() {
+	    Form<LoginForm> loginForm =  Form.form(LoginForm.class).bindFromRequest();
+	    if (loginForm.hasErrors()) {
+	        return badRequest(views.html.login.render(loginForm));
+	    } else {
+	    	
+	    	String pwd = loginForm.get().password;
+	    	String mail = loginForm.get().email;
+	    	
+	    	String url = session("url");
+	       
+	        
+	        int result = -1;
+	        try {
+				 result = as.authenticate(mail, pwd);
+			} catch (InvalidCredentialsException e) {
+				flash("error", "Your credentials were not correct!");
+				return badRequest(views.html.login.render(loginForm));
+			}catch (UnkwonEmailException e2 ){
+				flash("error", "Sorry we could not find an account!");
+				return badRequest(views.html.login.render(loginForm));
+			}
+	        
+	        
+	        if(result > 0){
+	        	 session().clear();
+	        	 session("email", loginForm.get().email);
+	        	 flash("success", "Login was successful!");
+	        
+	        	 System.out.println("[LOGIN] [authenticate] url: "+url);
+	        	 if(url == null){
+	        		 url = "/";
+	        	 }
+	        }else{
+	        	flash("error", "Your credentials were incorrect");
+				return badRequest(views.html.login.render(loginForm));
+	        }
+	        
+	        return redirect(url);	    
+	    }
+	}
+	
+	
+	/**creates an menu bar snippet
+	 * depends on the users login state
+	 * 
+	 * @param selected the to be selected ribbon
+	 * @return an html menubar snippet
+	 */
+	public static Html getMenuebar(String selected){
+		
+		String name = null;
+		
+		String mail =request().username();
+		if(mail != null){
+			Person p = as.findAccountByMail(mail).person;
+			name = p.surname +" "+ p.lastName;
+		}
+		
+		
+		Html menubar = views.html.menubar.render(selected,name,Form.form(LoginForm.class));
+		
+		return menubar;
+	}
+	
+	
+	
 }

@@ -32,7 +32,7 @@ public class HomeController extends Controller {
 	@Transactional
 	public static Result index(){
 		//menue bar
-		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
 		Html footer = views.html.footer.render();
 		
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class);
@@ -45,7 +45,7 @@ public class HomeController extends Controller {
 	@Transactional
 	public static Result search(){
 		Html offerResults = null;
-		Html menubar = views.html.menubar.render(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class).bindFromRequest();
 		HomePageSearchForm hpsf = searchForm.get();
 		

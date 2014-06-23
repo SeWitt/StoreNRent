@@ -1,7 +1,7 @@
 package controllers;
+import play.db.jpa.Transactional;
 import play.mvc.Controller;
-import service.MessageService;
-import serviceDummy.MessageServiceDummy;
+import play.mvc.Result;
 
 /**
  * @author Sebastian
@@ -10,12 +10,13 @@ import serviceDummy.MessageServiceDummy;
  */
 public class MessageController extends Controller {
 
-	private MessageService messageService = new MessageServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
+//	private MessageService messageService = new MessageServiceDummy();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 
-	public MessageController(){
-
+	@Transactional
+	public static Result newMessage() {
+		
+		return TODO;
 	}
-
 
 
 }
