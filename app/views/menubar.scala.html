@@ -30,10 +30,10 @@
 					<li class="dropdown" id="menuLogin" >
 						@if(session.contains("email")){
 							<a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogout" style="color: inherit">Personal Area <b class="caret"></b></a>
-						<div class="dropdown-menu" style="padding: 17px; margin: 10px 10px 10px 10px; border-radius: 4px">
+						<div class="dropdown-menu" style="padding: 17px; margin: 10px 10px 10px 10px; border-radius: 4px; color: #2E2E2E;">
 							@helper.form(routes.Application.logout) {
 								<div>
-								Hello @name !
+									Hello <strong>@name</strong>!
 								</div>
 								<button type="submit" id="btnLogin" class="btn" >Logout</button>
 							
@@ -46,7 +46,7 @@
 							<form class="form" id="formLogin" style="color: #2E2E2E;">
 								<input name="email" id="email" placeholder="Email" type="email" style="margin: 0 0 10px 0; color: inherit">
 								<input name="password" id="password" placeholder="Password" type="password"  value="@form("email").value" style="margin: 0 0 10px 0; color: inherit">
-								<button type="submit" id="btnLogin" class="btn" style="color: inherit">Login</button>
+								<button type="submit" id="btnLogin" class="btn">Login</button>
 							</form>
 							}
 						</div>
