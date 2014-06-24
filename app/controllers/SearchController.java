@@ -162,6 +162,7 @@ public class SearchController extends Controller {
 					s = SortAttribute.Price;
 					break;
 				case 3:
+					s = SortAttribute.Size;
 					break;
 				case 4:
 					s = SortAttribute.From;
