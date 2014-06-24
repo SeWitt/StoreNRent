@@ -78,7 +78,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 		
 		public OfferComparator(SortAttribute param) {
 			this.param = param;
-		}
+		} 
 
 		@Override
 		public int compare(Offer arg0, Offer arg1) {
