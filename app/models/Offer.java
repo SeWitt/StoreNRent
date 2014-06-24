@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Clob;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,19 +60,19 @@ public class Offer {
 //	public Blob picture;
 	
 	@Column(name="PICTURE_PATH_1")
-	public String picturePath1;
+	public Clob picturePath1;
 	
 	@Column(name="PICTURE_PATH_2")
-	public String picturePath2;
+	public Clob picturePath2;
 	
 	@Column(name="PICTURE_PATH_3")
-	public String picturePath3;
+	public Clob picturePath3;
 	
 	@Column(name="PICTURE_PATH_4")
-	public String picturePath4;
+	public Clob picturePath4;
 	
 	@Column(name="PICTURE_PATH_5")
-	public String picturePath5;
+	public Clob picturePath5;
 	
 	@Column(name="PRICE")
 	public double price;

@@ -1,12 +1,12 @@
 package models;
 
 
+import java.sql.Clob;
 import java.text.SimpleDateFormat;
 
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
-
 import appinfo.GlobalValues;
 
 public class OfferForm{
@@ -81,15 +81,15 @@ public class OfferForm{
 	@Required(message = "Please insert your free space size!" )
 	public double spacesize;
 	
-	public String picturePath1;
+	public Clob picturePath1;
 	
-	public String picturePath2;
+	public Clob picturePath2;
 	
-	public String picturePath3;
+	public Clob picturePath3;
 	
-	public String picturePath4;
+	public Clob picturePath4;
 	
-	public String picturePath5;
+	public Clob picturePath5;
 	
 	@Required(message = "Please insert a valid price!")
 	public double price;
