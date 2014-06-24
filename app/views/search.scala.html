@@ -69,12 +69,18 @@
 				feature = evt.feature;
 
 				line = '';
-				for (cdata in feature.cluster) {
-					//TODO:
-					//line = line + '<tt><small>#' + feature.cluster[cdata].data.cid + "</small></tt>   <b>#" + feature.cluster[cdata].data.ENr + '    ' + feature.cluster[cdata].data.einsatzort + '</b> (' + feature.cluster[cdata].data.einsatzart + ')  <i>' + feature.cluster[cdata].attributes.meldung + "</i><br/>"
-					//				if (cdata > 10) break;
+				
+				if(feature.cluster.length == 1){
+					line = line + '<div class="popup"> <h2> <a href=" /offer/show/'+feature.cluster[0].attributes.id+'">'+feature.cluster[0].attributes.header+'</a><h2> Price: '+feature.cluster[0].attributes.price+' &euro;</div>';
+			 
+				}else{
+					for (cdata in feature.cluster) {
+					
+					line = line + '<tt>#' + feature.cluster[cdata].data.id + '</tt>   <b> <a href=" /offer/show/'+feature.cluster[cdata].attributes.id+'">'+feature.cluster[cdata].attributes.header+'</a></b> Price: '+feature.cluster[cdata].attributes.price+' &euro; <br>';
+									if (cdata > 10) break;
+					}
 				}
-
+				
 				popup = new OpenLayers.Popup("Offer", feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(450, 200), line, null, true, onPopupClose);
 
 				console.log(feature.cluster[0].attributes);
@@ -82,17 +88,6 @@
 				feature.popup = popup;
 				popup.feature = feature;
 				map.addPopup(popup, true);
-
-				// var description=null;
-
-				//   description = GetAjax('data.php?type=info&output=html&id='+feature.attributes.description);
-
-				//    if(description == null) {
-				//        description = "<div class=\"olPopupLoadingIcon\"><img src=\"images/ajax-loader.gif\" ><p>Error by Loading!</p></div>";
-				//   }
-
-				popup.setContentHTML("<h2>" + "<a href=/offer/show/"+ ID + "> about 30 sqare meter for ren </a>");
-
 			}
 
 			function onFeatureUnselect(evt) {
@@ -252,7 +247,16 @@
 				var style = new OpenLayers.Style(null, {
 					rules : [verylowRule, lowRule, middleRule, highRule, veryhighRule]
 				});
-
+				
+				//create circle style
+				var circlestyle = new OpenLayers.Style(null, {
+					fillColor : colors.veryhigh,
+					fillOpacity : 0.9
+	//				strokeColor : colors.veryhigh,
+	//				strokeOpacity : 0.5,
+	//				strokeWidth : 12
+				});	
+				
 				// Create a vector layers
 				var offerlayer = new OpenLayers.Layer.Vector("Offer", {
 					protocol : new OpenLayers.Protocol.HTTP({
@@ -270,7 +274,30 @@
 					attribution : '<s>made by sw</s>'
 				});
 
-				map.addLayers([offerlayer, gsat, gmap]);
+
+				
+
+				var point = new OpenLayers.Geometry.Point(1,1);
+				point = point.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+
+
+				var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon
+													(
+    												point,
+    												500000,
+   											 		20,
+   											 		0
+													);
+
+													
+
+				var	circlefeature = new OpenLayers.Feature.Vector(mycircle, circlestyle);
+				
+				var circleLayer = new OpenLayers.Layer.Vector("Search radius");
+				
+				circleLayer.addFeatures(circlefeature);
+
+				map.addLayers([offerlayer, gsat, gmap, circleLayer]);
 
 				selectControl = new OpenLayers.Control.SelectFeature(offerlayer);
 				map.addControl(selectControl);
@@ -312,6 +339,7 @@
 			.form-group [class*=col-]:first-of-type {
 				padding: 0 0 1% 3%;
 			}
+			
 			.form-group [class*=col-]:not(:first-of-type):not(:last-of-type) {
 				padding: 0 2% 1% 2%;
 			}
@@ -532,27 +560,19 @@
 							
 							<div class="form-group row"  style="margin: 0 2% 0 2%; padding: 1% 0 1% 0; text-align: center">
 								
+								<div class="col-md-4" style="padding-top: 1%">
+									Sorting Order
+								</div>	
+								
 								<div class="col-md-4">
-									<div class="row">
-										<div class="col-md-12">
-											Order by:
-										</div>	
-									</div>	
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group row">
-												<select id="orderattribute" class="form-control">
-													<option value="0"> </option>
-													<option value="1">by distance </option>
-													<option value="2">by price </option>
-													<option value="3">by size </option>
-													<option value="4">by from date </option>
-													<option value="5">by to date </option>
-												</select>
-											</div>	
-										</div>	
-									</div>
-								</div>
+									<select id="orderattribute" class="form-control">
+										<option value="0">By price</option>
+										<option value="1">By distance</option>
+										<option value="2">By size</option>
+										<option value="3">By from date</option>
+										<option value="4">By to date</option>
+									</select>
+								</div>	
 							</div>
 								
 							<div style="width: 100%; background: #ddd; text-align:center; margin: 2% 0 0 0; padding: 1% 0 1% 0">
@@ -679,10 +699,10 @@
 												
 												
 												circleLayer = new OpenLayers.Layer.Vector("Radius",{ style: {
-                strokeColor: "blue",
-                strokeWidth: 3,
-                cursor: "pointer"
-            }, });
+               									 strokeColor: "blue",
+                								strokeWidth: 20,
+               									 cursor: "pointer"
+            										}, });
 
 												var point = new OpenLayers.Geometry.Point(lon, lat);
 
