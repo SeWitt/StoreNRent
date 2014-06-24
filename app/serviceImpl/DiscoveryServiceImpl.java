@@ -97,6 +97,9 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 			if(param.equals(SortAttribute.Description)) {
 				return arg0.description.compareTo(arg1.description);
 			}
+			if(param.equals(SortAttribute.Size)) {
+				return Double.compare(arg0.spaceSize, arg1.spaceSize);
+			}
 			return 0;
 		}
 		
