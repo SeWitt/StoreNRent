@@ -29,7 +29,6 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
 
 	</head>
 
@@ -40,15 +39,40 @@
 <!-- Intro -->
 	<div class="container text-center" >
 	
-		<div style="background-image:url(@routes.Assets.at("images/Slideshow2.jpg")" alt="Store 'n Rent">		
+		<!--  <div style="background-image:url(@routes.Assets.at("images/Slideshow2.jpg")" alt="Store 'n Rent">		
 			<div class="container">
 				<div class="row">
 					<h1 style="color: #fff"><label>Find a storage area close to you:</label></h1>
 					<h2 class="tagline" style="color: #fff">Rent lower priced storage area in over 40 cities</h2>
 				</div>
+			</div> -->
+			
+<div id="myCarousel" class="carousel container slide">
+  <!-- Dot Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Items -->
+  <div class="carousel-inner">
+    <div class="active item"><img src="@routes.Assets.at("images/Slideshow1.jpg")" alt="" /></div>
+    <div class="item"><img src="@routes.Assets.at("images/Slideshow2.jpg")" alt="" /></div>
+    <div class="item"><img src="@routes.Assets.at("images/Slideshow3.jpg")" alt="" /></div>
+  </div>
+  <!-- Navigation -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+			<div class="container">
+				<div class="row">
+					<h1><label>Find a storage area close to you:</label></h1>
+					<h2 class="tagline">Rent lower priced storage area in over 40 cities</h2>
+				</div>
 			</div>
-		
-			<div class="row" style="padding: 10% 6% 10% 6%; margin: 0 auto; float: none">
+			
+			<div class="row" style="padding: 5% 1% 5% 20%; margin: 0 auto; float: none">
 				@helper.form(action = routes.HomeController.search()) {
 				<form class="form-inline" role="form" >
 
@@ -80,15 +104,15 @@
 				</form>
 				}			
 			</div>
-		
-		</div>
+
+
 				
 		<br> <br>
 		<h2 class="thin">That's how it works</h2>
 		<p class="text-muted">
 			Rent a low-budget storage area at Store N' Rent in all over Germany<br> 
 		</p>
-	</div>
+
 	<!-- /Intro-->
 	
 	<div class="jumbotron top-space">
