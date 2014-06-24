@@ -63,7 +63,7 @@ public class Offer {
 	public Clob picturePath1;
 	
 	@Column(name="PICTURE_PATH_2")
-	public Clob picturePath2;
+	public Clob picturePath2; 
 	
 	@Column(name="PICTURE_PATH_3")
 	public Clob picturePath3;

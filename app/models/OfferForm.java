@@ -82,7 +82,7 @@ public class OfferForm{
 	public double spacesize;
 	
 	public Clob picturePath1;
-	
+	 
 	public Clob picturePath2;
 	
 	public Clob picturePath3;
