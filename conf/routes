@@ -13,6 +13,7 @@ GET     /logout         controllers.Application.logout()
 POST	/search			controllers.HomeController.search()
 GET     /query	        controllers.SearchController.query(fromdate : String ?= null , todate: String ?= null, city: String ?= null, postcode: String ?= null, spacesize: java.lang.Double ?= null, maxprice: java.lang.Double ?= null, radius : java.lang.Double ?= null, orderBy: java.lang.Integer ?= 0)
 GET		/search			controllers.SearchController.search(city: String ?= null, postcode: String ?= null, radius: java.lang.Double ?= null, spacesize: java.lang.Double ?= null)	
+GET		/search/mapData controllers.SearchController.getMapData()
 
 GET     /offer/show/:id				controllers.OfferController.index(id: java.lang.Integer)
 POST	/offer/show					controllers.OfferController.doAction()

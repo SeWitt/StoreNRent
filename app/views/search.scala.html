@@ -71,8 +71,8 @@
 				line = '';
 				
 				if(feature.cluster.length == 1){
-					line = line + '<div class="popup"> <h2> <a href=" /offer/show/'+feature.cluster[0].attributes.id+'">'+feature.cluster[0].attributes.header+'</a><h2> Price: '+feature.cluster[0].attributes.price+' &euro;</div>';
-			 
+					line = line + '<div class="popup"> <h2> <a href=" /offer/show/'+feature.cluster[0].attributes.id+'">'+feature.cluster[0].attributes.header+'</a><h2>  From: '+ feature.cluster[0].attributes.fromDate +'<br> To: '+feature.cluster[0].attributes.toDate +'<br> Size: '+feature.cluster[0].attributes.size+' m<sup>3</sup>  Price: '+feature.cluster[0].attributes.price+' &euro; <br> Distance:  ca. '+feature.cluster[0].attributes.distance+' km away   </div>';
+
 				}else{
 					for (cdata in feature.cluster) {
 					
@@ -102,7 +102,7 @@
 
 			function init() {
 				OpenLayers.Util.onImageLoadError = function() {
-					this.src = '@routes.Assets.at("images/gh.png")';
+					//this.src = '@routes.Assets.at("images/gh.png")';
 				};
 
 				OpenLayers.Util.onImageLoadErrorColor = 'transparent';
@@ -248,19 +248,14 @@
 					rules : [verylowRule, lowRule, middleRule, highRule, veryhighRule]
 				});
 				
-				//create circle style
-				var circlestyle = new OpenLayers.Style(null, {
-					fillColor : colors.veryhigh,
-					fillOpacity : 0.9
-	//				strokeColor : colors.veryhigh,
-	//				strokeOpacity : 0.5,
-	//				strokeWidth : 12
-				});	
+				
+				
 				
 				// Create a vector layers
 				var offerlayer = new OpenLayers.Layer.Vector("Offer", {
 					protocol : new OpenLayers.Protocol.HTTP({
-						url : '@routes.Assets.at("images/Offer.json")',
+						//url : '@routes.Assets.at("images/Offer.json")',
+						url : "/search/mapData",
 						format : new OpenLayers.Format.GeoJSON()
 					}),
 					renderers : ['Canvas', 'SVG'],
@@ -271,33 +266,11 @@
 						animationDuration : 15
 					})],
 					styleMap : new OpenLayers.StyleMap(style),
-					attribution : '<s>made by sw</s>'
+					attribution : '<s> made by sw</s>'
 				});
 
 
-				
-
-				var point = new OpenLayers.Geometry.Point(1,1);
-				point = point.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
-
-
-				var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon
-													(
-    												point,
-    												500000,
-   											 		20,
-   											 		0
-													);
-
-													
-
-				var	circlefeature = new OpenLayers.Feature.Vector(mycircle, circlestyle);
-				
-				var circleLayer = new OpenLayers.Layer.Vector("Search radius");
-				
-				circleLayer.addFeatures(circlefeature);
-
-				map.addLayers([offerlayer, gsat, gmap, circleLayer]);
+				map.addLayers([offerlayer, gsat, gmap]);
 
 				selectControl = new OpenLayers.Control.SelectFeature(offerlayer);
 				map.addControl(selectControl);
@@ -566,7 +539,7 @@
 								
 								<div class="col-md-4">
 									<select id="orderattribute" class="form-control">
-										<option value="1">By distance</option>
+								ion value="1">By distance</option>
 										<option value="2">By price</option>
 										<option value="3">By size</option>
 										<option value="4">By from date</option>
@@ -683,40 +656,41 @@
 												 var lat = glocation.lat();
 												 var lon = glocation.lng();
 
-												//alert('lat:'+lat);
-												//alert('lon'+lon);
 												var lonLat = new OpenLayers.LonLat(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
 												map.setCenter(lonLat, zoom);
 												
-												var circleLayer = map.getLayer("radius");
-												
+												var circleLayer = map.getLayer("100");
+																						
 												if(circleLayer != null){
-													map.removeLayer(circleLayer);
+													circleLayer.destroy();
 												}
-												
-												
-											//var circleStyle = {fill: true,fillColor: "#ff0000"};
-												
-												
-												circleLayer = new OpenLayers.Layer.Vector("Radius",{ style: {
-               									 strokeColor: "blue",
-                								strokeWidth: 20,
-               									 cursor: "pointer"
-            										}, });
-
-												var point = new OpenLayers.Geometry.Point(lon, lat);
-
-
-												var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon
-													(
+																						
+												var circleradius = radius * 1000;
+												var point =new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")); 
+												var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
     												point,
-    												50000,
-   											 		40,
+    												circleradius,
+   											 		50,
    											 		0
-													).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+													);
 
-													map.addLayer(circleLayer);	
-
+												var	circlefeature = new OpenLayers.Feature.Vector(mycircle);
+				
+												circleLayer = new OpenLayers.Layer.Vector("Search radius", {
+													units: 'm',
+													style: { 
+																fillColor : "SkyBlue",
+																fillOpacity : 0.3,
+																strokeColor : "SkyBlue",
+																strokeOpacity : 0.5,
+																strokeWidth : 3,
+																	}
+													});
+												
+												circleLayer.id = "100";
+												circleLayer.addFeatures([circlefeature]);
+												
+												map.addLayers([circleLayer]);
 
 											} else {
 												alert('Geocode was not successful for the following reason: ' + status);
@@ -730,7 +704,7 @@
 			});
 
 			function scrollToSearchResultTable() {
-				$("#resultContainer")[0].scrollIntoView(true);
+				//$("#resultContainer")[0].scrollIntoView(true);
 			}
 		</script>
 

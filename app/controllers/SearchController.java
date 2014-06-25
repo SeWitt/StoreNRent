@@ -7,21 +7,28 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 import models.Offer;
 import models.SearchAttributes;
 import models.SortAttribute;
 
-import org.json.JSONObject;
-import org.json.JsonGeoLocator;
+
+
 
 import play.api.templates.Html;
 import play.db.jpa.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.DiscoveryService;
 import service.GeoLocationService;
+import service.JSONService;
+import service.OfferService;
 import serviceImpl.DiscoveryServiceImpl;
 import serviceImpl.GeoLocationServiceImpl;
+import serviceImpl.JSONServiceImpl;
+import serviceImpl.OfferServiceImpl;
 import views.html.search;
 import views.html.searchresults;
 import appinfo.GlobalValues;
@@ -39,6 +46,8 @@ public class SearchController extends Controller {
 
 	private static DiscoveryService discoveryService = new DiscoveryServiceImpl();
 	private static GeoLocationService geoService = new GeoLocationServiceImpl();
+	private static JSONService jsonService = new JSONServiceImpl();
+	private static OfferService offerService = new OfferServiceImpl();
 
 
 	/**initial search method
@@ -51,7 +60,7 @@ public class SearchController extends Controller {
 	public static Result search(String city,String postCode, Double radius, Double spaceSize){
 
 		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
-		session("lasturl",request().uri());
+		session("url","/search");
 		if(city == null && radius == null && postCode == null){
 			return ok(search.render(city, postCode, radius, spaceSize, null,null,null, menubar));
 		}else{
@@ -114,42 +123,10 @@ public class SearchController extends Controller {
 		}
 		
 		
-		
-		//make geocoords
-		//TODO: refactor -> exclude into new service
-		
-		// new Service for GeoCoords
-		// in place alteration of sa (SearchAttributes)
-		//
-			
-		
-		// Legacy code below !!
-		//
-//		try {
-//			String address = "  , "+					
-//					sa.postCode +
-//					" " + 
-//					sa.city+
-//					", ";
-//			
-//			final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
-//	        if (response != null) {
-//	        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
-//	        	location = location.getJSONObject("geometry");
-//	            location = location.getJSONObject("location");
-//	            double lng1 = location.getDouble("lng");// longitude
-//	            double lat1 = location.getDouble("lat");// latitude
-//	            System.out.println(String.format("%f, %f", lat1, lng1));
-//	            
-//	            sa.lng = lng1;
-//				sa.lat = lat1;	            
-//	        }
-//		} catch (Exception e) {}
-
 //PRODUCTIVE USE	
 		geoService.calculateGeoCoords(sa);
 		List<Offer> o = null;
-//		try {
+
 
 			if (orderBy > 0) {
 				SortAttribute s = null;
@@ -185,9 +162,7 @@ public class SearchController extends Controller {
 			} else {
 				o = discoveryService.findOffers(sa);
 			}
-//		} catch (Exception e) {
-//			o = null;
-//		}
+
 			
 		if(o.isEmpty()){
 			o= null;
@@ -197,6 +172,24 @@ public class SearchController extends Controller {
 		return ok(searchresults.render(o));
 	}
 	
-
+	/**Method to return a snippet of the current active offers in json format -> to display in map
+	 * 
+	 * @return Json format offer list + geoinformation
+	 */
+	@Transactional
+	public static Result getMapData() {
+		
+		
+		String result ="{\"type\" : \"FeatureCollection\", \"features\": [{ \"type\" : \"Feature\", \"properties\" : { \"header\" : \"10 square meter for rent\", \"price\" : \"4 Euro\", \"id\" : \"3\"}, \"geometry\" : { \"type\" : \"Point\", \"coordinates\" : [ 11.539414536 , 48.125729304  ] } } ]}";
+		
+		
+		List<Offer> o = offerService.findall();
+		System.out.println("number: "+o.size());
+		
+		JsonObject response = jsonService.OfferListToJson(o);
+//		System.out.println("[SEARCH CONTROLLER][json:]"+response.getAsString());
+		System.out.println(result);
+		return  ok(result);
+	}
 	
 }
