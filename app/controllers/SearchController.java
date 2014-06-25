@@ -180,13 +180,14 @@ public class SearchController extends Controller {
 	public static Result getMapData() {
 		
 		
-		String result ="{\"type\" : \"FeatureCollection\", \"features\": [{ \"type\" : \"Feature\", \"properties\" : { \"header\" : \"10 square meter for rent\", \"price\" : \"4 Euro\", \"id\" : \"3\"}, \"geometry\" : { \"type\" : \"Point\", \"coordinates\" : [ 11.539414536 , 48.125729304  ] } } ]}";
+//		String result ="{\"type\" : \"FeatureCollection\", \"features\": [{ \"type\" : \"Feature\", \"properties\" : { \"header\" : \"10 square meter for rent\", \"price\" : \"4 Euro\", \"id\" : \"3\"}, \"geometry\" : { \"type\" : \"Point\", \"coordinates\" : [ 11.539414536 , 48.125729304  ] } } ]}";
 		
 		
 		List<Offer> o = offerService.findall();
+		String result = jsonService.OfferListToJsonString(o);
 		System.out.println("number: "+o.size());
 		
-		JsonObject response = jsonService.OfferListToJson(o);
+//		JsonObject response = jsonService.OfferListToJson(o);
 //		System.out.println("[SEARCH CONTROLLER][json:]"+response.getAsString());
 		System.out.println(result);
 		return  ok(result);

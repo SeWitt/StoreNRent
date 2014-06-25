@@ -2,6 +2,7 @@ package serviceImpl;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import service.JSONService;
@@ -76,6 +77,54 @@ public class JSONServiceImpl implements JSONService{
 
 		
 		
+	
+	@Override
+	public String OfferListToJsonString(List<Offer> offers) {
+		
+		DecimalFormat df = new DecimalFormat("#.##");  
+		
+		String jsonHeader = "{\n\"type\": \"FeatureCollection\",\n\"features\": [\n";
+		String jsonBottom = "\n]\n}";
+		
+		
+		String tmp = jsonHeader;
+		for(Offer o : offers) {
+//			tmp += "{ \"type\": \"Feature\", \"properties\": { \"HEADER\": \"" + o.header + "\", \"PRICE\": \"" + o.price + "\", \"ID\": \"" + o.id + "\"}, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ " + o.lng + ", " + o.lat + "  ] } }\n,\n";
+			tmp += "{ \"type\": \"Feature\", \"properties\": { \"header\": \"" + o.header + "\", \"fromDate\": \"" + new SimpleDateFormat("dd.MM.yyyy").format(o.offerFrom) +  "\", \"toDate\": \"" + new SimpleDateFormat("dd.MM.yyyy").format(o.offerTo) + "\", \"price\": \"" + o.price + "\", \"size\": \"" + o.spaceSize + "\", \"distance\": \"" + String.valueOf(df.format(o.distance)) + "\", \"id\": \"" + o.id + "\"}, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ " + o.lng + ", " + o.lat + "  ] } }\n,\n";
+		}	
+		tmp = tmp.substring(0, tmp.length()-3);
+		tmp += jsonBottom;
+		
+		return tmp;
+	}
+	
+	
+//	public static void main(String[] args) {
+//		Offer o = new Offer();
+//		o.header = "test header";
+//		o.offerFrom = new java.sql.Timestamp(System.currentTimeMillis());
+//		o.offerTo = new java.sql.Timestamp(System.currentTimeMillis());
+//		o.price = 4.00;
+//		o.spaceSize = 3.0;
+//		o.distance = 5.34252345;
+//		o.id = 1337;
+//		
+//		Offer o2 = new Offer();
+//		o2.header = "test header";
+//		o2.offerFrom = new java.sql.Timestamp(System.currentTimeMillis());
+//		o2.offerTo = new java.sql.Timestamp(System.currentTimeMillis());
+//		o2.price = 4.00;
+//		o2.spaceSize = 3.0;
+//		o2.distance = 5.34252345;
+//		o2.id = 8008135;
+//		
+//		List<Offer> offers = new ArrayList<Offer>();
+//		offers.add(o);
+//		offers.add(o2);
+//		
+//		JSONServiceImpl s = new JSONServiceImpl();
+//		System.out.println(s.OfferListToJsonString(offers));
+//	}
 		
 		
 }
