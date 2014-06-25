@@ -66,7 +66,6 @@ public class OfferRepository extends Controller{
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(
 			    "SELECT * FROM offer", Offer.class)
-			    .setMaxResults(10)
 			    .getResultList();
 		if(tmp != null) {
 			return tmp;
