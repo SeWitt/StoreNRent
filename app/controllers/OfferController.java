@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.FileInputStream;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,20 +11,23 @@ import models.Offer;
 import models.OfferAcceptForm;
 import models.OfferForm;
 import models.Person;
+import models.Picture;
+
+import org.apache.commons.io.IOUtils;
 
 import play.api.templates.Html;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.db.jpa.Transactional;
-import play.mvc.*;
-
-
+import play.mvc.Controller;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
+import play.mvc.Result;
+import play.mvc.Security;
 import service.AccountService;
+import service.GeoLocationService;
 import service.OfferService;
 import serviceDummy.AccountServiceDummy;
-import play.mvc.Controller;
-import play.mvc.Result;
-import service.GeoLocationService;
 import serviceImpl.GeoLocationServiceImpl;
 import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
@@ -243,8 +247,10 @@ public class OfferController extends Controller {
 		Form<OfferForm> offerForm = Form.form(OfferForm.class)
 				.bindFromRequest();
 
-		String[] postAction = request().body().asFormUrlEncoded().get("action");
-
+		MultipartFormData body = request().body().asMultipartFormData();
+		List<FilePart> pictures = body.getFiles();
+		String[] postAction = body.asFormUrlEncoded().get("action");		
+		
 		Result result = TODO;
 
 		if (postAction == null || postAction.length == 0) {
@@ -266,9 +272,20 @@ public class OfferController extends Controller {
 			           
 					 return badRequest(views.html.offerform.render(offerForm, menubar));
 				} else {
-					
-					
 					OfferForm of = offerForm.get();
+
+					// Uppload pictures
+					try {
+						for (FilePart picture : pictures) {
+							if (picture != null && picture.getFile() != null) {
+								Picture pic = new Picture();
+								pic.picture = IOUtils.toByteArray(new FileInputStream(picture.getFile()));
+								of.addPicture(pic);
+							}
+						}
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
 					
 					//make validation check whether until date is later than from:				
 					boolean isDatevalid = TimeValidator.isDateAfter(of.offerTo, of.offerFrom,new SimpleDateFormat(GlobalValues.DATEFORMAT));
@@ -286,8 +303,6 @@ public class OfferController extends Controller {
 					
 					
 					o.owner =  accountService.findAccountByMail(session("email")).person;
-
-					//TODO download pictures
 
 					// get geo location
 					// in place transformation of Offer o

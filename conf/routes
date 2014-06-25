@@ -24,6 +24,8 @@ POST	/offer/create				controllers.OfferController.create()
 
 GET 	/messages/new	controllers.MessageController.newMessage()
 
+GET 	/application/renderImage/:pic	controllers.Application.renderImage(pic: java.lang.Integer)
+
 # Map static resources from the /public folder to the /assets URL path
 GET    	/assets/js/routes controllers.Application.jsRoutes()
 GET     /assets/*file     controllers.Assets.at(path="/public", file)

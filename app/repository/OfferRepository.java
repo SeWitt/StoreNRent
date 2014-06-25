@@ -1,18 +1,16 @@
 package repository;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import models.Offer;
+import models.Person;
+import models.Picture;
+import models.SearchAttributes;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
-import models.Account;
-import models.Offer;
-import models.Person;
-import models.SearchAttributes;
 
 /**
  * @author Sebastian
@@ -44,6 +42,7 @@ public class OfferRepository extends Controller{
 			offer.owner = p;
 		}
 		EntityManager em = JPA.em();
+		em.clear();
 		em.persist(offer);
 		em.flush();
 		return offer;

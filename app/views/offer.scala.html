@@ -85,13 +85,17 @@
 							<div class="panel-body">
 								<div id="wrapper" class="well" style="border: 0">
 									<div id="images" >
-										@for(index <- 1 until 5) {
-										<img src="@(routes.Assets.at("dummy_img/storage-" + index + ".jpg"))" alt="Storage-@index"  />
+										@if(offer.pictures != null) {
+											@for(picture <- offer.pictures) {
+												<img src=@{routes.Application.renderImage(picture.id)} alt="@offer.header">
+											}
 										}
 									</div>
 									<div id="thumbs" style="overflow: hidden">
-										@for(index <- 1 until 5) {
-										<img src="@(routes.Assets.at("dummy_img/storage-" + index + ".jpg"))" alt="Storage-@index"  />
+										@if(offer.pictures != null) {
+											@for(picture <- offer.pictures) {
+												<img src=@{routes.Application.renderImage(picture.id)} alt="@offer.header">
+											}
 										}
 									</div>
 									<a id="prev" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: 0 0"> </a>

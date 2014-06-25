@@ -1,6 +1,5 @@
 @(form: play.data.Form[models.OfferForm])(menubar: Html)
 
-<!DOCTYPE html>
 <html>
 	<head>
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
@@ -31,7 +30,7 @@
 
 		<!-- Main Container -->
 		<div class="container text-center">
-			@helper.form(action = routes.OfferController.create()) {
+			@helper.form(action = routes.OfferController.create(), 'enctype -> "multipart/form-data") {
 			<div class="row">
 
 				@if(form.hasGlobalErrors) {
@@ -281,23 +280,37 @@
 						</div>
 						<div class="panel-body">
 							<br>
-							<div class="form-group col-md-2" style="padding-left: 25px">
-
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="submit" style="border: 0px">
-									<span class="glyphicon glyphicon-ok" style="font-size: 24px" > </span>
-									<br>
-									Save
-								</button>
-								<!-- <span class="add-on" style="cursor: pointer;">  </span> -->
+							<div class="form-group row"> 
+								<div class="col-md-2" style="padding-left: 25px">
+									<button type="submit" id="Save" class="btn btn-default btn-lg" name="action" value="submit" style="border: 0px">
+										<span class="glyphicon glyphicon-ok" style="font-size: 24px" > </span>
+										<br>
+										Save
+									</button>
+									<script type="text/javascript">
+										$(function() {
+											$('#Save').click(function(event) {
+												var control = document.getElementById("pics");
+												var files = control.files,
+										        	len = files.length;
+											    if (len == 0) {
+											    	alert("Please select a picture to upload!");
+											    	event.stopPropagation();
+											    }
+											});
+										});
+									</script>
+									<!-- <span class="add-on" style="cursor: pointer;">  </span> -->
+								</div>
+								
+								<div class="col-md-2" style="padding-left: 25px">
+									<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
+										<span class="glyphicon glyphicon-trash" style="font-size: 24px" > </span>
+										<br>
+										Discard
+									</button>
+								</div>
 							</div>
-							<div class="col-md-2" style="padding-left: 25px">
-								<button type="submit" class="btn btn-default btn-lg" name="action" value="discard" style="border: 0px ">
-									<span class="glyphicon glyphicon-trash" style="font-size: 24px" > </span>
-									<br>
-									Discard
-								</button>
-							</div>
-							<br>
 						</div>
 					</div>
 				</div>

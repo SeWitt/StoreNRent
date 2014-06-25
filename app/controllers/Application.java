@@ -1,26 +1,23 @@
 package controllers;
 
 
+import javax.persistence.EntityManager;
+
 import models.LoginForm;
 import models.Person;
-
-import java.io.Reader;
-import java.sql.Clob;
-
-import org.apache.commons.io.IOUtils;
-
-import exception.InvalidCredentialsException;
-import exception.UnkwonEmailException;
-
+import models.Picture;
 import play.Logger;
 import play.Routes;
+import play.api.templates.Html;
 import play.data.Form;
+import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.api.templates.Html;
 import service.AccountService;
 import serviceImpl.AccountServiceImpl;
+import exception.InvalidCredentialsException;
+import exception.UnkwonEmailException;
 
 
 
@@ -42,25 +39,26 @@ public class Application extends Controller {
 	/**
 	 * Called within HTML in order to render an image out of a <code>java.sql.Clob</code> by using 
 	 * <br>
-	 * <p><strong>&lt;img src=@{routes.Application.renderImage(offer.picX)}&gt;</strong></p>
-	 * where <code>offer</code> is the offer which attributes are to be displayed on an <i>Offer</i>
-	 * page and <code>offer.picX</code> is the <i>x</i>-th image of the <code>offer</code>'s 
-	 * image-collection.
+	 * <p><strong>&lt;img src=@{routes.Application.renderImage(pic)}&gt;</strong></p>
+	 * where <code>pic</code> is the picture of an offer which attributes are to be 
+	 * displayed on an <i>Offer</i> page.
 	 * 
-	 * @param clob the image as a clob data object stored in database
+	 * @param pic the id of an picture of a offer stored in database
 	 * @return a <code>play.mvc.Result</code> object
-	 * @see <a href="http://stackoverflow.com/questions/20317932/
-	 * 		displaying-image-object-from-controller-in-the-browser/20838010#20838010">stackoverflow.com</a>
 	 */
-	public static Result renderImage(Clob clob) {
+	public static Result renderImage(Integer pic) {
 		try {
-			Reader reader = clob.getCharacterStream();
-			byte[] array = IOUtils.toByteArray(reader);
-			return ok(array);
+			EntityManager em = JPA.em();
+			em.clear();
+			System.out.println("Rendering image " + pic);
+			Picture picture = em.find(Picture.class, pic.intValue());
+			if (picture != null) {
+				return ok(picture.picture);
+			}
 		} catch (Exception e) {
-			Logger.error("An IO Exception is occured while extracting byte[] out of Clob!", e);
+			Logger.error("An IO Exception is occured while rendering image!", e);
 		}
-		return internalServerError("An IO Exception is occured while extracting byte[] out of Clob!");
+		return internalServerError("An IO Exception is occured while rendering image!");
 	}
 	
 	

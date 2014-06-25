@@ -30,6 +30,7 @@
 <class>app.models.OfferForm</class>
 <class>app.models.Person</class>
 <class>app.models.PersonSettings</class>
+<class>app.models.Picture</class>
 <class>app.models.Recommendation</class>
 <class>app.models.RecommendationSummary</class>
 <class>app.models.RecommendationType</class>

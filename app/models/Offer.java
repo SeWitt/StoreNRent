@@ -1,9 +1,10 @@
 package models;
 
-import java.sql.Clob;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -59,20 +61,23 @@ public class Offer {
 //	@Column(name="PICTURE")
 //	public Blob picture;
 	
-	@Column(name="PICTURE_PATH_1")
-	public Clob picturePath1;
+//	@Lob @Column(name="PICTURE_PATH_1")
+//	public byte[] picturePath1;
+//	
+//	@Lob @Column(name="PICTURE_PATH_2")
+//	public byte[] picturePath2; 
+//	
+//	@Lob @Column(name="PICTURE_PATH_3")
+//	public byte[]  picturePath3;
+//	
+//	@Lob @Column(name="PICTURE_PATH_4")
+//	public byte[]  picturePath4;
+//	
+//	@Lob @Column(name="PICTURE_PATH_5")
+//	public byte[]  picturePath5;
 	
-	@Column(name="PICTURE_PATH_2")
-	public Clob picturePath2; 
-	
-	@Column(name="PICTURE_PATH_3")
-	public Clob picturePath3;
-	
-	@Column(name="PICTURE_PATH_4")
-	public Clob picturePath4;
-	
-	@Column(name="PICTURE_PATH_5")
-	public Clob picturePath5;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "offer", orphanRemoval = true)
+	public List<Picture> pictures;
 	
 	@Column(name="PRICE")
 	public double price;
@@ -183,7 +188,17 @@ public class Offer {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.DATEFORMAT);
 		
+//		picturePath1 = of.picturePath1;
+//		picturePath2 = of.picturePath2;
+//		picturePath3 = of.picturePath3;
+//		picturePath4 = of.picturePath4;
+//		picturePath5 = of.picturePath5;
 		
+		if (of.pictures != null) {
+			for (Picture pic : of.pictures) {
+				addPicture(pic);
+			}
+		}
 		
 		id = of.id;
 		city = of.city;
@@ -233,7 +248,18 @@ public class Offer {
 		owner = of.owner;
 		acceptor = of.acceptor;
 	}
+	
+	public void addPicture(Picture pic) {
+		if (pictures == null) {
+			pictures = new ArrayList<Picture>();
+		}
+		pictures.add(pic);
+	}
 
-
+	public void removePicture(Picture pic) {
+		if (pictures != null) {
+			pictures.remove(pic);
+		}
+	}
 
 }

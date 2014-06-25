@@ -1,8 +1,9 @@
 package models;
 
 
-import java.sql.Clob;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
@@ -23,11 +24,16 @@ public class OfferForm{
 		geolocX = o.lng + "";
 		geolocY = o.lat + "";
 		spacesize = o.spaceSize;
-		picturePath1 = o.picturePath1;
-		picturePath2 = o.picturePath2;
-		picturePath3 = o.picturePath3;
-		picturePath4 = o.picturePath4;
-		picturePath5 = o.picturePath5;
+//		picturePath1 = o.picturePath1;
+//		picturePath2 = o.picturePath2;
+//		picturePath3 = o.picturePath3;
+//		picturePath4 = o.picturePath4;
+//		picturePath5 = o.picturePath5;
+		if (o.pictures != null) {
+			for (Picture pic : o.pictures) {
+				pictures.add(pic);
+			}
+		}
 		price = o.price;
 		isActive = o.isActive;
 		description = o.description;
@@ -81,15 +87,17 @@ public class OfferForm{
 	@Required(message = "Please insert your free space size!" )
 	public double spacesize;
 	
-	public Clob picturePath1;
-	 
-	public Clob picturePath2;
+//	public byte[] picturePath1;
+//	 
+//	public byte[] picturePath2;
+//	
+//	public byte[] picturePath3;
+//	
+//	public byte[] picturePath4;
+//	
+//	public byte[] picturePath5;
 	
-	public Clob picturePath3;
-	
-	public Clob picturePath4;
-	
-	public Clob picturePath5;
+	public List<Picture> pictures;
 	
 	@Required(message = "Please insert a valid price!")
 	public double price;
@@ -152,5 +160,18 @@ public class OfferForm{
 	public Person owner;
 
 	public Person acceptor;
+	
+	public void addPicture(Picture pic) {
+		if (pictures == null) {
+			pictures = new ArrayList<Picture>();
+		}
+		pictures.add(pic);
+	}
+
+	public void removePicture(Picture pic) {
+		if (pictures != null) {
+			pictures.remove(pic);
+		}
+	}
 	
 }
