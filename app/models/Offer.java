@@ -253,6 +253,7 @@ public class Offer {
 		if (pictures == null) {
 			pictures = new ArrayList<Picture>();
 		}
+		pic.offer = this;
 		pictures.add(pic);
 	}
 
