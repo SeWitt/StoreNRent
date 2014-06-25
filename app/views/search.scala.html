@@ -272,6 +272,54 @@
 
 				map.addLayers([offerlayer, gsat, gmap]);
 
+//make circle, if search was from start site
+				if(@radius != null){
+
+				var circleLayer = map.getLayer("100");
+																						
+				if(circleLayer != null){
+				circleLayer.destroy();
+				}
+																			
+				var circleradius = @radius * 1000;
+				var point =new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")); 
+				var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
+    					point,
+    					circleradius,
+   						50,
+   						0
+						);
+
+				var	circlefeature = new OpenLayers.Feature.Vector(mycircle);
+				
+				circleLayer = new OpenLayers.Layer.Vector("Search radius", {
+						units: 'm',
+						style: { 
+						fillColor : "SkyBlue",
+						fillOpacity : 0.3,
+						strokeColor : "SkyBlue",
+						strokeOpacity : 0.5,
+						strokeWidth : 3,
+								}
+						});
+											
+				circleLayer.id = "100";
+				
+				var featurePoint = new OpenLayers.Feature.Vector(
+    					point,
+   					{ externalGraphic: '@routes.Assets.at("images/gh.png")', graphicHeight: 25, graphicWidth: 21, graphicXOffset: -12, graphicYOffset: -25 }
+					);
+				
+				
+				
+				circleLayer.addFeatures([circlefeature, featurePoint]);
+												
+				map.addLayers([circleLayer]);
+
+				}
+//end circle
+
+
 				selectControl = new OpenLayers.Control.SelectFeature(offerlayer);
 				map.addControl(selectControl);
 				selectControl.activate();
@@ -539,7 +587,7 @@
 								
 								<div class="col-md-4">
 									<select id="orderattribute" class="form-control">
-								ion value="1">By distance</option>
+										<option value="1">By distance</option>
 										<option value="2">By price</option>
 										<option value="3">By size</option>
 										<option value="4">By from date</option>
@@ -588,7 +636,18 @@
 
 		<!--	//===================================SCRIPTS============================================================================================== -->
 		<script>
-			$('#search').click(function() {
+			$( "#orderattribute" ).change(function() {
+  				if( ($('#city').val() != null) && $('#postcode').val() != null && $('#radiusinput').val() != null){
+  					queryOffers();
+  				}
+			});
+		
+
+			$('#search').click(function(){
+				queryOffers();
+			});
+			
+			function queryOffers(){
 				var fromDate = $('#dtpfrominput').val();
 				var toDate = $('#dtptoinput').val();
 				var city = $('#city').val();
@@ -683,12 +742,30 @@
 																fillOpacity : 0.3,
 																strokeColor : "SkyBlue",
 																strokeOpacity : 0.5,
-																strokeWidth : 3,
-																	}
+																strokeWidth : 3,										
+    												 			externalGraphic: '@routes.Assets.at("images/gh.png")', 
+    												 		graphicHeight: 25, 
+    												 	graphicWidth: 21, 
+    												 	graphicXOffset: -12, 
+    												 	graphicYOffset: -25 
+																}
 													});
 												
 												circleLayer.id = "100";
-												circleLayer.addFeatures([circlefeature]);
+												var featurePoint = new OpenLayers.Feature.Vector(point,{
+    											//	style :{    	
+    											//		graphic : true,											
+    											//	 	externalGraphic: '@routes.Assets.at("images/gh.png")', 
+    											//	 	graphicHeight: 25, 
+    											//	 	graphicWidth: 21, 
+    											//	 	graphicXOffset: -12, 
+    											//	 	graphicYOffset: -25 
+    											//	 }
+												//	
+    											});
+				
+												circleLayer.addFeatures([circlefeature, featurePoint]);
+												//circleLayer.addFeatures([circlefeature]);
 												
 												map.addLayers([circleLayer]);
 
@@ -696,15 +773,15 @@
 												alert('Geocode was not successful for the following reason: ' + status);
 											}
 										});
-									
-					
-					
+	
 				}
 
-			});
+			}
+			
+			
 
 			function scrollToSearchResultTable() {
-				//$("#resultContainer")[0].scrollIntoView(true);
+				$("#resultContainer")[0].scrollIntoView(true);
 			}
 		</script>
 
