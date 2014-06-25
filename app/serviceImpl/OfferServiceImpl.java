@@ -69,8 +69,7 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public List<Offer> findall() {
-		//TODO
-		return null;
+		return offerRepo.findAllOffers();
 	}
 
 	
