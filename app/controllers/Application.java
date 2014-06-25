@@ -1,8 +1,6 @@
 package controllers;
 
 
-import javax.persistence.EntityManager;
-
 import models.LoginForm;
 import models.Person;
 import models.Picture;
@@ -10,10 +8,10 @@ import play.Logger;
 import play.Routes;
 import play.api.templates.Html;
 import play.data.Form;
-import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import repository.PictureRepository;
 import service.AccountService;
 import serviceImpl.AccountServiceImpl;
 import exception.InvalidCredentialsException;
@@ -46,12 +44,10 @@ public class Application extends Controller {
 	 * @param pic the id of an picture of a offer stored in database
 	 * @return a <code>play.mvc.Result</code> object
 	 */
+	@Transactional
 	public static Result renderImage(Integer pic) {
 		try {
-			EntityManager em = JPA.em();
-			em.clear();
-			System.out.println("Rendering image " + pic);
-			Picture picture = em.find(Picture.class, pic.intValue());
+			Picture picture = PictureRepository.findPictureByID(pic.intValue());
 			if (picture != null) {
 				return ok(picture.picture);
 			}
