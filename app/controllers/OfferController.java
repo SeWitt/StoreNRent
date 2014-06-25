@@ -47,7 +47,7 @@ public class OfferController extends Controller {
 		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
 		Html content = null;
 		//set redirect
-		session("lasturl","/offer/show/"+id);
+		session("url","/offer/show/"+id);
 		// search offer
 
 		try{
@@ -82,7 +82,7 @@ public class OfferController extends Controller {
 		Form<OfferAcceptForm> form = Form.form(OfferAcceptForm.class).bindFromRequest();
 		Result result = TODO;
 		String[] postAction = request().body().asFormUrlEncoded().get("action");
-		session("lasturl",request().uri());
+		session("url",request().uri());
 			
 		if (postAction == null || postAction.length == 0) {
 
@@ -212,7 +212,7 @@ public class OfferController extends Controller {
 	
 	@Transactional
 	public static Result newOffer() {
-		session("lasturl",request().uri());
+		session("url",request().uri());
 		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
 		Form<OfferForm> offerForm = Form.form(OfferForm.class);
 
@@ -331,30 +331,6 @@ public class OfferController extends Controller {
 	}
 	
 
-//	public static Result getMapData() {
-//		String resultString = "";
-//		for (Offer o : offerService.findall()) {
-//
-//			String from;
-//			String to;
-//
-//			if (o.offerFrom != null) {
-//				from = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format(o.offerFrom);
-//			} else {
-//				from = "NA";
-//			}
-//			if (o.offerTo != null) {
-//				to = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format(o.offerTo);
-//			} else {
-//				to = "NA";
-//			}
-//
-//			resultString += " \"header\" : \"" + o.header + "\","+ System.lineSeparator();
-//			resultString += " \"price\" : \"" + o.price + "\","+ System.lineSeparator();
-//			resultString += " \"from\" : \"" + from + "\","+ System.lineSeparator();
-//			resultString += " \"to\" : \"" + to + "\","+ System.lineSeparator();
-//		}
-//		renderJSON("[" + resultString.substring(1) + "]");
-//	}
+
 
 }

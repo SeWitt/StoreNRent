@@ -20,7 +20,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.api.templates.Html;
 import service.AccountService;
-import serviceDummy.AccountServiceDummy;
 import serviceImpl.AccountServiceImpl;
 
 
@@ -35,7 +34,8 @@ public class Application extends Controller {
 	{
 	    response().setContentType("text/javascript");
 	    return ok(Routes.javascriptRouter("appRoutes", //appRoutes will be the JS object available in our view
-	                                      routes.javascript.SearchController.query()));
+	    		 									routes.javascript.SearchController.getMapData(),	
+	    											routes.javascript.SearchController.query()));
 	}
 	
 	
@@ -70,7 +70,7 @@ public class Application extends Controller {
 	}
 	
 	public static Result logout() {
-		String url = session("lasturl");
+		String url = session("url");
 		session().clear();
 	    flash("success", "You've been logged out");
 
@@ -141,6 +141,8 @@ public class Application extends Controller {
 		if(mail != null){
 			Person p = as.findAccountByMail(mail).person;
 			name = p.surname +" "+ p.lastName;
+			System.out.println("[ApplicationController][name:]"+name);
+			
 		}
 		
 		
