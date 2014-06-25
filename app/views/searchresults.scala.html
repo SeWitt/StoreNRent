@@ -30,7 +30,8 @@
 							</td>
 						} else {
 							<td style="text-align:center">
-								<img src=@{routes.Application.renderImage(offer.pictures.get(0).id)} alt="@offer.header">
+								<img src=@{routes.Application.renderImage(offer.pictures.get(0).id)} alt="@offer.header"
+									height="100" width="auto">
 							</td>
 						}
 						<td><a href="@routes.OfferController.index(offer.id)">@offer.description</a></td>
