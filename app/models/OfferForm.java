@@ -24,11 +24,6 @@ public class OfferForm{
 		geolocX = o.lng + "";
 		geolocY = o.lat + "";
 		spacesize = o.spaceSize;
-//		picturePath1 = o.picturePath1;
-//		picturePath2 = o.picturePath2;
-//		picturePath3 = o.picturePath3;
-//		picturePath4 = o.picturePath4;
-//		picturePath5 = o.picturePath5;
 		if (pictures == null) {
 			pictures = new ArrayList<Picture>();
 		}
@@ -89,16 +84,6 @@ public class OfferForm{
 	
 	@Required(message = "Please insert your free space size!" )
 	public double spacesize;
-	
-//	public byte[] picturePath1;
-//	 
-//	public byte[] picturePath2;
-//	
-//	public byte[] picturePath3;
-//	
-//	public byte[] picturePath4;
-//	
-//	public byte[] picturePath5;
 	
 	public List<Picture> pictures;
 	

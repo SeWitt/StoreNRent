@@ -41,7 +41,6 @@ public class Recommendation {
 	
 	@OneToOne
 	@JoinColumn(name="OFFER_ID")
-//	@Transient
 	public Offer intendedOffer;
 	
 	@Column(name="TEXT")

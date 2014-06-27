@@ -54,28 +54,7 @@ public class Offer {
 	
 	@Column(name="GEOLOCY")
 	public double lat;
-	
-//	@Lob
-//	@Column(length=100000, name="PICTURE")
-//	public byte[] picture;
-//	@Column(name="PICTURE")
-//	public Blob picture;
-	
-//	@Lob @Column(name="PICTURE_PATH_1")
-//	public byte[] picturePath1;
-//	
-//	@Lob @Column(name="PICTURE_PATH_2")
-//	public byte[] picturePath2; 
-//	
-//	@Lob @Column(name="PICTURE_PATH_3")
-//	public byte[]  picturePath3;
-//	
-//	@Lob @Column(name="PICTURE_PATH_4")
-//	public byte[]  picturePath4;
-//	
-//	@Lob @Column(name="PICTURE_PATH_5")
-//	public byte[]  picturePath5;
-	
+		
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "offer", orphanRemoval = true)
 	public List<Picture> pictures;
 	
@@ -97,14 +76,12 @@ public class Offer {
 	/**
 	 * offer creation date
 	 */
-//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CREATED_DATE")
 	public Timestamp createdDate;
 	
 	/**
 	 * offer last edited
 	 */
-//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="LAST_EDITED_DATE")
 	public Timestamp lastEditedDate;
 	
@@ -132,14 +109,12 @@ public class Offer {
 	/**
 	 * if somebody take the offer the real begin of the crontract
 	 */
-//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CONTRACTED_FROM")
 	public Timestamp contractedFrom;
 	
 	/**
 	 * if somebody take the offer the real end of the crontract
 	 */
-//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CONTRACTED_UNTIL")
 	public Timestamp contractedUntil;
 	
@@ -152,14 +127,12 @@ public class Offer {
 	/**
 	 * first possible day of the contract
 	 */
-//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="OFFER_FROM")
 	public Timestamp offerFrom;
 	
 	/**
 	 * last possible day of the contract
 	 */
-//	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="OFFER_TO")
 	public Timestamp offerTo;
 	
@@ -188,11 +161,6 @@ public class Offer {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.DATEFORMAT);
 		
-//		picturePath1 = of.picturePath1;
-//		picturePath2 = of.picturePath2;
-//		picturePath3 = of.picturePath3;
-//		picturePath4 = of.picturePath4;
-//		picturePath5 = of.picturePath5;
 		
 		if (of.pictures != null) {
 			for (Picture pic : of.pictures) {
@@ -225,7 +193,6 @@ public class Offer {
 			}
 		}
 			
-//		picture = of.picture;
 		price = of.price;
 		isActive = of.isActive;
 		description = of.description;
@@ -233,9 +200,6 @@ public class Offer {
 		subHeader = of.subHeader;
 		visitCount =of.visitCount;
 		
-		
-//		contractedFrom =    new Timestamp()        new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.contractedFrom);
-//		contractedUntil = new SimpleDateFormat(GlobalValues.TIMEFORMAT).format( o.contractedUntil);
 		transactionClosed = of.transactionClosed;
 		
 		try {
