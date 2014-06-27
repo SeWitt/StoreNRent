@@ -2,12 +2,12 @@ package models;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
-import validators.IsDateNotPaste;
-
 import appinfo.GlobalValues;
 
 public class OfferForm{
@@ -21,14 +21,19 @@ public class OfferForm{
 		postCode = o.postCode;
 		houseNr = o.houseNr;
 		country = o.country;
-		geolocX = o.geolocX + "";
-		geolocY = o.geolocY + "";
+		geolocX = o.lng + "";
+		geolocY = o.lat + "";
 		spacesize = o.spaceSize;
-		picturePath1 = o.picturePath1;
-		picturePath2 = o.picturePath2;
-		picturePath3 = o.picturePath3;
-		picturePath4 = o.picturePath4;
-		picturePath5 = o.picturePath5;
+//		picturePath1 = o.picturePath1;
+//		picturePath2 = o.picturePath2;
+//		picturePath3 = o.picturePath3;
+//		picturePath4 = o.picturePath4;
+//		picturePath5 = o.picturePath5;
+		if (o.pictures != null) {
+			for (Picture pic : o.pictures) {
+				pictures.add(pic);
+			}
+		}
 		price = o.price;
 		isActive = o.isActive;
 		description = o.description;
@@ -82,15 +87,17 @@ public class OfferForm{
 	@Required(message = "Please insert your free space size!" )
 	public double spacesize;
 	
-	public String picturePath1;
+//	public byte[] picturePath1;
+//	 
+//	public byte[] picturePath2;
+//	
+//	public byte[] picturePath3;
+//	
+//	public byte[] picturePath4;
+//	
+//	public byte[] picturePath5;
 	
-	public String picturePath2;
-	
-	public String picturePath3;
-	
-	public String picturePath4;
-	
-	public String picturePath5;
+	public List<Picture> pictures;
 	
 	@Required(message = "Please insert a valid price!")
 	public double price;
@@ -140,7 +147,7 @@ public class OfferForm{
 	/**
 	 * first possible day of the contract
 	 */
-	@IsDateNotPaste()
+//	@IsDateNotPaste()
 	@Required(message = "Please insert a vaild start date!" )
 	public String offerFrom;
 	
@@ -153,5 +160,18 @@ public class OfferForm{
 	public Person owner;
 
 	public Person acceptor;
+	
+	public void addPicture(Picture pic) {
+		if (pictures == null) {
+			pictures = new ArrayList<Picture>();
+		}
+		pictures.add(pic);
+	}
+
+	public void removePicture(Picture pic) {
+		if (pictures != null) {
+			pictures.remove(pic);
+		}
+	}
 	
 }

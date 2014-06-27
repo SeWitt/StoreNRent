@@ -5,16 +5,29 @@
 # Home page
 
 GET		/				controllers.HomeController.index()
-POST	/search				controllers.HomeController.search()
-GET     /query	        controllers.SearchController.query(fromdate : String ?= null , todate: String ?= null, city: String ?= null, postcode: String ?= null, spacesize: java.lang.Double ?= null, maxprice: java.lang.Double ?= null, radius : java.lang.Double ?= null, lng : String ?= null, lat: String ?= null)
-GET		/search			controllers.SearchController.search(city: String ?= null, spacesize: java.lang.Double ?= null)	
 
-GET     /offer/show/:id			controllers.OfferController.index(id: java.lang.Integer)
-POST	/offer/accept			controllers.OfferController.doAction()				
-GET		/offer/edit/:id			controllers.OfferController.edit(id: java.lang.Integer)
-GET		/offer/new				controllers.OfferController.newOffer()
-POST	/offer/create			controllers.OfferController.create()	
+GET     /login          controllers.Application.login()
+POST    /login          controllers.Application.authenticate()
+GET     /logout         controllers.Application.logout()
+
+POST	/search			controllers.HomeController.search()
+GET     /query	        controllers.SearchController.query(fromdate : String ?= null , todate: String ?= null, city: String ?= null, postcode: String ?= null, spacesize: java.lang.Double ?= null, maxprice: java.lang.Double ?= null, radius : java.lang.Double ?= null, orderBy: java.lang.Integer ?= 0)
+GET		/search			controllers.SearchController.search(city: String ?= null, postcode: String ?= null, radius: java.lang.Double ?= null, spacesize: java.lang.Double ?= null)	
+GET		/search/mapData controllers.SearchController.getMapData()
+
+GET     /offer/show/:id				controllers.OfferController.index(id: java.lang.Integer)
+POST	/offer/show					controllers.OfferController.doAction()
+GET 	/offer/accept/:id/:from/:to	controllers.OfferController.acceptOffer(id: java.lang.Integer, from: String, to: String)				
+GET		/offer/edit/:id				controllers.OfferController.edit(id: java.lang.Integer)
+GET		/offer/new					controllers.OfferController.newOffer()
+POST	/offer/create				controllers.OfferController.create()	
+
+GET 	/messages/new	controllers.MessageController.newMessage()
+
+GET 	/application/renderImage/:pic	controllers.Application.renderImage(pic: java.lang.Integer)
 
 # Map static resources from the /public folder to the /assets URL path
-GET    	/assets/js/routes         	controllers.Application.jsRoutes()
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    	/assets/js/routes controllers.Application.jsRoutes()
+GET     /assets/*file     controllers.Assets.at(path="/public", file)
+
+

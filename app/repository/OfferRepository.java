@@ -1,18 +1,16 @@
 package repository;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import models.Offer;
+import models.Person;
+import models.Picture;
+import models.SearchAttributes;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
-import models.Account;
-import models.Offer;
-import models.Person;
-import models.SearchAttributes;
 
 /**
  * @author Sebastian
@@ -44,6 +42,7 @@ public class OfferRepository extends Controller{
 			offer.owner = p;
 		}
 		EntityManager em = JPA.em();
+		em.clear();
 		em.persist(offer);
 		em.flush();
 		return offer;
@@ -66,7 +65,6 @@ public class OfferRepository extends Controller{
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(
 			    "SELECT * FROM offer", Offer.class)
-			    .setMaxResults(10)
 			    .getResultList();
 		if(tmp != null) {
 			return tmp;
@@ -144,11 +142,11 @@ public class OfferRepository extends Controller{
 	
 	public static String queryGenerator(SearchAttributes sa) {
 		
+//		this section prevents unwanted search querys
 		String noResultQuery = "select * from offer where 1 = 2";
-		
-//		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
-//			return noResultQuery;
-//		}
+		if (sa.radius==0 || sa.lat==0 || sa.lng==0) {
+			return noResultQuery;
+		}
 		
 		if(sa.from == null && sa.to != null) {
 			sa.from = sa.to;
@@ -208,7 +206,5 @@ public class OfferRepository extends Controller{
 		result[3] = (lng + (180/pi)*((rds*1000)/6378137)/Math.cos(Math.PI/180.0*lng)) * 1.000354;
 		return result;
 	}
-	
-	
 
 }

@@ -6,6 +6,9 @@ package serviceDummy;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import exception.InvalidCredentialsException;
+import exception.UnkwonEmailException;
+
 import models.Account;
 import models.Person;
 import models.PersonSettings;
@@ -60,7 +63,7 @@ public class AccountServiceDummy implements AccountService {
 	public Account findAccountByMail(String mail){
 		Account acc = new Account();
 		acc.createdDate = new Date();
-		acc.email = "mail@dummy.tum";
+		acc.email = mail;
 		acc.isActive = true;
 		acc.password = "abcde";
 		acc.person = new Person();
@@ -87,6 +90,13 @@ public class AccountServiceDummy implements AccountService {
 		
 		
 		return acc;
+	}
+
+	@Override
+	public int authenticate(String mail, String pwd)
+			throws InvalidCredentialsException, UnkwonEmailException {
+		
+		return 1;
 	}
 
 
