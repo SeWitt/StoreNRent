@@ -29,6 +29,9 @@ public class OfferForm{
 //		picturePath3 = o.picturePath3;
 //		picturePath4 = o.picturePath4;
 //		picturePath5 = o.picturePath5;
+		if (pictures == null) {
+			pictures = new ArrayList<Picture>();
+		}
 		if (o.pictures != null) {
 			for (Picture pic : o.pictures) {
 				pictures.add(pic);

@@ -10,6 +10,8 @@
 			#wrapper img {
 				width: 350px; 
 				height: 350px;
+				cursor: -moz-zoom-in;
+				cursor: -webkit-zoom-in;
 			}
 			#images, #thumbs {
 				height: 350px;
@@ -25,7 +27,6 @@
 			}
 			#thumbs img {
 				border: 1px solid #ccc;
-/* 				padding: 14px; */
 				margin: 0 12px 0 12px;
 				cursor: pointer;
 				width: 70px;

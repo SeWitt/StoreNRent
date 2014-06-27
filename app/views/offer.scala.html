@@ -12,6 +12,7 @@
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/image.css")">
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-datetimepicker.min.css")">
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/magnific-popup.css")">
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-2.1.1.min.js")"></script>
@@ -21,6 +22,7 @@
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.carouFredSel-6.0.4-packed.js")"></script>
 		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datetimepicker.min.js")"></script>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.magnific-popup.js")"></script>
 		
 		<style type="text/css">
 			.form-group [class*=col-]:first-of-type {
@@ -33,6 +35,28 @@
 				padding: 0 3% 1% 0;
 			}
 		</style>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.popup-gallery').magnificPopup({
+					delegate: 'img',
+					type: 'image',
+					tLoading: 'Loading image #%curr%...',
+					mainClass: 'mfp-img-mobile',
+					gallery: {
+						enabled: true,
+						navigateByImgClick: true,
+						preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+					},
+					image: {
+						tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+						titleSrc: function(item) {
+							return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
+						}
+					}
+				});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -84,7 +108,7 @@
 							</div>
 							<div class="panel-body">
 								<div id="wrapper" class="well" style="border: 0">
-									<div id="images" >
+									<div id="images" class="popup-gallery">
 										@if(offer.pictures != null) {
 											@for(picture <- offer.pictures) {
 												<img src=@{routes.Application.renderImage(picture.id)} alt="@offer.header">
@@ -159,7 +183,7 @@
 										<div id="dtpfrom" class="input-append date">
 											<div class="input-group">
 												<input id="dtpfrominput" class="form-control" name="from" type="text" 
-												value='@form("from").value' placeholder="From">
+												value='@form("from").value' placeholder="From" autofocus>
 												<span class="input-group-addon"> <span class="add-on" style="cursor: pointer;" > <span class="glyphicon glyphicon-calendar" > </span> </span> </span>
 											</div>
 
