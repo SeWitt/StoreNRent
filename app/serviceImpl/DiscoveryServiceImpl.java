@@ -1,7 +1,5 @@
 package serviceImpl;
-import geo.google.datamodel.GeoAltitude;
-import geo.google.datamodel.GeoCoordinate;
-import geo.google.datamodel.GeoUtils;
+
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +22,6 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 	private double altitudeMunich = 520.0;
 	
 
-//	private OfferRepository offerRepo = new OfferRepository();
 	
 	private GeoLocationService geoService = new GeoLocationServiceImpl();
 
