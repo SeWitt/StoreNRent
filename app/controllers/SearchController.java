@@ -154,13 +154,13 @@ public class SearchController extends Controller {
 
 				if (s != null) {
 
-					o = discoveryService.findOffersSortBy(sa, s);
+					o = discoveryService.findOffersWithinRadius(sa, s);
 				} else {
-					o = discoveryService.findOffers(sa);
+					o = discoveryService.findOffersWithinRadius(sa);
 				}
 
 			} else {
-				o = discoveryService.findOffers(sa);
+				o = discoveryService.findOffersWithinRadius(sa);
 			}
 
 			
