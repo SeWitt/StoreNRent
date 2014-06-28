@@ -1,6 +1,7 @@
 package controllers;
 
 
+import appinfo.GlobalValues;
 import models.LoginForm;
 import models.Person;
 import models.Picture;
@@ -60,7 +61,7 @@ public class Application extends Controller {
 	
 //Login methods	
 	public static Result login() {
-	    return ok(views.html.login.render( Form.form(LoginForm.class)));
+	    return ok(views.html.login.render( Form.form(LoginForm.class), getMenuebar(GlobalValues.NAVBAR_REGISTER)));
 	}
 	
 	public static Result logout() {
@@ -81,7 +82,7 @@ public class Application extends Controller {
 	public static Result authenticate() {
 	    Form<LoginForm> loginForm =  Form.form(LoginForm.class).bindFromRequest();
 	    if (loginForm.hasErrors()) {
-	        return badRequest(views.html.login.render(loginForm));
+	        return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
 	    } else {
 	    	
 	    	String pwd = loginForm.get().password;
@@ -95,10 +96,10 @@ public class Application extends Controller {
 				 result = as.authenticate(mail, pwd);
 			} catch (InvalidCredentialsException e) {
 				flash("error", "Your credentials were not correct!");
-				return badRequest(views.html.login.render(loginForm));
+				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
 			}catch (UnkwonEmailException e2 ){
 				flash("error", "Sorry we could not find an account!");
-				return badRequest(views.html.login.render(loginForm));
+				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
 			}
 	        
 	        
@@ -113,7 +114,7 @@ public class Application extends Controller {
 	        	 }
 	        }else{
 	        	flash("error", "Your credentials were incorrect");
-				return badRequest(views.html.login.render(loginForm));
+				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
 	        }
 	        
 	        return redirect(url);	    
