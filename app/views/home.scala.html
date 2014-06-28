@@ -46,44 +46,32 @@
 <!-- Intro -->
 	<div class="container text-center" >
 	
-<<<<<<< HEAD
-		<!--  <div style="background-image:url(@routes.Assets.at("images/Slideshow2.jpg")" alt="Store 'n Rent">		
-=======
-		<div style="background-size: 100% auto; background-repeat: no-repeat; background-image:url(@routes.Assets.at("images/Slideshow2.jpg")"  alt="Store 'n Rent">		
->>>>>>> origin/master
-			<div class="container">
-				<div class="row">
-					<h1 style="color: #fff"><label>Find a storage area close to you:</label></h1>
-					<h2 class="tagline" style="color: #fff">Rent lower priced storage area in over 40 cities</h2>
-				</div>
-			</div> -->
-			
-<div id="myCarousel" class="carousel container slide">
-  <!-- Dot Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <!-- Items -->
-  <div class="carousel-inner">
-    <div class="active item"><img src="@routes.Assets.at("images/Slideshow1.jpg")" alt="" /></div>
-    <div class="item"><img src="@routes.Assets.at("images/Slideshow2.jpg")" alt="" /></div>
-    <div class="item"><img src="@routes.Assets.at("images/Slideshow3.jpg")" alt="" /></div>
-  </div>
-  <!-- Navigation -->
-  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-</div>
+			<div id="myCarousel" class="carousel container slide">
+			  <!-- Dot Indicators -->
+			  <ol class="carousel-indicators">
+			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			    <li data-target="#myCarousel" data-slide-to="1"></li>
+			    <li data-target="#myCarousel" data-slide-to="2"></li>
+			  </ol>
+			  <!-- Items -->
+			  <div class="carousel-inner">
+			    <div class="active item"><img src="@routes.Assets.at("images/Slideshow1.jpg")" alt="Slideshow1.jpg" /></div>
+			    <div class="item"><img src="@routes.Assets.at("images/Slideshow2.jpg")" alt="Slideshow2.jpg" /></div>
+			    <div class="item"><img src="@routes.Assets.at("images/Slideshow3.jpg")" alt="Slideshow3.jpg" /></div>
+			  </div>
+			  <!-- Navigation -->
+			  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+			  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+			</div>
 
 			<div class="container">
 				<div class="row">
 					<h1><label>Find a storage area close to you:</label></h1>
-					<h2 class="tagline">Rent lower priced storage area in over 40 cities</h2>
+					<h2 class="tagline">Rent lower priced storage areas in over 40 cities</h2>
 				</div>
 			</div>
 			
-			<div class="row" style="padding: 5% 1% 5% 20%; margin: 0 auto; float: none">
+			<div class="row" style="padding: 5% 1% 5% 1%; margin: 0 auto; float: none">
 				@helper.form(action = routes.HomeController.search()) {
 				<form class="form-inline" role="form" >
 
@@ -119,15 +107,13 @@
 				</form>
 				}			
 			</div>
-
-
 				
 		<br> <br>
 		<h2 class="thin">That's how it works</h2>
 		<p class="text-muted">
-			Rent a low-budget storage area at Store N' Rent in all over Germany<br> 
+			Rent a low-budget storage area at Store N' Rent all over Germany<br> 
 		</p>
-
+	</div>
 	<!-- /Intro-->
 	
 	<div class="jumbotron top-space">
@@ -137,19 +123,19 @@
 			
 			<div class="row" style="margin: 0 auto; float: none">
 				<div class="col-md-4 highlight">
-					<div class="h-caption"><h4><img class="img-circle" src="@routes.Assets.at("images/Loupe.png")" alt="Store 'n Rent" />Searching</h4></div>
+					<div class="h-caption"><h4><img class="img-circle" src="@routes.Assets.at("images/Loupe.png")" alt="Store 'n Rent" /> Searching</h4></div>
 					<div class="h-body text-center">
 						<p>Search for the right storage area</p>
 					</div>
 				</div>
 				<div class="col-md-4 highlight">
-					<div class="h-caption"><h4><img class="img-circle"src="@routes.Assets.at("images/Person.png")" alt="Store 'n Rent" />Contacting</h4></div>
+					<div class="h-caption"><h4><img class="img-circle"src="@routes.Assets.at("images/Person.png")" alt="Store 'n Rent" /> Contacting</h4></div>
 					<div class="h-body text-center">
-						<p>Contact the offerer</p>
+						<p>Contact the provider</p>
 					</div>
 				</div>
 				<div class="col-md-4 highlight">
-					<div class="h-caption"><h4><img class="img-circle" src="@routes.Assets.at("images/Check.png")" alt="Store 'n Rent" />Booking</h4></div>
+					<div class="h-caption"><h4><img class="img-circle" src="@routes.Assets.at("images/Check.png")" alt="Store 'n Rent" /> Booking</h4></div>
 					<div class="h-body text-center">
 						<p>Rent the perfect storage area</p>
 					</div>
