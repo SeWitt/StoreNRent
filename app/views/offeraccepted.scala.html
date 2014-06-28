@@ -93,6 +93,65 @@
 							</p>
 						</div>
 					</div>
+					
+					<div class="panel panel-default" style="center">
+						<div class="panel-heading" style="text-align: center">
+							Host
+						</div>
+						
+						<div class="panel-body" style="text-align: center">
+							<div class="col-md-9" style="float:none; margin: 0 auto; padding: 2%">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"> Name: </td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"><label>@offer.owner.surname @offer.owner.lastName</label></td>
+										</tr>
+
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"> Birthdate: </td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"><label>@{
+												var birthdate = offer.owner.dateOfBirth
+												var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
+												var strDate = format.format(birthdate);
+												strDate
+												}</label></td>
+										</tr>
+
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"> Id Verified: </td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"><img alt="@if(offer.owner.isVerified) {Yes} else {No}"
+											src='@{
+											if(offer.owner.isVerified) {
+											routes.Assets.at("images/icon-ok.png")
+											} else {
+											routes.Assets.at("images/icon-false.png")
+											}
+											}'></td>
+										</tr>
+
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"> Activity Status: </td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"><label>@if(offer.owner.isActive) { <font color=green>Active</font> } else { <font color=red>Inactive</font> }</label></td>
+										</tr>
+
+										<tr>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"> Offer last edited: </td>
+											<td style="vertical-align: middle; border-top: 0; line-height: 1"><label>@{
+												var date = offer.lastEditedDate
+												var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
+												var strDate = format.format(date);
+												strDate
+												}</label></td>
+										</tr>
+									</tbody>
+								</table>
+								<p class="text-center">
+									<a href="#"><u>Contact host</u></a>
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				<div class="col-md-6">
