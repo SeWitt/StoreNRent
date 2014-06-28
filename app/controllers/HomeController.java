@@ -68,7 +68,7 @@ public class HomeController extends Controller {
 					List<Offer> offers = null;
 					
 					//Check if necessary attributes are not null -> only start search if it is so
-					if(hpsf.city != null && hpsf.postCode != null){
+					if(hpsf.city != null || hpsf.postCode != null){
 						city = hpsf.city;
 						postCode = hpsf.postCode;
 						spacesize =hpsf.spacesize;
@@ -84,49 +84,11 @@ public class HomeController extends Controller {
 							sa.radius = radius;
 						}
 						
-						
-						//make geocoords
-						//TODO: refactor -> exclude into new service
-						
-						
-						// new Service for GeoCoords
-						// in place alteration of sa (SearchAttributes)
-						//
 						geoService.calculateGeoCoords(sa);	
 						
+						offers = discoveryService.findOffersWithinRadius(sa);
 						
-						// Legacy code below !!
-						//
-//						try {
-//							String address = "  , "+					
-//									sa.postCode +
-//									" " + 
-//									sa.city+
-//									", ";
-//							
-//							final JSONObject response = JsonGeoLocator.getJSONByGoogle(address);
-//					        if (response != null) {
-//					        	JSONObject location = response.getJSONArray("results").getJSONObject(0);
-//					        	location = location.getJSONObject("geometry");
-//					            location = location.getJSONObject("location");
-//					            double lng1 = location.getDouble("lng");// longitude
-//					            double lat1 = location.getDouble("lat");// latitude
-//					            System.out.println(String.format("%f, %f", lat1, lng1));
-//					            
-//					            sa.lng = lng1;
-//								sa.lat = lat1;	            
-//					        }
-//						} catch (Exception e) {}
-						
-//						//DEBUG
-//						System.out.println("city: "+city);
-//						System.out.println("postcode: "+postCode);
-//						System.out.println("area: "+radius);
-
-						offers = discoveryService.findOffers(sa);
-						
-						
-						if(offers.isEmpty() != true){
+						if(!offers.isEmpty()){
 							offerResults = views.html.searchresults.render(offers);
 						}
 						System.out.println("count_ "+offers.size());

@@ -71,40 +71,52 @@
 				</div>
 			</div>
 			
-			<div class="row" style="padding: 5% 1% 5% 1%; margin: 0 auto; float: none">
+			<div class="row" style="padding: 5% 1% 0 1%; margin: 0 auto; float: none">
+				<div class="col-md-3" style="text-align: left">
+					City
+				</div>
+				
+				<div class="col-md-3" style="text-align: left">
+					Postcode
+				</div>
+
+				<div class="col-md-2" style="text-align: left">
+					Radius
+				</div>
+				
+				<div class="col-md-2" style="text-align: left">
+					Spacesize
+				</div>
+			</div>
+			<div class="row" style="padding: 1% 1% 5% 1%; margin: 0 auto; float: none">
 				@helper.form(action = routes.HomeController.search()) {
-				<form class="form-inline" role="form" >
-
-					<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
-						<input id="city" class="form-control" type="text" name="city" value='@form("city").value' 
-							autofocus="" placeholder="City" >
-					</div>
-					<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
-						<input id="postcode" class="form-control" type="text" name="postCode" value='@form("postCode").value' 
-							autofocus="" placeholder="Post  Code" >
-					</div>
+					<form class="form-inline" role="form" >
 	
-					<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
-						<div id="radius" class="input-group">
-							<input id="radiusinput" class="form-control" type="number" name="radius" value='@form("radius").value'min="1.0"max="100.0" step="0.5" 
-								placeholder="Circuit">	
-							<span class="input-group-addon">km</span>
+						<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
+							<input id="city" class="form-control" type="text" name="city" autofocus >
 						</div>
-					</div>
+						<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
+							<input id="postcode" class="form-control" type="text" name="postCode" autofocus>
+						</div>
+		
+						<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
+							<div id="radius" class="input-group">
+								<input id="radiusinput" class="form-control" type="number" name="radius" min="0" value="5" max="100" step="5">	
+								<span class="input-group-addon">km</span>
+							</div>
+						</div>
+		
+						<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
+							<div id="spacesizeinput" class="input-group">
+								<input id="spacesize" class="form-control" type="number" name="spacesize" min="1" value="5" max="100" step="0.5">
+								<span class="input-group-addon">m<sup>3</sup></span>
+							</div>
+						</div>
 	
-					<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
-						<div id="spacesizeinput" class="input-group">
-							<input id="spacesize" class="form-control" type="number" name="spacesize" placeholder="Spacesize" 
-								value='@form("spacesize").value' min="1" value="5" max="100" step="0.5">
-							<span class="input-group-addon">m<sup>3</sup></span>
-						</div>
-					</div>
-
-					<button type="submit" class="btn btn-default" name="action" value="submit" 
-						style="float: center" >
-						Search
-					</button>
-				</form>
+						<button type="submit" class="btn btn-default" name="action" value="submit" style="float: center" >
+							Search
+						</button>
+					</form>
 				}			
 			</div>
 				

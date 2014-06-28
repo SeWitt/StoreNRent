@@ -125,6 +125,7 @@ public class SearchController extends Controller {
 		
 //PRODUCTIVE USE	
 		geoService.calculateGeoCoords(sa);
+		
 		List<Offer> o = null;
 
 
