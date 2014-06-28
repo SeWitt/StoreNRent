@@ -29,7 +29,16 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+		
+		<style type="text/css">
+			#search-panel {
+				border: 2px solid rgba(64,64,64,1);
+				padding: 0 0 1% 2%;
+				margin: 5% 0 0 0;
+				background-color: rgba(71,71,71,0.8);
+				border-radius: 8px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -46,7 +55,65 @@
 <!-- Intro -->
 	<div class="container text-center" >
 	
-			<div id="myCarousel" class="carousel container slide">
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<div class="container">
+			    	<div class="carousel-caption">
+						<h1><label>Find a storage area close to you:</label></h1>
+						<h2 class="tagline">Rent lower priced storage areas in over 40 cities</h2>
+						
+						<div id="search-panel" class="panel">
+							<div class="row" style="padding: 0; margin: 0">
+								<div class="col-md-3" style="text-align: left">
+									City
+								</div>
+								
+								<div class="col-md-3" style="text-align: left">
+									Postcode
+								</div>
+				
+								<div class="col-md-2" style="text-align: left">
+									Radius
+								</div>
+								
+								<div class="col-md-2" style="text-align: left">
+									Spacesize
+								</div>
+							</div>
+							<div class="row" style="padding: 0; margin: 0">
+								@helper.form(action = routes.HomeController.search()) {
+									<form class="form-inline" >
+										<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0; margin: 0">
+											<input id="city" class="form-control" type="text" name="city" autofocus >
+										</div>
+										<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
+											<input id="postcode" class="form-control" type="text" name="postCode" autofocus>
+										</div>
+						
+										<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
+											<div id="radius" class="input-group">
+												<input id="radiusinput" class="form-control" type="number" name="radius" min="0" value="5" max="100" step="5">	
+												<span class="input-group-addon">km</span>
+											</div>
+										</div>
+						
+										<div class="col-md-2" style="text-align: center; padding: 0">
+											<div id="spacesizeinput" class="input-group">
+												<input id="spacesize" class="form-control" type="number" name="spacesize" min="1" value="5" max="100" step="0.5">
+												<span class="input-group-addon">m<sup>3</sup></span>
+											</div>
+										</div>
+										
+										<button type="submit" class="btn btn-default" name="action" value="submit" 
+											style="float: left; background: #0800E3; color: #fff; margin-left: 2%; border: 0;" >
+											Search
+										</button>
+									</form>
+								}			
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			  <!-- Dot Indicators -->
 			  <ol class="carousel-indicators">
 			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -55,71 +122,21 @@
 			  </ol>
 			  <!-- Items -->
 			  <div class="carousel-inner">
-			    <div class="active item"><img src="@routes.Assets.at("images/Slideshow1.jpg")" alt="Slideshow1.jpg" /></div>
-			    <div class="item"><img src="@routes.Assets.at("images/Slideshow2.jpg")" alt="Slideshow2.jpg" /></div>
-			    <div class="item"><img src="@routes.Assets.at("images/Slideshow3.jpg")" alt="Slideshow3.jpg" /></div>
+			    <div class="active item">
+			    	<img src="@routes.Assets.at("images/Slideshow1.jpg")" alt="Slideshow1.jpg" />
+			    </div>
+			    <div class="item">
+			    	<img src="@routes.Assets.at("images/Slideshow2.jpg")" alt="Slideshow2.jpg" />
+			    </div>
+			    <div class="item">
+			    	<img src="@routes.Assets.at("images/Slideshow3.jpg")" alt="Slideshow3.jpg" />
+			    </div>
 			  </div>
 			  <!-- Navigation -->
-			  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-			  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+			  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+			  <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			</div>
 
-			<div class="container">
-				<div class="row">
-					<h1><label>Find a storage area close to you:</label></h1>
-					<h2 class="tagline">Rent lower priced storage areas in over 40 cities</h2>
-				</div>
-			</div>
-			
-			<div class="row" style="padding: 5% 1% 0 1%; margin: 0 auto; float: none">
-				<div class="col-md-3" style="text-align: left">
-					City
-				</div>
-				
-				<div class="col-md-3" style="text-align: left">
-					Postcode
-				</div>
-
-				<div class="col-md-2" style="text-align: left">
-					Radius
-				</div>
-				
-				<div class="col-md-2" style="text-align: left">
-					Spacesize
-				</div>
-			</div>
-			<div class="row" style="padding: 1% 1% 5% 1%; margin: 0 auto; float: none">
-				@helper.form(action = routes.HomeController.search()) {
-					<form class="form-inline" role="form" >
-	
-						<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
-							<input id="city" class="form-control" type="text" name="city" autofocus >
-						</div>
-						<div class="col-md-3" style="text-align: center; padding: 0 2% 0 0">
-							<input id="postcode" class="form-control" type="text" name="postCode" autofocus>
-						</div>
-		
-						<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
-							<div id="radius" class="input-group">
-								<input id="radiusinput" class="form-control" type="number" name="radius" min="0" value="5" max="100" step="5">	
-								<span class="input-group-addon">km</span>
-							</div>
-						</div>
-		
-						<div class="col-md-2" style="text-align: center; padding: 0 2% 0 0">
-							<div id="spacesizeinput" class="input-group">
-								<input id="spacesize" class="form-control" type="number" name="spacesize" min="1" value="5" max="100" step="0.5">
-								<span class="input-group-addon">m<sup>3</sup></span>
-							</div>
-						</div>
-	
-						<button type="submit" class="btn btn-default" name="action" value="submit" style="float: center" >
-							Search
-						</button>
-					</form>
-				}			
-			</div>
-				
 		<br> <br>
 		<h2 class="thin">That's how it works</h2>
 		<p class="text-muted">
