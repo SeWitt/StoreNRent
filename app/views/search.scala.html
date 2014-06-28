@@ -265,8 +265,7 @@
 						animationMethod : OpenLayers.Easing.Quad.easeOut,
 						animationDuration : 15
 					})],
-					styleMap : new OpenLayers.StyleMap(style),
-					attribution : '<s> made by sw</s>'
+					styleMap : new OpenLayers.StyleMap(style)
 				});
 
 
@@ -371,6 +370,25 @@
 			hr {
 				margin-bottom: 0;
 			}
+			
+			#map-parent {
+			    display: inline-block;
+			    position: relative;
+			    width: 100%;
+			}
+			#map-parent:after {
+			    content: '';
+			    display: block;
+			    margin-top: 75%;
+			}
+			#map {
+			    position: absolute;
+			    top: 0;
+			    bottom: 0;
+			    left: 0;
+			    right: 0;
+			    background-color: silver;
+			}
 		</style>
 
 	</head>
@@ -405,8 +423,8 @@
 							<div class="panel-heading" style="text-align: center">
 								Map
 							</div>
-							<div class="panel-body">
-								<div style="width: 100%; height: 100%" id="map"></div>
+							<div class="panel-body" id="map-parent">
+								<div id="map"></div>
 							</div>
 						</div>
 					</div>
