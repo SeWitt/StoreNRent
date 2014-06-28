@@ -73,7 +73,7 @@ public class MessageRepository {
 	public List<Message> findMessagesByTransmitter(Person person){
 		List<Message> tmp = em.createNativeQuery(
 			    "SELECT * FROM MESSAGE m where m.transmitter_id = ?", Message.class)
-			    .setParameter("custID", person.id)
+			    .setParameter(1, person.id)
 			    .setMaxResults(10)
 			    .getResultList();
 		if (tmp != null) {
@@ -91,7 +91,7 @@ public class MessageRepository {
 	public List<Message> findMessagesByReceiver(Person person){
 		List<Message> tmp = em.createNativeQuery(
 			    "SELECT * FROM MESSAGE m where m.receiver_id = ?", Message.class)
-			    .setParameter("custID", person.id)
+			    .setParameter(1, person.id)
 			    .setMaxResults(10)
 			    .getResultList();
 		if (tmp != null) {

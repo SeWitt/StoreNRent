@@ -16,10 +16,10 @@ import models.PersonSettings;
  */
 public class SettingsRepository {
 
-	EntityManager em;
+	
 	
 	public SettingsRepository(){
-		em = JPA.em();
+		
 	}
 
 	public void finalize() throws Throwable {
@@ -33,6 +33,7 @@ public class SettingsRepository {
 	 */
 	@Transactional
 	public PersonSettings createSettings(PersonSettings setting){
+		EntityManager em = JPA.em();
 		em.persist(setting);
 		em.flush();
 		return setting;
@@ -46,6 +47,7 @@ public class SettingsRepository {
 	 */
 	@Transactional
 	public PersonSettings updateSettings(PersonSettings settings){
+		EntityManager em = JPA.em();
 		em.merge(settings);
 		em.flush();
 		return settings;
@@ -57,9 +59,10 @@ public class SettingsRepository {
 	 */
 	@Transactional
 	public PersonSettings findSettingsByPersonID(Person person){
-		List<PersonSettings> tmp = em.createQuery(
+		EntityManager em = JPA.em();
+		List<PersonSettings> tmp = em.createNativeQuery(
 				"SELECT * FROM PERSON_SETTINGS c WHERE c.person_id = ?", PersonSettings.class)
-				.setParameter("custId", person.id)
+				.setParameter(1, person.id)
 				.setMaxResults(10)
 				.getResultList();
 		if (tmp != null) {

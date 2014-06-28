@@ -18,10 +18,10 @@ import models.RecommendationSummary;
  */
 public class RecommendationRepository {
 
-	EntityManager em;
+	
 	
 	public RecommendationRepository(){
-		em = JPA.em();
+		
 	}
 
 
@@ -32,6 +32,7 @@ public class RecommendationRepository {
 	 */
 	@Transactional
 	public Recommendation createRecommendation(Recommendation recomm){
+		EntityManager em = JPA.em();
 		em.persist(recomm);
 		em.flush();
 		return recomm;
@@ -43,6 +44,7 @@ public class RecommendationRepository {
 	 */
 	@Transactional
 	public Recommendation updateRecommendation(Recommendation recomm){
+		EntityManager em = JPA.em();
 		em.merge(recomm);
 		em.flush();
 		return recomm;
@@ -54,7 +56,8 @@ public class RecommendationRepository {
 	 */
 	@Transactional
 	public RecommendationSummary getRecommendationSummary(Person person){
-		List tmp = em.createQuery(
+		EntityManager em = JPA.em();
+		List tmp = em.createNativeQuery(
 				"SELECT * FROM RECOMMENDATION_SUMMARY c WHERE c.person_id = ?", RecommendationSummary.class)
 				.setParameter(1, person.id)
 				.setMaxResults(10)
@@ -72,9 +75,10 @@ public class RecommendationRepository {
 	 */
 	@Transactional
 	public List <Recommendation> findRecommendationByReceiver(Person person){
-		List<Recommendation> tmp =  em.createQuery(
+		EntityManager em = JPA.em();
+		List<Recommendation> tmp =  em.createNativeQuery(
 			    "SELECT * FROM RECOMMENDATION c WHERE c.RECEIVER_ID = ?", Recommendation.class)
-			    .setParameter("custID", person.id)
+			    .setParameter(1, person.id)
 			    .setMaxResults(10)
 			    .getResultList();
 		if (tmp != null) {
