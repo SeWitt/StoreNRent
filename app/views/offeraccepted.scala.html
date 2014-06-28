@@ -1,0 +1,130 @@
+@(offer: Offer)(menubar: Html)
+
+<html>
+	<head>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+		<title>Store 'n Rent - Offer '@offer.header'</title>
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+		
+		<!-- Custom styles for this template -->
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/image.css")">
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-2.1.1.min.js")"></script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+		<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.carouFredSel-6.0.4-packed.js")"></script>
+		
+		<style type="text/css">
+			.corporate-text {
+				color: #0800E3;
+				background: #fff;
+			}
+			.col-md-6 {
+				padding-right: 25px; 
+				padding-left: 20px
+			}
+			.panel-body>:not(.wrapper) {
+				padding: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- Upper Menu Bar -->
+		@menubar
+
+		<!-- Main Container -->
+		<div class="container text-center">
+			<div class="panel panel-default" >
+				<div class="panel-heading" style="background: green; color: #fff; font-size: 24px">
+					Offer successfully accepted
+				</div>
+				<div class="panel-heading">
+					<div class="corporate-text">Enjoy your storage!</div>
+				</div>
+			</div>
+			
+			<section class="row" >
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="text-align: center">
+							Overview
+						</div>
+						
+						<div class="panel-body">
+							<p class="text-center"><strong>@offer.header</strong></p>
+							<p class="text-center"><strong>@offer.subHeader</strong></p>
+							
+							<p>
+								<strong>Description:</strong><br>@offer.description
+							</p>
+							
+							<p>
+								<strong>Period of storage:</strong> 
+								@{
+									var date = offer.contractedFrom
+									var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
+									var strDate = format.format(date);
+									strDate
+								} 
+								 -  
+								@{
+									var date = offer.contractedUntil
+									var format = new java.text.SimpleDateFormat(appinfo.GlobalValues.DATEFORMAT)
+									var strDate = format.format(date);
+									strDate
+								}
+							</p>
+							
+							<p>
+								<strong>Price:</strong> 
+								@{
+									var price = offer.price
+									var format = new java.text.DecimalFormat("#.##")
+									var strPrice = format.format(price);
+									strPrice
+								} &euro;
+							</p>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="text-align:center">
+							Picture
+						</div>
+						<div class="panel-body">
+							<div id="wrapper" class="well" style="border: 0">
+								<div id="images" class="popup-gallery">
+									@if(offer.pictures != null) {
+										@for(picture <- offer.pictures) {
+											<img src=@{routes.Application.renderImage(picture.id)} alt="@offer.header">
+										}
+									}
+								</div>
+								<div id="thumbs" style="overflow: hidden">
+									@if(offer.pictures != null) {
+										@for(picture <- offer.pictures) {
+											<img src=@{routes.Application.renderImage(picture.id)} alt="@offer.header">
+										}
+									}
+								</div>
+								<a id="prev" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: 0 0"> </a>
+								<a id="next" href="#" style="background: transparent url(@routes.Assets.at("images/carousel_control.png")) no-repeat 0 0;background-position: -18px 0"> </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- End of container -->
+	</body>
+
+</html>

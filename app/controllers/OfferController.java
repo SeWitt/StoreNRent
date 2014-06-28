@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import models.HomePageSearchForm;
 import models.Offer;
 import models.OfferAcceptForm;
 import models.OfferForm;
@@ -186,12 +185,6 @@ public class OfferController extends Controller {
 	public static Result acceptOffer(Integer id, String from, String to){
 		SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalValues.DATEFORMAT);
 		
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
-		Html footer = views.html.footer.render();
-		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class);
-		
-		
-
 		Offer o = offerService.findByOfferID(id);
 		
 		//DONETODO Set authenticated person as acceptor
@@ -206,9 +199,7 @@ public class OfferController extends Controller {
 		offerService.updateOffer(o);
 		flash("success", "Congratulations, accepting the offer was successful!");
 
-
-
-		Html content = views.html.home.render(searchForm,menubar, footer);
+		Html content = views.html.offeraccepted.render(o, Application.getMenuebar(GlobalValues.NAVBAR_SEARCH));
         return ok(content);
 	}
 	

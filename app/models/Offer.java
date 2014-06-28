@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -88,7 +89,8 @@ public class Offer {
 	/**
 	 * long offer description
 	 */
-	@Column(name="DESCRIPTION")
+	@Lob
+	@Column(name="DESCRIPTION", length = 100000)
 	public String description;
 	
 	/**
@@ -174,6 +176,7 @@ public class Offer {
 		postCode = of.postCode;
 		houseNr = of.houseNr;
 		country = of.country;
+		spaceSize = of.spacesize;
 		
 		if(of.geolocX != null){
 				try{
