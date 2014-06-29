@@ -290,7 +290,7 @@
 					circleLayer.destroy();
 				}
 																			
-				var circleradius = inputradius * 1000;
+				var circleradius = inputradius * 1000 *1.5;
 				var point = new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")); 
 				var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
     					point,
@@ -775,7 +775,7 @@
 												}
 												
 																		
-												var circleradius = radius * 1000;
+												var circleradius = radius * 1000 *1.5;
 												var point =new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")); 
 												var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
     												point,
