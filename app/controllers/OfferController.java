@@ -47,7 +47,7 @@ public class OfferController extends Controller {
 	@Transactional
 	public static Result index(Integer id) {
 		// menue bar
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_NOTHING);
 		Html content = null;
 		//set redirect
 		session("url","/offer/show/"+id);
@@ -208,7 +208,7 @@ public class OfferController extends Controller {
 	@Transactional
 	public static Result newOffer() {
 		session("url",request().uri());
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_NOTHING);
 		Form<OfferForm> offerForm = Form.form(OfferForm.class);
 
 		Html content = views.html.offerform.render(offerForm, menubar);
@@ -219,7 +219,7 @@ public class OfferController extends Controller {
 	@Security.Authenticated(Secured.class)
 	public static Result edit(Integer id) {
 		
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_NOTHING);
 		Offer o = offerService.findByOfferID(id.intValue());
 
 		OfferForm of = new OfferForm(o);
@@ -234,7 +234,7 @@ public class OfferController extends Controller {
 	@Transactional
 	@Security.Authenticated(Secured.class)
 	public static Result create() {
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_NOTHING);
 		Form<OfferForm> offerForm = Form.form(OfferForm.class)
 				.bindFromRequest();
 
