@@ -19,6 +19,7 @@ import com.google.gson.JsonPrimitive;
  */
 public class JSONServiceImpl implements JSONService{
 
+	
 	@Override
 	public JsonObject OfferListToJson(List<Offer> offers) {
 

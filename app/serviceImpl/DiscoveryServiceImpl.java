@@ -29,6 +29,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
 	}
 
+	
 	@Override
 	public List<Offer> findOffers(SearchAttributes sa) {
 		return findOffersSortBy(sa, null);

@@ -11,6 +11,11 @@ import models.Offer;
 import models.SearchAttributes;
 import service.GeoLocationService;
 
+/**
+ * 
+ * @author max
+ *
+ */
 public class GeoLocationServiceImpl implements GeoLocationService{
 
 	@Override
