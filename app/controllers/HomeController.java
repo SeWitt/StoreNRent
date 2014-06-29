@@ -32,7 +32,7 @@ public class HomeController extends Controller {
 	@Transactional
 	public static Result index(){
 		//menue bar
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_NOTHING);
 		Html footer = views.html.footer.render();
 		
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class);
@@ -45,7 +45,7 @@ public class HomeController extends Controller {
 	@Transactional
 	public static Result search(){
 		Html offerResults = null;
-		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
+		Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_NOTHING);
 		Form<HomePageSearchForm> searchForm = Form.form(HomePageSearchForm.class).bindFromRequest();
 		HomePageSearchForm hpsf = searchForm.get();
 		
@@ -68,11 +68,14 @@ public class HomeController extends Controller {
 					List<Offer> offers = null;
 					
 					//Check if necessary attributes are not null -> only start search if it is so
-					if(hpsf.city != null || hpsf.postCode != null){
+					if(hpsf.city.length()  > 3 && hpsf.postCode.length() > 3){
+						System.out.println("[HOMECONTROLLER][search] yes");
 						city = hpsf.city;
 						postCode = hpsf.postCode;
 						spacesize =hpsf.spacesize;
 						radius = hpsf.radius;
+						
+						System.out.println("[HOMECONTROLLER][search] pc:"+postCode +" city: "+city);
 						
 						//fill search attributes object for data base query
 						sa.postCode = postCode;
@@ -92,11 +95,15 @@ public class HomeController extends Controller {
 							offerResults = views.html.searchresults.render(offers);
 						}
 						System.out.println("count_ "+offers.size());
+						
+						result = ok(views.html.search.render(city,postCode,radius, spacesize, sa.lng, sa.lat, offerResults, menubar));
+					}else{
+						result = ok(views.html.search.render(null,null,null, null, null, null, null, menubar));
 					}
 					
 					
 					
-					result = ok(views.html.search.render(city,postCode,radius, spacesize, sa.lng, sa.lat, offerResults, menubar));
+					
 
 			}else {
 				result = redirect(routes.HomeController.index());
