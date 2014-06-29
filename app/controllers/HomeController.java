@@ -5,9 +5,6 @@ import models.HomePageSearchForm;
 import models.Offer;
 import models.SearchAttributes;
 
-import org.json.JSONObject;
-import org.json.JsonGeoLocator;
-
 import play.api.templates.Html;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -18,17 +15,20 @@ import service.GeoLocationService;
 import serviceImpl.DiscoveryServiceImpl;
 import serviceImpl.GeoLocationServiceImpl;
 import appinfo.GlobalValues;
-/**
+/**Controller for Methods from the home.scala.html
  * @author Sebastian
  * @version 1.0
  * @created 23-Mai-2014 17:26:15
  */
 public class HomeController extends Controller {
 
-//	private NewsService newsService = new NewsServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private static DiscoveryService discoveryService =  new DiscoveryServiceImpl();//if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private static GeoLocationService geoService = new GeoLocationServiceImpl();
 
+	/**create the home.scala.html
+	 * 
+	 * @return renderd html page
+	 */
 	@Transactional
 	public static Result index(){
 		//menue bar
@@ -42,6 +42,11 @@ public class HomeController extends Controller {
         return ok(content);
 	}
 	
+	/**redirect to the search.scala.html
+	 * If valid search parameters -> city, postcode, radius then an initial query is made
+	 * 
+	 * @return search.scala.html
+	 */
 	@Transactional
 	public static Result search(){
 		Html offerResults = null;
@@ -69,7 +74,7 @@ public class HomeController extends Controller {
 					
 					//Check if necessary attributes are not null -> only start search if it is so
 					if(hpsf.city.length()  > 3 && hpsf.postCode.length() > 3){
-						System.out.println("[HOMECONTROLLER][search] yes");
+//						System.out.println("[HOMECONTROLLER][search] yes");
 						city = hpsf.city;
 						postCode = hpsf.postCode;
 						spacesize =hpsf.spacesize;
@@ -94,7 +99,7 @@ public class HomeController extends Controller {
 						if(!offers.isEmpty()){
 							offerResults = views.html.searchresults.render(offers);
 						}
-						System.out.println("count_ "+offers.size());
+//						System.out.println("count_ "+offers.size());
 						
 						result = ok(views.html.search.render(city,postCode,radius, spacesize, sa.lng, sa.lat, offerResults, menubar));
 					}else{
