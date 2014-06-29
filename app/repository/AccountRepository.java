@@ -24,7 +24,7 @@ public class AccountRepository {
 	/**
 	 * creates a new account
 	 * 
-	 * @param account
+	 * @param account 
 	 */
 	public Account createAccount(Account account){
 		EntityManager em = JPA.em();
@@ -34,6 +34,7 @@ public class AccountRepository {
 	}
 
 	/**
+	 * updates an existing account
 	 * 
 	 * @param account
 	 */
@@ -45,6 +46,7 @@ public class AccountRepository {
 	}
 
 	/**
+	 * find an account by email address
 	 * 
 	 * @param mail
 	 */
@@ -62,6 +64,12 @@ public class AccountRepository {
 		}
 	}
 	
+	/**
+	 * find account by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Account findAccountById(int id) {
 		EntityManager em = JPA.em();
 		return em.find(Account.class, id);

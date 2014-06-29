@@ -25,8 +25,10 @@ public class OfferRepository {
 
 
 	/**
+	 * add a new offer to the database
 	 * 
 	 * @param offer
+	 * @return reference to input param offer
 	 */
 	public static Offer createOffer(Offer offer){
 		Person p = null;
@@ -48,6 +50,7 @@ public class OfferRepository {
 	}
 
 	/**
+	 * update an existing offer
 	 * 
 	 * @param offer
 	 */
@@ -58,6 +61,11 @@ public class OfferRepository {
 		return offer;
 	}
 	
+	/**
+	 * get all offers (full table scan!)
+	 * 
+	 * @return all offers
+	 */
 	public static List<Offer> findAllOffers(){
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(
@@ -71,6 +79,7 @@ public class OfferRepository {
 	}
 
 	/**
+	 * find an offer by its owner
 	 * 
 	 * @param personID
 	 */
@@ -88,6 +97,7 @@ public class OfferRepository {
 	}
 
 	/**
+	 * retrieve an offer by its id
 	 * 
 	 * @param id
 	 */
@@ -97,6 +107,7 @@ public class OfferRepository {
 	}
 
 	/**
+	 * retrieve an offer by its acceptor
 	 * 
 	 * @param personID
 	 */
@@ -115,6 +126,7 @@ public class OfferRepository {
 	}
 
 	/**
+	 * find all offers that match the provided SearchAttribute
 	 * 
 	 * @param searchAttributs
 	 */
@@ -133,6 +145,12 @@ public class OfferRepository {
 		
 	}
 	
+	/**
+	 * generates a native sql query which will retrieve all offers that fulfill the provided SearchAttribute
+	 * 
+	 * @param sa provided SearchAttribute
+	 * @return offers corresponding to provided SearchAttribute
+	 */
 	public static String queryGenerator(SearchAttributes sa) {
 		
 //		this section prevents unwanted search querys
@@ -181,6 +199,8 @@ public class OfferRepository {
 	}
 	
 	/**
+	 * 
+	 * generates a bounding box surrounding the provided lat/lng values
 	 * 
 	 * @param lat latitude
 	 * @param lng longitude
