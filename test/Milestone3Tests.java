@@ -118,13 +118,11 @@ public class Milestone3Tests extends Assert {
 		assertTrue(sql1.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true"));
 		assertTrue(sql2.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true and o.price <= 15.0"));
 		assertTrue(sql3.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true and o.price <= 15.0 and o.space_size >= 23.0"));
-		assertTrue(sql4.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true and o.price <= 15.0 and o.space_size >= 23.0 and to_timestamp(10000) not between" + 
-		" o.contracted_from and o.contracted_until and to_timestamp(10000) not between o.contracted_from and o.contracted_until and to_timestamp(10000) between o.offer_from and o.offer_to and to_timestamp(10000) between o.offer_from and o.offer_to"));
+		assertTrue(sql4.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true and o.price <= 15.0 and o.space_size >= 23.0 and ((to_timestamp(10) not between o.contracted_from and o.contracted_until and to_timestamp(10) not between o.contracted_from and o.contracted_until) or (o.contracted_from is null and o.contracted_until is null)) and to_timestamp(10) between o.offer_from and o.offer_to and to_timestamp(10) between o.offer_from and o.offer_to"));
 		
 		sa.maxPrice = 0;
 		String sql5 = OfferRepository.queryGenerator(sa);
-		assertTrue(sql5.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true and o.space_size >= 23.0 and to_timestamp(10000) not between" + 
-				" o.contracted_from and o.contracted_until and to_timestamp(10000) not between o.contracted_from and o.contracted_until and to_timestamp(10000) between o.offer_from and o.offer_to and to_timestamp(10000) between o.offer_from and o.offer_to"));
+		assertTrue(sql5.equalsIgnoreCase("select * from offer o where o.geolocX between 48.0035621362456 and 48.0304218637544 and o.geolocY between 10.991016847158805 and 11.008983152841195 and o.is_active = true and o.space_size >= 23.0 and ((to_timestamp(10) not between o.contracted_from and o.contracted_until and to_timestamp(10) not between o.contracted_from and o.contracted_until) or (o.contracted_from is null and o.contracted_until is null)) and to_timestamp(10) between o.offer_from and o.offer_to and to_timestamp(10) between o.offer_from and o.offer_to"));
 				
 	}
 	
@@ -167,6 +165,9 @@ public class Milestone3Tests extends Assert {
 		
 		assertTrue(case1 || case2);
 	}
+	
+	
+	
 	
 
 }
