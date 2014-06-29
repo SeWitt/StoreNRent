@@ -105,7 +105,7 @@
 					//this.src = '@routes.Assets.at("images/gh.png")';
 				};
 
-				OpenLayers.Util.onImageLoadErrorColor = 'transparent';
+				OpenLayers.Util.onImageLoadErrorColor = 'black';
 
 				map = new OpenLayers.Map("map", {
 					controls : [new OpenLayers.Control.Navigation(), new OpenLayers.Control.LayerSwitcher({
@@ -115,8 +115,11 @@
 					numZoomLevels : 18,
 					maxResolution : 156543.0339,
 					maxExtent : new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
+					//projection : new OpenLayers.Projection("EPSG:900913"),
+					//displayProjection : new OpenLayers.Projection("EPSG:900913")
 					projection : new OpenLayers.Projection("EPSG:4326"),
 					displayProjection : new OpenLayers.Projection("EPSG:4326")
+					
 				});
 
 				var gsat = new OpenLayers.Layer.Google("Google Satellite", {
@@ -254,8 +257,8 @@
 				// Create a vector layers
 				var offerlayer = new OpenLayers.Layer.Vector("Offer", {
 					protocol : new OpenLayers.Protocol.HTTP({
-						//url : '@routes.Assets.at("images/Offer.json")',
-						url : "/search/mapData",
+						url : '@routes.Assets.at("images/Offer.json")',
+						//url : "/search/mapData",
 						format : new OpenLayers.Format.GeoJSON()
 					}),
 					renderers : ['Canvas', 'SVG'],
@@ -271,52 +274,7 @@
 
 				map.addLayers([offerlayer, gsat, gmap]);
 
-//make circle, if search was from start site
-				if(@radius != null){
-
-				var circleLayer = map.getLayer("100");
-																						
-				if(circleLayer != null){
-				circleLayer.destroy();
-				}
-																			
-				var circleradius = @radius * 1000;
-				var point =new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")); 
-				var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
-    					point,
-    					circleradius,
-   						50,
-   						0
-						);
-
-				var	circlefeature = new OpenLayers.Feature.Vector(mycircle);
-				
-				circleLayer = new OpenLayers.Layer.Vector("Search radius", {
-						units: 'm',
-						style: { 
-						fillColor : "SkyBlue",
-						fillOpacity : 0.3,
-						strokeColor : "SkyBlue",
-						strokeOpacity : 0.5,
-						strokeWidth : 3,
-								}
-						});
-											
-				circleLayer.id = "100";
-				
-				var featurePoint = new OpenLayers.Feature.Vector(
-    					point,
-   					{ externalGraphic: '@routes.Assets.at("images/gh.png")', graphicHeight: 25, graphicWidth: 21, graphicXOffset: -12, graphicYOffset: -25 }
-					);
-				
-				
-				
-				circleLayer.addFeatures([circlefeature, featurePoint]);
-												
-				map.addLayers([circleLayer]);
-
-				}
-//end circle
+//circle
 
 
 				selectControl = new OpenLayers.Control.SelectFeature(offerlayer);
@@ -490,7 +448,7 @@
 										} else {
 										placeholder="Radius"
 										}
-										name="size" min="0" value="5" max="100" step="5">
+										name="size" min="0" value="5" max="100" step="5" style="-moz-appearance: textfield">
 										<span class="input-group-addon">km</span>
 									</div>
 								</div>
