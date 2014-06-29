@@ -15,7 +15,7 @@ import play.mvc.Controller;
  * @version 1.0
  * @created 20-Juni-2014 16:53:22
  */
-public class PictureRepository extends Controller{
+public class PictureRepository {
 
 	public PictureRepository(){
 		
@@ -26,7 +26,6 @@ public class PictureRepository extends Controller{
 	 * 
 	 * @param picture
 	 */
-	@Transactional
 	public static Picture createPicture(Picture picture){
 		EntityManager em = JPA.em();
 		em.persist(picture);
@@ -38,7 +37,6 @@ public class PictureRepository extends Controller{
 	 * 
 	 * @param picture
 	 */
-	@Transactional
 	public static Picture updatePicture(Picture picture){
 		EntityManager em = JPA.em();
 		em.merge(picture);
@@ -46,7 +44,6 @@ public class PictureRepository extends Controller{
 		return picture;
 	}
 	
-	@Transactional
 	public static List<Picture> findAllPictures(){
 		EntityManager em = JPA.em();
 		List<Picture> tmp = em.createNativeQuery(
@@ -64,7 +61,6 @@ public class PictureRepository extends Controller{
 	 * @param offer
 	 */
 	@SuppressWarnings("unchecked")
-	@Transactional
 	public static List<Picture> findPictureByOffer(Offer offer){
 		EntityManager em = JPA.em();
 		List<Picture> tmp =  em.createNativeQuery("SELECT * FROM picture p where p.offer_id = ?", Picture.class)
@@ -82,7 +78,6 @@ public class PictureRepository extends Controller{
 	 * 
 	 * @param id
 	 */
-	@Transactional
 	public static Picture findPictureByID(int id){
 		EntityManager em = JPA.em();
 		return em.find(Picture.class, id);

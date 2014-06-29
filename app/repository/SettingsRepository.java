@@ -31,7 +31,6 @@ public class SettingsRepository {
 	 * @param setting
 	 * @return 
 	 */
-	@Transactional
 	public PersonSettings createSettings(PersonSettings setting){
 		EntityManager em = JPA.em();
 		em.persist(setting);
@@ -45,7 +44,6 @@ public class SettingsRepository {
 	 * @param settings
 	 * @return 
 	 */
-	@Transactional
 	public PersonSettings updateSettings(PersonSettings settings){
 		EntityManager em = JPA.em();
 		em.merge(settings);
@@ -57,7 +55,6 @@ public class SettingsRepository {
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public PersonSettings findSettingsByPersonID(Person person){
 		EntityManager em = JPA.em();
 		List<PersonSettings> tmp = em.createNativeQuery(

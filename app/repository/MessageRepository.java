@@ -29,7 +29,6 @@ public class MessageRepository {
 	 * 
 	 * @param message
 	 */
-	@Transactional
 	public Message createMessage(Message message){
 		em.persist(message);
 		em.flush();
@@ -40,7 +39,6 @@ public class MessageRepository {
 	 * 
 	 * @param message
 	 */
-	@Transactional
 	public Message updateMessage(Message message){
 		em.merge(message);
 		em.flush();
@@ -51,7 +49,6 @@ public class MessageRepository {
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public MessageSummary getMessageSummary(Person person){
 		List<MessageSummary> tmp = em.createNativeQuery(
 			    "select * from MESSAGE_SUMMARY ms where ms.person_id = ?", MessageSummary.class)
@@ -69,7 +66,6 @@ public class MessageRepository {
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public List<Message> findMessagesByTransmitter(Person person){
 		List<Message> tmp = em.createNativeQuery(
 			    "SELECT * FROM MESSAGE m where m.transmitter_id = ?", Message.class)
@@ -87,7 +83,6 @@ public class MessageRepository {
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public List<Message> findMessagesByReceiver(Person person){
 		List<Message> tmp = em.createNativeQuery(
 			    "SELECT * FROM MESSAGE m where m.receiver_id = ?", Message.class)

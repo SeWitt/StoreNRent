@@ -26,7 +26,6 @@ public class AccountRepository {
 	 * 
 	 * @param account
 	 */
-	@Transactional
 	public Account createAccount(Account account){
 		EntityManager em = JPA.em();
 		em.persist(account);
@@ -38,7 +37,6 @@ public class AccountRepository {
 	 * 
 	 * @param account
 	 */
-	@Transactional
 	public Account updateAccount(Account account){
 		EntityManager em = JPA.em();
 		em.merge(account);
@@ -50,7 +48,6 @@ public class AccountRepository {
 	 * 
 	 * @param mail
 	 */
-	@Transactional(readOnly=true)
 	public Account findAccountByMail(String mail){
 		EntityManager em = JPA.em();
 		List tmp = em.createNativeQuery(
@@ -65,7 +62,6 @@ public class AccountRepository {
 		}
 	}
 	
-	@Transactional
 	public Account findAccountById(int id) {
 		EntityManager em = JPA.em();
 		return em.find(Account.class, id);

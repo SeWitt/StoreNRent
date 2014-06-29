@@ -30,7 +30,6 @@ public class RecommendationRepository {
 	 * 
 	 * @param recomm
 	 */
-	@Transactional
 	public Recommendation createRecommendation(Recommendation recomm){
 		EntityManager em = JPA.em();
 		em.persist(recomm);
@@ -42,7 +41,6 @@ public class RecommendationRepository {
 	 * 
 	 * @param recomm
 	 */
-	@Transactional
 	public Recommendation updateRecommendation(Recommendation recomm){
 		EntityManager em = JPA.em();
 		em.merge(recomm);
@@ -54,7 +52,6 @@ public class RecommendationRepository {
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public RecommendationSummary getRecommendationSummary(Person person){
 		EntityManager em = JPA.em();
 		List tmp = em.createNativeQuery(
@@ -73,7 +70,6 @@ public class RecommendationRepository {
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public List <Recommendation> findRecommendationByReceiver(Person person){
 		EntityManager em = JPA.em();
 		List<Recommendation> tmp =  em.createNativeQuery(

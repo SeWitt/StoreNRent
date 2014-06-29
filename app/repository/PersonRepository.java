@@ -16,7 +16,7 @@ import models.Person;
  * @version 1.0
  * @created 23-Mai-2014 16:53:24
  */
-public class PersonRepository extends Controller{
+public class PersonRepository {
 
 	public PersonRepository(){
 
@@ -27,7 +27,6 @@ public class PersonRepository extends Controller{
 	 * 
 	 * @param person
 	 */
-	@Transactional
 	public static Person createPerson(Person person){
 		EntityManager em = JPA.em();
 		em.persist(person);
@@ -39,7 +38,6 @@ public class PersonRepository extends Controller{
 	 * 
 	 * @param person
 	 */
-	@Transactional
 	public static Person updatePerson(Person person){
 		EntityManager em = JPA.em();
 		em.merge(person);
@@ -47,7 +45,6 @@ public class PersonRepository extends Controller{
 		return person;
 	}
 	
-	@Transactional
 	public static List<Person> findAllPersons() {
 		EntityManager em = JPA.em();
 		List<Person> tmp = em.createNativeQuery("select * from person p", Person.class).getResultList();
@@ -62,7 +59,6 @@ public class PersonRepository extends Controller{
 	 * 
 	 * @param id
 	 */
-	@Transactional(readOnly=true)
 	public static Person findPersonByID(int id){
 		EntityManager em = JPA.em();
 		return em.find(Person.class, id);

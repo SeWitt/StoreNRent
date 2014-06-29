@@ -17,7 +17,7 @@ import play.mvc.Controller;
  * @version 1.0
  * @created 23-Mai-2014 16:53:22
  */
-public class OfferRepository extends Controller{
+public class OfferRepository {
 
 	public OfferRepository(){
 		
@@ -28,7 +28,6 @@ public class OfferRepository extends Controller{
 	 * 
 	 * @param offer
 	 */
-	@Transactional
 	public static Offer createOffer(Offer offer){
 		Person p = null;
 		if(offer.owner == null) {
@@ -52,7 +51,6 @@ public class OfferRepository extends Controller{
 	 * 
 	 * @param offer
 	 */
-	@Transactional
 	public static Offer updateOffer(Offer offer){
 		EntityManager em = JPA.em();
 		em.merge(offer);
@@ -60,7 +58,6 @@ public class OfferRepository extends Controller{
 		return offer;
 	}
 	
-	@Transactional
 	public static List<Offer> findAllOffers(){
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(
@@ -77,7 +74,6 @@ public class OfferRepository extends Controller{
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public static List<Offer> findOfferByOwner(Person owner){
 		EntityManager em = JPA.em();
 		List<Offer> tmp =  em.createNativeQuery("SELECT * FROM offer o where o.owner_id = ?", Offer.class)
@@ -95,7 +91,6 @@ public class OfferRepository extends Controller{
 	 * 
 	 * @param id
 	 */
-	@Transactional
 	public static Offer findOfferByID(int id){
 		EntityManager em = JPA.em();
 		return em.find(Offer.class, id);
@@ -105,7 +100,6 @@ public class OfferRepository extends Controller{
 	 * 
 	 * @param personID
 	 */
-	@Transactional
 	public static List<Offer> findOfferByAcceptor(Person acceptor){
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(
@@ -124,7 +118,6 @@ public class OfferRepository extends Controller{
 	 * 
 	 * @param searchAttributs
 	 */
-	@Transactional
 	public static List<Offer> findOfferByAttributes(SearchAttributes searchAttributs){
 		System.out.println("[OfferRepository] [findOfferByAttributes] [" + searchAttributs.toString() + "]");
 		EntityManager em = JPA.em();
