@@ -17,6 +17,8 @@ public class GlobalValues {
 	 */
 	public static final String NAVBAR_SEARCH = "Search";
 	
+	public static final String NAVBAR_NOTHING = "";
+	
 	/**
 	 * Format für Datumsanzeige.
 	 * <br>
