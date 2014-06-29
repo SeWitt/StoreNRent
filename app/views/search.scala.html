@@ -37,6 +37,12 @@
 		<![endif]-->
 
 		<script type="text/javascript">
+		
+		var inputradius = null;
+		@if(radius != null){
+			inputradius = @radius;
+		}
+		
 		@if(longitude != null){
 			var lon = @longitude;
 		}else{
@@ -112,7 +118,7 @@
 						roundedCorner : true
 					}), new OpenLayers.Control.PanZoomBar(), new OpenLayers.Control.Attribution(), new OpenLayers.Control.Permalink(), new OpenLayers.Control.MousePosition(), new OpenLayers.Control.KeyboardDefaults(), new OpenLayers.Control.ScaleLine()],
 					units : 'm',
-					numZoomLevels : 18,
+					numZoomLevels : 20,
 					maxResolution : 156543.0339,
 					maxExtent : new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
 					//projection : new OpenLayers.Projection("EPSG:900913"),
@@ -124,11 +130,12 @@
 
 				var gsat = new OpenLayers.Layer.Google("Google Satellite", {
 					type : google.maps.MapTypeId.SATELLITE,
-					numZoomLevels : 22,
-					isBaseLayer : true
+					numZoomLevels : 22
+					
 				});
 				var gmap = new OpenLayers.Layer.Google("Google Streets", {
-					numZoomLevels : 22
+					numZoomLevels : 22,
+					isBaseLayer : true
 
 				});
 
@@ -251,14 +258,12 @@
 					rules : [verylowRule, lowRule, middleRule, highRule, veryhighRule]
 				});
 				
-				
-				
-				
+						
 				// Create a vector layers
 				var offerlayer = new OpenLayers.Layer.Vector("Offer", {
 					protocol : new OpenLayers.Protocol.HTTP({
-						url : '@routes.Assets.at("images/Offer.json")',
-						//url : "/search/mapData",
+						//url : '@routes.Assets.at("images/Offer.json")',
+						url : "/search/mapData",
 						format : new OpenLayers.Format.GeoJSON()
 					}),
 					renderers : ['Canvas', 'SVG'],
@@ -272,10 +277,69 @@
 				});
 
 
-				map.addLayers([offerlayer, gsat, gmap]);
+				map.addLayers([offerlayer, gmap,gsat]);
 
-//circle
 
+
+//make circle, if search was from start site
+				if( inputradius != null){
+
+				var circleLayer = map.getLayer("100");
+																						
+				if(circleLayer != null){
+					circleLayer.destroy();
+				}
+																			
+				var circleradius = inputradius * 1000;
+				var point = new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")); 
+				var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
+    					point,
+    					circleradius,
+   						50,
+   						0
+						);
+
+				var	circlefeature = new OpenLayers.Feature.Vector(mycircle);
+				
+				circleLayer = new OpenLayers.Layer.Vector("Search radius", {
+						units: 'm',
+						style: { 
+						fillColor : "SkyBlue",
+						fillOpacity : 0.3,
+						strokeColor : "SkyBlue",
+						strokeOpacity : 0.5,
+						strokeWidth : 3,
+								}
+						});
+											
+				circleLayer.id = "100";
+				
+				circleLayer.addFeatures([circlefeature]);							
+				map.addLayers([circleLayer]);
+
+				}
+//end circle
+//make marker
+				var markerLayer = new OpenLayers.Layer.Vector("Marker", {
+						units: 'm',
+						style :{    	
+							fillOpacity : 1,														
+    						externalGraphic: '@routes.Assets.at("images/pin.png")', 
+    						graphicHeight: 25, 
+    						graphicWidth: 21, 
+    						graphicXOffset: -12, 
+    						graphicYOffset: -25 							 	
+    						}
+						});
+				markerLayer.id = "400";		
+				var markerpoint = new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")); 
+				
+				var featurePoint = new OpenLayers.Feature.Vector(markerpoint,{
+    						style :{externalGraphic: '@routes.Assets.at("images/pin.png")', 
+    						}
+    					});
+				markerLayer.addFeatures([featurePoint]);
+				map.addLayers([markerLayer]);
 
 				selectControl = new OpenLayers.Control.SelectFeature(offerlayer);
 				map.addControl(selectControl);
@@ -310,7 +374,7 @@
 			}
 
 			div.olPopupContent p {
-				font-size: 12px;
+				font-size: 14px;
 				font-family: arial;
 			}
 
@@ -359,6 +423,12 @@
 		<div class="container" style="background: #fff">
 
 			<div class="row">
+			@if(flash.contains("success")) {
+    	<p class="alert alert-success">
+        	@flash.get("success")
+    	</p>
+}
+	
 			@if(flash.contains("error")) {
 				<p class="alert alert-danger">
 					@flash.get("error")
@@ -694,12 +764,17 @@
 												var lonLat = new OpenLayers.LonLat(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
 												map.setCenter(lonLat, zoom);
 												
+												var markerLayer = map.getLayer("400");
 												var circleLayer = map.getLayer("100");
 																						
 												if(circleLayer != null){
 													circleLayer.destroy();
 												}
-																						
+												if(markerLayer != null){
+													markerLayer.destroy();
+												}
+												
+																		
 												var circleradius = radius * 1000;
 												var point =new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")); 
 												var mycircle = OpenLayers.Geometry.Polygon.createRegularPolygon(
@@ -709,7 +784,7 @@
    											 		0
 													);
 
-												var	circlefeature = new OpenLayers.Feature.Vector(mycircle);
+												var	circlefeature = new OpenLayers.Feature.Vector( mycircle);
 				
 												circleLayer = new OpenLayers.Layer.Vector("Search radius", {
 													units: 'm',
@@ -718,32 +793,39 @@
 																fillOpacity : 0.3,
 																strokeColor : "SkyBlue",
 																strokeOpacity : 0.5,
-																strokeWidth : 3,										
-    												 			externalGraphic: '@routes.Assets.at("images/gh.png")', 
-    												 		graphicHeight: 25, 
-    												 	graphicWidth: 21, 
-    												 	graphicXOffset: -12, 
-    												 	graphicYOffset: -25 
-																}
+																strokeWidth : 3,								
+    												 		}
 													});
 												
 												circleLayer.id = "100";
-												var featurePoint = new OpenLayers.Feature.Vector(point,{
-    											//	style :{    	
-    											//		graphic : true,											
-    											//	 	externalGraphic: '@routes.Assets.at("images/gh.png")', 
-    											//	 	graphicHeight: 25, 
-    											//	 	graphicWidth: 21, 
-    											//	 	graphicXOffset: -12, 
-    											//	 	graphicYOffset: -25 
-    											//	 }
-												//	
-    											});
-				
-												circleLayer.addFeatures([circlefeature, featurePoint]);
-												//circleLayer.addFeatures([circlefeature]);
-												
+
+												circleLayer.addFeatures([circlefeature]);
 												map.addLayers([circleLayer]);
+												
+												//make marker
+												markerLayer = new OpenLayers.Layer.Vector("Marker", {
+													units: 'm',
+													style :{    	
+															fillOpacity : 1,														
+    														externalGraphic: '@routes.Assets.at("images/pin.png")', 
+    														graphicHeight: 25, 
+    														graphicWidth: 21, 
+    														graphicXOffset: -12, 
+    														graphicYOffset: -25 							 	
+    														}
+													});
+												markerLayer.id = "400";		
+												var markerpoint = new OpenLayers.Geometry.Point(lon,lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")); 
+				
+												var featurePoint = new OpenLayers.Feature.Vector(markerpoint,{
+    												style :{externalGraphic: '@routes.Assets.at("images/pin.png")', 
+    												}
+    												});
+												markerLayer.addFeatures([featurePoint]);
+												map.addLayers([markerLayer]);
+												
+												
+												//end marker	
 
 											} else {
 												alert('Geocode was not successful for the following reason: ' + status);
