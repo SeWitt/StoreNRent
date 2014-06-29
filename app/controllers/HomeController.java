@@ -68,7 +68,7 @@ public class HomeController extends Controller {
 					List<Offer> offers = null;
 					
 					//Check if necessary attributes are not null -> only start search if it is so
-					if(hpsf.city.length()  > 3 && hpsf.postCode.length() > 3){
+					if(hpsf.city.length()  > 3 || hpsf.postCode.length() > 3){
 						System.out.println("[HOMECONTROLLER][search] yes");
 						city = hpsf.city;
 						postCode = hpsf.postCode;
