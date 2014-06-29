@@ -14,7 +14,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import repository.PictureRepository;
 import service.AccountService;
+import service.PictureService;
 import serviceImpl.AccountServiceImpl;
+import serviceImpl.PictureServiceImpl;
 import exception.InvalidCredentialsException;
 import exception.UnkwonEmailException;
 
@@ -23,6 +25,8 @@ import exception.UnkwonEmailException;
 public class Application extends Controller {
 
 	private static AccountService as = new AccountServiceImpl();
+	
+	private static PictureService pictureService = new PictureServiceImpl();
 	
 	
 	
@@ -48,7 +52,7 @@ public class Application extends Controller {
 	@Transactional
 	public static Result renderImage(Integer pic) {
 		try {
-			Picture picture = PictureRepository.findPictureByID(pic.intValue());
+			Picture picture = pictureService.findPictureByID(pic.intValue());
 			if (picture != null) {
 				return ok(picture.picture);
 			}
