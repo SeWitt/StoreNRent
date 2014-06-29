@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -89,8 +88,7 @@ public class Offer {
 	/**
 	 * long offer description
 	 */
-	@Lob
-	@Column(name="DESCRIPTION", length = 100000)
+	@Column(name="DESCRIPTION", columnDefinition = "text")
 	public String description;
 	
 	/**
