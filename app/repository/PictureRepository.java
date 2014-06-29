@@ -50,7 +50,7 @@ public class PictureRepository extends Controller{
 	public static List<Picture> findAllPictures(){
 		EntityManager em = JPA.em();
 		List<Picture> tmp = em.createNativeQuery(
-			    "SELECT * FROM offer", Picture.class)
+			    "SELECT * FROM picture", Picture.class)
 			    .getResultList();
 		if(tmp != null) {
 			return tmp;
