@@ -96,10 +96,10 @@ public class Application extends Controller {
 				 result = as.authenticate(mail, pwd);
 			} catch (InvalidCredentialsException e) {
 				flash("error", "Your credentials were not correct!");
-				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
+				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_NOTHING)));
 			}catch (UnkwonEmailException e2 ){
 				flash("error", "Sorry we could not find an account!");
-				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
+				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_NOTHING)));
 			}
 	        
 	        
@@ -114,7 +114,7 @@ public class Application extends Controller {
 	        	 }
 	        }else{
 	        	flash("error", "Your credentials were incorrect");
-				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_REGISTER)));
+				return badRequest(views.html.login.render(loginForm, getMenuebar(GlobalValues.NAVBAR_NOTHING)));
 	        }
 	        
 	        return redirect(url);	    
@@ -132,7 +132,7 @@ public class Application extends Controller {
 		
 		String name = null;
 		
-		String mail =request().username();
+		String mail =  session("email");
 		if(mail != null){
 			Person p = as.findAccountByMail(mail).person;
 			name = p.surname +" "+ p.lastName;

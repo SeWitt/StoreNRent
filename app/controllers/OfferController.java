@@ -26,7 +26,7 @@ import play.mvc.Security;
 import service.AccountService;
 import service.GeoLocationService;
 import service.OfferService;
-import serviceDummy.AccountServiceDummy;
+import serviceImpl.AccountServiceImpl;
 import serviceImpl.GeoLocationServiceImpl;
 import serviceImpl.OfferServiceImpl;
 import validators.TimeValidator;
@@ -40,7 +40,7 @@ import appinfo.GlobalValues;
 public class OfferController extends Controller {
 
 	private static OfferService offerService = new OfferServiceImpl();
-	private static AccountService accountService = new AccountServiceDummy();
+	private static AccountService accountService = new AccountServiceImpl();
 //	private RecommendationService recommendationService = new RecommendationServiceDummy();// if the backend is ready switch to "..Impl" instead of "..Dummy"
 	private static GeoLocationService geoService = new GeoLocationServiceImpl();
 	
@@ -120,21 +120,20 @@ public class OfferController extends Controller {
 				}else{
 							
 				OfferAcceptForm oaf = form.get();
-				
+				Offer o = offerService.findByOfferID(offerid);
 				//make validation check whether until date is later than from:
-//TODO: switch on validation, when valid bulk data are available				
+//DONETODO: switch on validation, when valid bulk data are available				
 //				boolean isDatevalid = TimeValidator.isDateAfter(oaf.to, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
-//				boolean beginDateinside = TimeValidator.isDateAfterTSS(o.offerFrom, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
-//				boolean endDateinside = TimeValidator.isDateBeforeSTS(oaf.to, o.offerTo,new SimpleDateFormat(GlobalValues.DATEFORMAT));
-				
+				boolean beginDateinside = TimeValidator.isDateAfterTSS(o.offerFrom, oaf.from,new SimpleDateFormat(GlobalValues.DATEFORMAT));
+				boolean endDateinside = TimeValidator.isDateBeforeSTS(oaf.to, o.offerTo,new SimpleDateFormat(GlobalValues.DATEFORMAT));
 				
 				boolean isDatevalid = true;
-				boolean beginDateinside = true;
-				boolean endDateinside = true;
+//				boolean beginDateinside = true;
+//				boolean endDateinside = true;
 				
 				if((isDatevalid && beginDateinside && endDateinside) == false){
 					Html menubar = Application.getMenuebar(GlobalValues.NAVBAR_SEARCH);
-					Offer o = offerService.findByOfferID(offerid);
+					
 					
 					//check whether it is the owner
 					String isowner = isOwner(o);
@@ -180,6 +179,14 @@ public class OfferController extends Controller {
 		return result;
 	}
 	
+	/**Method to accept an offer -> calls accepted.scala.html
+	 * Only access with valid account
+	 * 
+	 * @param id the offer id
+	 * @param from from date
+	 * @param to to date
+	 * @return
+	 */
 	@Security.Authenticated(Secured.class)
 	@Transactional
 	public static Result acceptOffer(Integer id, String from, String to){
@@ -188,8 +195,8 @@ public class OfferController extends Controller {
 		Offer o = offerService.findByOfferID(id);
 		
 		//DONETODO Set authenticated person as acceptor
-		
-		 o.acceptor = accountService.findAccountByMail(request().username()).person;
+		 o.acceptor = accountService.findAccountByMail( session("email")).person;
+		 
 		 try {
 			 o.contractedFrom = new Timestamp((dateFormat.parse(from)).getTime());
 			 o.contractedUntil = new Timestamp((dateFormat.parse(to)).getTime());

@@ -7,18 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.google.gson.JsonObject;
 
 import models.Offer;
 import models.SearchAttributes;
 import models.SortAttribute;
 
-
-
-
 import play.api.templates.Html;
 import play.db.jpa.Transactional;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.DiscoveryService;
@@ -125,7 +120,7 @@ public class SearchController extends Controller {
 		
 //PRODUCTIVE USE	
 		geoService.calculateGeoCoords(sa);
-		
+		System.out.println("DEBUG"+fromdate +" "+todate+" "+city+" "+postcode+" "+spacesize+" "+maxprice+" "+radius);
 		List<Offer> o = null;
 
 
@@ -169,7 +164,7 @@ public class SearchController extends Controller {
 			o= null;
 		}
 		
-//		System.out.println("DEBUG"+fromdate +" "+todate+" "+city+" "+postcode+" "+spacesize+" "+maxprice+" "+radius);
+		
 		return ok(searchresults.render(o));
 	}
 	
@@ -182,15 +177,14 @@ public class SearchController extends Controller {
 		
 		
 //		String result ="{\"type\" : \"FeatureCollection\", \"features\": [{ \"type\" : \"Feature\", \"properties\" : { \"header\" : \"10 square meter for rent\", \"price\" : \"4 Euro\", \"id\" : \"3\"}, \"geometry\" : { \"type\" : \"Point\", \"coordinates\" : [ 11.539414536 , 48.125729304  ] } } ]}";
-		
-		
+
 		List<Offer> o = offerService.findall();
 		String result = jsonService.OfferListToJsonString(o);
-		System.out.println("number: "+o.size());
+//		System.out.println("number: "+o.size());
 		
 //		JsonObject response = jsonService.OfferListToJson(o);
 //		System.out.println("[SEARCH CONTROLLER][json:]"+response.getAsString());
-		System.out.println(result);
+//		System.out.println(result);
 		return  ok(result);
 	}
 	
