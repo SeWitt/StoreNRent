@@ -17,16 +17,12 @@ import models.Person;
  * @created 23-Mai-2014 16:53:24
  */
 public class PersonRepository extends Controller{
-	//	private static EntityManager em = JPA.em();
 
 	public PersonRepository(){
 
 	}
 
-	//	public void finalize() throws Throwable {
-	//
-	//	}
-
+	
 	/**
 	 * 
 	 * @param person

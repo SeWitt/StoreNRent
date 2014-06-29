@@ -80,18 +80,23 @@ public class JSONServiceImpl implements JSONService{
 	
 	@Override
 	public String OfferListToJsonString(List<Offer> offers) {
-		
+
 		DecimalFormat df = new DecimalFormat("#.##");  
-		
+
 		String jsonHeader = "{\n\"type\": \"FeatureCollection\",\n\"features\": [\n";
 		String jsonBottom = "\n]\n}";
-		
-		
+
+
 		String tmp = jsonHeader;
-		for(Offer o : offers) {
-			tmp += "{ \"type\": \"Feature\", \"properties\": { \"header\": \"" + o.header + "\", \"fromDate\": \"" + new SimpleDateFormat("dd.MM.yyyy").format(o.offerFrom) +  "\", \"toDate\": \"" + new SimpleDateFormat("dd.MM.yyyy").format(o.offerTo) + "\", \"price\": \"" + o.price + "\", \"size\": \"" + o.spaceSize + "\", \"distance\": \"" + String.valueOf(df.format(o.distance)) + "\", \"id\": \"" + o.id + "\"}, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ " + o.lng + ", " + o.lat + "  ] } }\n,\n";
-		}	
-		tmp = tmp.substring(0, tmp.length()-3);
+		if(offers != null) {
+			for(Offer o : offers) {
+				tmp += "{ \"type\": \"Feature\", \"properties\": { \"header\": \"" + o.header + "\", \"fromDate\": \"" + new SimpleDateFormat("dd.MM.yyyy").format(o.offerFrom) +  "\", \"toDate\": \"" + new SimpleDateFormat("dd.MM.yyyy").format(o.offerTo) + "\", \"price\": \"" + o.price + "\", \"size\": \"" + o.spaceSize + "\", \"distance\": \"" + String.valueOf(df.format(o.distance)) + "\", \"id\": \"" + o.id + "\"}, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ " + o.lng + ", " + o.lat + "  ] } }\n,\n";
+			}	
+			if (offers.size() > 0) {
+				tmp = tmp.substring(0, tmp.length()-3);
+			}
+		}
+
 		tmp += jsonBottom;
 		
 		return tmp;

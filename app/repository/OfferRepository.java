@@ -129,7 +129,7 @@ public class OfferRepository extends Controller{
 		System.out.println("[OfferRepository] [findOfferByAttributes] [" + searchAttributs.toString() + "]");
 		EntityManager em = JPA.em();
 		List<Offer> tmp = em.createNativeQuery(queryGenerator(searchAttributs), Offer.class)
-			    .setMaxResults(10)
+			    .setMaxResults(100)
 			    .getResultList();
 		System.out.println("[OfferRepository] [findOfferByAttributes] [" + queryGenerator(searchAttributs) + "]");
 		if(tmp != null) {
@@ -182,6 +182,8 @@ public class OfferRepository extends Controller{
 			result = result + " " + andNotContracted + " " + andAvailable;
 		}
 	
+		System.out.println("[OfferRepository] [QueryGenerator] [" + result + "]");
+			
 		return result;
 	}
 	
